@@ -27,9 +27,62 @@
     <script src="https://cdn.datatables.net/1.13.7/js/dataTables.bootstrap5.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
     <script>
-        const token = sessionStorage.getItem('token');
-        const apiUrl = "{{ env('API_URL') }}";
-        const loginUrl = "{{ route('login') }}";
+        let token = sessionStorage.getItem('token');
+        let apiUrl = "{{ env('API_URL') }}";
+        let loginUrl = "{{ route('login') }}";
+        let dataTablesLangUrl = "{{ asset('js/datatables/es-ES.json') }}"
+
+        let isRefreshing = false;
+        let requestQueue = [];
+
+        function processQueue(new_token) {
+            requestQueue.forEach(config => {
+                config.headers["Authorization"] = "Bearer " + new_token;
+                $.ajax(config);
+            });
+            requestQueue = [];
+        }
+
+        $.ajaxSetup({
+            beforeSend: function(xhr) {
+                xhr.setRequestHeader("Authorization", "Bearer " + token);
+            },
+            error: function(xhr, textStatus, errorThrown) {
+                const originalRequest = this;
+                if (xhr.status === 401 && !originalRequest.url.includes('/refresh')) {
+                    if (isRefreshing) {
+                        requestQueue.push(originalRequest);
+                        return;
+                    }
+                    isRefreshing = true;
+                    $.ajax({
+                        url: `${apiUrl}/refresh`,
+                        type: 'POST',
+                        headers: { "Authorization": "Bearer " + token },
+                        success: function(data) {
+                            token = data.access_token;
+                            sessionStorage.setItem('token', token);
+                            $.ajaxSetup({
+                                beforeSend: function(xhr) {
+                                    xhr.setRequestHeader("Authorization", "Bearer " + token);
+                                }
+                            });
+                            originalRequest.headers["Authorization"] = "Bearer " + token;
+                            $.ajax(originalRequest);
+                            processQueue(token);
+                        },
+                        error: function(refreshXhr) {
+                            console.error("Fallo al refrescar el token:", refreshXhr);
+                            sessionStorage.removeItem('token');
+                            window.location.href = loginUrl;
+                        },
+                        complete: function() {
+                            isRefreshing = false;
+                        }
+                    });
+                }
+            }
+        });
     </script>
     @stack('scripts')
 </body>

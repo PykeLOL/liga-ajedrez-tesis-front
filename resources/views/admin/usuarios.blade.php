@@ -15,7 +15,8 @@
             <tr>
                 <th>ID</th>
                 <th>Foto</th>
-                <th>Nombre</th>
+                <th>Nombres</th>
+                <th>Apellidos</th>
                 <th>Email</th>
                 <th>Documento</th>
                 <th>Teléfono</th>
@@ -39,6 +40,10 @@
             <div class="mb-3">
                 <label for="nombre" class="form-label">Nombre</label>
                 <input type="text" class="form-control" id="nombre" name="nombre" required>
+            </div>
+            <div class="mb-3">
+                <label for="apellido" class="form-label">Apellido</label>
+                <input type="text" class="form-control" id="apellido" name="apellido" required>
             </div>
             <div class="mb-3">
                 <label for="documento" class="form-label">Documento</label>

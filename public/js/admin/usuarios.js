@@ -1,21 +1,17 @@
 $(document).ready(function () {
-    validarSesion();
     initUsuariosTable();
     bindEvents();
 
-    function validarSesion() {
-        if (!token) {
-            window.location.href = loginUrl;
-        }
+    if (!token) {
+        window.location.href = loginUrl;
+        return;
     }
 
     function initUsuariosTable() {
-        console.log(`${apiUrl}/usuarios`)
         $('#usuariosTable').DataTable({
             ajax: {
                 url: `${apiUrl}/usuarios`,
                 type: 'GET',
-                headers: { "Authorization": "Bearer " + token },
                 dataSrc: ''
             },
             columns: [
@@ -24,7 +20,6 @@ $(document).ready(function () {
                     data: 'imagen_path',
                     render: function (path) {
                         const baseUrl = apiUrl.replace('/api', '');
-                        console.log(`${baseUrl}/storage/${path}`)
                         if (path)
                             return `<img src="${baseUrl}/storage/${path}" class="rounded-circle" width="40" height="40">`;
                         else
@@ -32,6 +27,7 @@ $(document).ready(function () {
                     }
                 },
                 { data: 'nombre' },
+                { data: 'apellido' },
                 { data: 'email' },
                 { data: 'documento' },
                 { data: 'telefono' },
@@ -47,7 +43,7 @@ $(document).ready(function () {
                 }
             ],
             language: {
-                url: "https://cdn.datatables.net/plug-ins/1.13.6/i18n/es-ES.json"
+                url: dataTablesLangUrl
             }
         });
     }
@@ -56,6 +52,7 @@ $(document).ready(function () {
         $('#btnNuevo').on('click', function () {
             $('#usuarioForm')[0].reset();
             limpiarFormulario();
+            loadRoles();
             $('#userId').val('');
             $('#usuarioModalLabel').text('Nuevo Usuario');
             $('#previewImagen').attr('src', '').addClass('d-none');
@@ -87,7 +84,6 @@ $(document).ready(function () {
         $.ajax({
             url: `${apiUrl}/roles`,
             type: 'GET',
-            headers: { "Authorization": "Bearer " + token },
             success: function (roles) {
                 $('#rol_id').empty().append('<option value="">Seleccione un rol</option>');
                 roles.forEach(r => $('#rol_id').append(`<option value="${r.id}">${r.nombre}</option>`));
@@ -102,6 +98,7 @@ $(document).ready(function () {
         const id = $('#userId').val();
         const data = {
             nombre: $('#nombre').val(),
+            apellido: $('#apellido').val(),
             email: $('#email').val(),
             documento: $('#documento').val(),
             telefono: $('#telefono').val(),
@@ -117,7 +114,6 @@ $(document).ready(function () {
             type: method,
             data: JSON.stringify(data),
             contentType: 'application/json',
-            headers: { "Authorization": "Bearer " + token },
             success: function () {
                 Swal.fire('Éxito', 'Usuario guardado correctamente', 'success');
                 $('#usuarioModal').modal('hide');
@@ -134,15 +130,14 @@ $(document).ready(function () {
         $.ajax({
             url: `${apiUrl}/usuarios/${id}`,
             type: 'GET',
-            headers: { "Authorization": "Bearer " + token },
             success: function (user) {
                 $('#usuarioModalLabel').text('Editar Usuario');
                 $('#userId').val(user.id);
                 $('#nombre').val(user.nombre);
+                $('#apellido').val(user.apellido);
                 $('#email').val(user.email);
                 $('#documento').val(user.documento);
                 $('#telefono').val(user.telefono);
-                $('#password').val('');
                 loadRoles();
                 const baseUrl = apiUrl.replace('/api', '');
                 const imageUrl = user.imagen_path
@@ -176,7 +171,6 @@ $(document).ready(function () {
                 $.ajax({
                     url: `${apiUrl}/usuarios/${id}`,
                     type: 'DELETE',
-                    headers: { "Authorization": "Bearer " + token },
                     success: function () {
                         Swal.fire('Eliminado', 'Usuario eliminado correctamente', 'success');
                         $('#usuariosTable').DataTable().ajax.reload(null, false);
@@ -192,7 +186,7 @@ $(document).ready(function () {
 
     function limpiarFormulario() {
         $('#userId').val('');
-        $('#nombre, #email, #documento, #telefono, #password, #imagen').val('');
+        $('#nombre, #apellido, #email, #documento, #telefono, #password, #imagen').val('');
         $('#rol_id').empty();
         imagenBase64 = null;
     }
@@ -204,7 +198,7 @@ $(document).ready(function () {
         if (file) {
             const reader = new FileReader();
             reader.onload = function (e) {
-                imagenBase64 = e.target.result; // Esto es algo como "data:image/png;base64,iVBORw0K..."
+                imagenBase64 = e.target.result;
                 $('#previewImagen').attr('src', imagenBase64).show();
             };
             reader.readAsDataURL(file);
