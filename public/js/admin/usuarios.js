@@ -8,11 +8,18 @@ $(document).ready(function () {
     }
 
     function initUsuariosTable() {
+        if ($.fn.DataTable.isDataTable('#usuariosTable')) {
+            $('#usuariosTable').DataTable().destroy();
+        }
         $('#usuariosTable').DataTable({
-            ajax: {
-                url: `${apiUrl}/usuarios`,
-                type: 'GET',
-                dataSrc: ''
+            ajax: function(data, callback, settings) {
+                datatableAjax(`${apiUrl}/usuarios`)
+                    .then(response => {
+                        callback({ data: response });
+                    })
+                    .catch(err => {
+                        callback({ data: [] });
+                    });
             },
             columns: [
                 { data: 'id' },
@@ -42,9 +49,7 @@ $(document).ready(function () {
                     }
                 }
             ],
-            language: {
-                url: dataTablesLangUrl
-            }
+            language: { url: dataTablesLangUrl }
         });
     }
 
@@ -80,18 +85,32 @@ $(document).ready(function () {
         });
     }
 
-    function loadRoles() {
-        $.ajax({
+    function loadRoles(selectedId = null) {
+        apiRequest({
             url: `${apiUrl}/roles`,
-            type: 'GET',
-            success: function (roles) {
-                $('#rol_id').empty().append('<option value="">Seleccione un rol</option>');
-                roles.forEach(r => $('#rol_id').append(`<option value="${r.id}">${r.nombre}</option>`));
-            },
-            error: function (xhr) {
-                console.error('Error cargando roles:', xhr);
+            type: 'GET'
+        })
+        .then(roles => {
+            const $rolSelect = $('#rol_id');
+            $rolSelect.empty().append('<option value="">Seleccione un rol</option>');
+            roles.forEach(r => {
+                $rolSelect.append(new Option(r.nombre, r.id, false, false));
+            });
+            if ($rolSelect.hasClass('select2-hidden-accessible')) {
+                $rolSelect.trigger('change.select2');
+            } else {
+                $rolSelect.select2({
+                    placeholder: 'Seleccione un rol',
+                    allowClear: true,
+                    width: 'resolve',
+                    dropdownParent: $('#usuarioModal')
+                });
             }
-        });
+            if (selectedId) {
+                $rolSelect.val(selectedId).trigger('change');
+            }
+        })
+        .catch(xhr => console.error('Error cargando roles:', xhr));
     }
 
     function guardarUsuario() {
@@ -109,53 +128,44 @@ $(document).ready(function () {
         const method = id ? 'PUT' : 'POST';
         const url = id ? `${apiUrl}/usuarios/${id}` : `${apiUrl}/usuarios/admin`;
 
-        $.ajax({
+        apiRequest({
             url,
             type: method,
             data: JSON.stringify(data),
-            contentType: 'application/json',
-            success: function () {
-                Swal.fire('Éxito', 'Usuario guardado correctamente', 'success');
-                $('#usuarioModal').modal('hide');
-                $('#usuariosTable').DataTable().ajax.reload(null, false);
-            },
-            error: function (xhr) {
-                console.error(xhr.responseText);
-                Swal.fire('Error', 'No se pudo guardar el usuario', 'error');
-            }
+            contentType: 'application/json'
+        })
+        .then(() => {
+            Swal.fire('Éxito', 'Usuario guardado correctamente', 'success');
+            $('#usuarioModal').modal('hide');
+            $('#usuariosTable').DataTable().ajax.reload(null, false);
+        })
+        .catch(xhr => {
+            console.error(xhr.responseText);
+            Swal.fire('Error', 'No se pudo guardar el usuario', 'error');
         });
     }
 
     function editarUsuario(id) {
-        $.ajax({
-            url: `${apiUrl}/usuarios/${id}`,
-            type: 'GET',
-            success: function (user) {
-                $('#usuarioModalLabel').text('Editar Usuario');
-                $('#userId').val(user.id);
-                $('#nombre').val(user.nombre);
-                $('#apellido').val(user.apellido);
-                $('#email').val(user.email);
-                $('#documento').val(user.documento);
-                $('#telefono').val(user.telefono);
-                loadRoles();
-                const baseUrl = apiUrl.replace('/api', '');
-                const imageUrl = user.imagen_path
-                    ? `${baseUrl}/storage/${user.imagen_path}`
-                    : `${baseUrl}/storage/usuarios/default-user.png`;
+        apiRequest({ url: `${apiUrl}/usuarios/${id}`, type: 'GET' })
+        .then(user => {
+            $('#usuarioModalLabel').text('Editar Usuario');
+            $('#userId').val(user.id);
+            $('#nombre').val(user.nombre);
+            $('#apellido').val(user.apellido);
+            $('#email').val(user.email);
+            $('#documento').val(user.documento);
+            $('#telefono').val(user.telefono);
+            loadRoles(user.rol_id);
 
-                $('#previewImagen')
-                    .attr('src', imageUrl)
-                    .removeClass('d-none');
-                setTimeout(() => {
-                    $('#rol_id').val(user.rol_id);
-                }, 300);
-                $('#usuarioModal').modal('show');
-            },
-            error: function (xhr) {
-                console.error('Error obteniendo usuario:', xhr);
-            }
-        });
+            const baseUrl = apiUrl.replace('/api', '');
+            const imageUrl = user.imagen_path
+                ? `${baseUrl}/storage/${user.imagen_path}`
+                : `${baseUrl}/storage/usuarios/default-user.png`;
+            $('#previewImagen').attr('src', imageUrl).removeClass('d-none');
+            setTimeout(() => { $('#rol_id').val(user.rol_id); }, 300);
+            $('#usuarioModal').modal('show');
+        })
+        .catch(xhr => console.error('Error obteniendo usuario:', xhr));
     }
 
     function eliminarUsuario(id) {
@@ -168,17 +178,14 @@ $(document).ready(function () {
             cancelButtonText: 'Cancelar'
         }).then((result) => {
             if (result.isConfirmed) {
-                $.ajax({
-                    url: `${apiUrl}/usuarios/${id}`,
-                    type: 'DELETE',
-                    success: function () {
-                        Swal.fire('Eliminado', 'Usuario eliminado correctamente', 'success');
-                        $('#usuariosTable').DataTable().ajax.reload(null, false);
-                    },
-                    error: function (xhr) {
-                        console.error(xhr);
-                        Swal.fire('Error', 'No se pudo eliminar el usuario', 'error');
-                    }
+                apiRequest({ url: `${apiUrl}/usuarios/${id}`, type: 'DELETE' })
+                .then(() => {
+                    Swal.fire('Eliminado', 'Usuario eliminado correctamente', 'success');
+                    $('#usuariosTable').DataTable().ajax.reload(null, false);
+                })
+                .catch(xhr => {
+                    console.error(xhr);
+                    Swal.fire('Error', 'No se pudo eliminar el usuario', 'error');
                 });
             }
         });
