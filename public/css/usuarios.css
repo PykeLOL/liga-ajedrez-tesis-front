@@ -1,0 +1,27 @@
+#modalPermisos .modal-content {
+  border-radius: 1rem;
+  overflow: hidden;
+}
+
+#modalPermisos .table thead th {
+  font-weight: 600;
+  background-color: #f1f3f4 !important;
+}
+
+#modalPermisos .table tbody tr:hover {
+  background-color: #f9fafb;
+}
+
+#modalPermisos .card {
+  border-radius: 0.75rem;
+}
+
+#modalPermisos h6 {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+#modalPermisos .modal-body {
+  padding: 1.5rem;
+}

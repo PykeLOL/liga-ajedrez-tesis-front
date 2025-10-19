@@ -45,6 +45,7 @@ $(document).ready(function () {
                         return `
                             <button class="editBtn btn btn-warning btn-sm" data-id="${data.id}">Editar</button>
                             <button class="deleteBtn btn btn-danger btn-sm" data-id="${data.id}">Eliminar</button>
+                            <button class="permBtn btn btn-info btn-sm" data-id="${data.id}" data-nombre="${data.nombre} ${data.apellido}">Permisos</button>
                         `;
                     }
                 }
@@ -82,6 +83,12 @@ $(document).ready(function () {
         $('#logoutBtn').on('click', function () {
             sessionStorage.removeItem('token');
             window.location.href = loginUrl;
+        });
+
+        $('#usuariosTable').on('click', '.permBtn', function () {
+            const id = $(this).data('id');
+            const nombre = $(this).data('nombre');
+            mostrarPermisosUsuario(id, nombre);
         });
     }
 
@@ -211,4 +218,58 @@ $(document).ready(function () {
             reader.readAsDataURL(file);
         }
     });
+
+    function mostrarPermisosUsuario(usuarioId, nombre) {
+        apiRequest({
+            url: `${apiUrl}/usuarios/${usuarioId}/permisos`,
+            type: 'GET'
+        }).then(data => {
+            $('#permisosTitulo').text('Permisos del Usuario: ' + nombre);
+            // Título del rol
+            $('#tituloRol').text(`Permisos por Rol: ${data.nombre_rol}`);
+
+            // Limpiar tablas
+            $('#tablaPermisosUsuario tbody').empty();
+            $('#tablaPermisosRol tbody').empty();
+
+            // Llenar permisos por usuario
+            if (data.permisos_usuario.length > 0) {
+                data.permisos_usuario.forEach(p => {
+                    $('#tablaPermisosUsuario tbody').append(`
+                        <tr>
+                            <td>${p.nombre}</td>
+                            <td>${p.descripcion || ''}</td>
+                        </tr>
+                    `);
+                });
+            } else {
+                $('#tablaPermisosUsuario tbody').append(`
+                    <tr><td colspan="2" class="text-center text-muted">Sin permisos asignados directamente</td></tr>
+                `);
+            }
+
+            // Llenar permisos por rol
+            if (data.permisos_rol.length > 0) {
+                data.permisos_rol.forEach(p => {
+                    $('#tablaPermisosRol tbody').append(`
+                        <tr>
+                            <td>${p.nombre}</td>
+                            <td>${p.descripcion || ''}</td>
+                        </tr>
+                    `);
+                });
+            } else {
+                $('#tablaPermisosRol tbody').append(`
+                    <tr><td colspan="2" class="text-center text-muted">El rol no tiene permisos asignados</td></tr>
+                `);
+            }
+
+            // Mostrar modal
+            $('#modalPermisos').modal('show');
+
+        }).catch(xhr => {
+            console.error('Error cargando permisos:', xhr);
+            alert('No se pudieron cargar los permisos del usuario.');
+        });
+    }
 });

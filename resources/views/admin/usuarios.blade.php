@@ -1,6 +1,6 @@
 @extends('layouts.app')
 @section('title', 'Usuarios')
-
+<link src="{{ asset('css/admin/usuarios.css') }}">
 @section('content')
 <div class="d-flex justify-content-between align-items-center mb-4">
     <h2 class="fw-bold text-dark">👥 Lista de Usuarios</h2>
@@ -77,6 +77,70 @@
     </div>
   </div>
 </div>
+
+<!-- Modal Permisos -->
+<div class="modal fade" id="modalPermisos" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog modal-lg modal-dialog-centered">
+    <div class="modal-content shadow-lg border-0">
+
+      <div class="modal-header bg-primary text-white">
+        <h5 class="modal-title fw-bold" id="permisosTitulo">Permisos del Usuario</h5>
+        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+      </div>
+
+      <div class="modal-body bg-light">
+        <!-- Permisos Usuario -->
+        <div class="card border-0 mb-4 shadow-sm">
+          <div class="card-header bg-white border-0">
+            <h6 class="fw-bold mb-0 text-primary">
+              <i class="bi bi-person-check me-1"></i> Permisos por Usuario
+            </h6>
+          </div>
+          <div class="card-body p-0">
+            <table class="table table-hover mb-0" id="tablaPermisosUsuario">
+              <thead class="table-secondary">
+                <tr>
+                  <th>Nombre</th>
+                  <th>Descripción</th>
+                </tr>
+              </thead>
+              <tbody></tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Permisos Rol -->
+        <div class="card border-0 shadow-sm">
+          <div class="card-header bg-white border-0">
+            <h6 class="fw-bold mb-0 text-success" id="tituloRol">
+              <i class="bi bi-shield-lock me-1"></i> Permisos por Rol
+            </h6>
+          </div>
+          <div class="card-body p-0">
+            <table class="table table-hover mb-0" id="tablaPermisosRol">
+              <thead class="table-secondary">
+                <tr>
+                  <th>Nombre</th>
+                  <th>Descripción</th>
+                </tr>
+              </thead>
+              <tbody></tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <div class="modal-footer bg-white border-0">
+        <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">
+          <i class="bi bi-x-circle me-1"></i> Cerrar
+        </button>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+
 @push('scripts')
 <script src="{{ asset('js/admin/usuarios.js') }}"></script>
 @endpush
