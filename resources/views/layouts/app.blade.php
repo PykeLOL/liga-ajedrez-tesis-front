@@ -34,82 +34,8 @@
 
         let isRefreshing = false;
         let requestQueue = [];
-
-         function datatableAjax(url, options = {}) {
-            const config = {
-                url: url,
-                type: 'GET',
-                headers: { "Authorization": "Bearer " + token },
-                ...options
-            };
-
-            return new Promise((resolve, reject) => {
-                $.ajax(config).done(resolve).fail(async function(xhr) {
-                    if (xhr.status === 401) {
-                        try {
-                            const newToken = await refreshToken();
-                            token = newToken;
-                            config.headers["Authorization"] = "Bearer " + newToken;
-                            $.ajax(config).done(resolve).fail(reject); // reintenta solo esta petición
-                        } catch (err) {
-                            sessionStorage.removeItem('token');
-                            window.location.href = loginUrl;
-                        }
-                    } else {
-                        reject(xhr);
-                    }
-                });
-            });
-        }
-
-        // === FUNCIÓN GENERAL PARA PETICIONES NORMALES ===
-        function apiRequest(options) {
-            const config = {
-                type: options.type || 'GET',
-                url: options.url,
-                headers: { "Authorization": "Bearer " + token },
-                contentType: options.contentType || 'application/json',
-                data: options.data || null,
-            };
-
-            return new Promise((resolve, reject) => {
-                $.ajax(config).done(resolve).fail(async function(xhr) {
-                    if (xhr.status === 401) {
-                        try {
-                            const newToken = await refreshToken();
-                            token = newToken;
-                            config.headers["Authorization"] = "Bearer " + newToken;
-                            $.ajax(config).done(resolve).fail(reject); // reintenta solo esta
-                        } catch (err) {
-                            sessionStorage.removeItem('token');
-                            window.location.href = loginUrl;
-                        }
-                    } else {
-                        reject(xhr);
-                    }
-                });
-            });
-        }
-
-        // === FUNCIÓN PARA REFRESCAR EL TOKEN ===
-        function refreshToken() {
-            return new Promise((resolve, reject) => {
-                $.ajax({
-                    url: `${apiUrl}/refresh`,
-                    type: 'POST',
-                    headers: { "Authorization": "Bearer " + token },
-                    success: function(data) {
-                        const newToken = data.access_token;
-                        sessionStorage.setItem('token', newToken);
-                        resolve(newToken);
-                    },
-                    error: function(err) {
-                        reject(err);
-                    }
-                });
-            });
-        }
     </script>
+    <script src="{{ asset('js/app.js') }}"></script>
     @stack('scripts')
 </body>
 </html>

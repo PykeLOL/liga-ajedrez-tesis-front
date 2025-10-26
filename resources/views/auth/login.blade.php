@@ -60,7 +60,10 @@ $(document).ready(function() {
                     }).then(() => {
                         sessionStorage.setItem('token', response.access_token);
                         sessionStorage.setItem('user_data', JSON.stringify(response.user));
-                        window.location.href = "{{ route('admin.index') }}";
+                        localStorage.setItem('permisos', JSON.stringify(response.permisos));
+                        setTimeout(() => {
+                            window.location.href = "{{ route('admin.index') }}";
+                        }, 300);
                     });
                 } else {
                     Swal.fire({

@@ -7,7 +7,7 @@
 </div>
 
 <div class="table-responsive shadow rounded">
-    <button id="btnNuevo" class="btn btn-success mb-3">
+    <button id="btnNuevo" class="btn btn-success mb-3 d-none">
         <i class="bi bi-plus-circle"></i> Nuevo Usuario
     </button>
     <table id="usuariosTable" class="table table-striped align-middle mb-0 w-100">
@@ -39,27 +39,27 @@
         <form id="usuarioForm">
             <div class="mb-3">
                 <label for="nombre" class="form-label">Nombre</label>
-                <input type="text" class="form-control" id="nombre" name="nombre" required>
+                <input type="text" class="form-control required" id="nombre" name="nombre" required>
             </div>
             <div class="mb-3">
                 <label for="apellido" class="form-label">Apellido</label>
-                <input type="text" class="form-control" id="apellido" name="apellido" required>
+                <input type="text" class="form-control required" id="apellido" name="apellido" required>
             </div>
             <div class="mb-3">
                 <label for="documento" class="form-label">Documento</label>
-                <input type="text" class="form-control" id="documento" name="documento" required>
+                <input type="text" class="form-control required" id="documento" name="documento" required>
             </div>
             <div class="mb-3">
                 <label for="telefono" class="form-label">Telefono</label>
-                <input type="text" class="form-control" id="telefono" name="telefono" required>
+                <input type="text" class="form-control required" id="telefono" name="telefono" required>
             </div>
             <div class="mb-3">
                 <label for="email" class="form-label">Correo electrónico</label>
-                <input type="email" class="form-control" id="email" name="email" required>
+                <input type="email" class="form-control required" id="email" name="email" required>
             </div>
             <div class="mb-3">
                 <label for="rol_id" class="form-label">Rol</label>
-                <select id="rol_id" name="rol_id" class="form-select" required style="width:100%"></select>
+                <select id="rol_id" name="rol_id" class="form-select required" required style="width:100%"></select>
             </div>
             <div class="mb-3">
             <label for="imagen" class="form-label">Foto de perfil</label>
@@ -102,11 +102,17 @@
                 <tr>
                   <th>Nombre</th>
                   <th>Descripción</th>
+                  <th>Acciones</th>
                 </tr>
               </thead>
               <tbody></tbody>
             </table>
           </div>
+            <div class="text-center mt-2 px-3 pb-2">
+                <button class="btn btn-success btn-sm" id="btnAgregarPermiso">
+                    <i class="bi bi-plus-circle"></i> Asignar Permiso
+                </button>
+            </div>
         </div>
 
         <!-- Permisos Rol -->
@@ -129,17 +135,41 @@
           </div>
         </div>
       </div>
-
-      <div class="modal-footer bg-white border-0">
-        <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">
-          <i class="bi bi-x-circle me-1"></i> Cerrar
-        </button>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="modal">Cerrar</button>
       </div>
-
     </div>
   </div>
 </div>
 
+<!-- Modal Asignar Permiso -->
+<div class="modal fade" id="modalAgregarPermiso" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog modal-lg modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header bg-success text-white">
+        <h5 class="modal-title" id="permisosDisponiblesTitulo">Asignar Permiso al Usuario</h5>
+        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+      </div>
+      <div class="modal-body">
+        <table class="table table-sm table-hover" id="tablaPermisosDisponibles">
+          <thead class="table-light">
+            <tr>
+              <th>Nombre</th>
+              <th>Descripción</th>
+              <th class="text-center">Acción</th>
+            </tr>
+          </thead>
+          <tbody class="text-muted">
+            <tr class="text-center"><td colspan="3">Cargando permisos disponibles...</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="modal">Cerrar</button>
+      </div>
+    </div>
+  </div>
+</div>
 
 @push('scripts')
 <script src="{{ asset('js/admin/usuarios.js') }}"></script>
