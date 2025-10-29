@@ -1,17 +1,24 @@
 @extends('layouts.app')
 @section('title', 'Usuarios')
-<link src="{{ asset('css/admin/usuarios.css') }}">
+@section('styles')
+    <link rel="stylesheet" href="{{ asset('css/admin/usuarios.css') }}">
+@endsection
 @section('content')
-<div class="d-flex justify-content-between align-items-center mb-4">
-    <h2 class="fw-bold text-dark">👥 Lista de Usuarios</h2>
+<div class="d-flex justify-content-between align-items-center mb-4 border-bottom pb-2">
+    <h2 class="fw-bold d-flex align-items-center text-primary title-usuarios">
+        <i data-lucide="user-round-cog" class="me-2 icono-titulo"></i>
+        Lista de Usuarios
+    </h2>
 </div>
 
 <div class="table-responsive shadow rounded">
-    <button id="btnNuevo" class="btn btn-success mb-3 d-none">
-        <i class="bi bi-plus-circle"></i> Nuevo Usuario
+    <button class="btnNuevo btn btn-success mb-3 d-none shadow-sm fw-semibold px-3 py-2 d-flex align-items-center gap-2">
+        <i data-lucide="user-round-plus" class="icono-boton"></i>
+        <span>Agregar Usuario</span>
     </button>
+
     <table id="usuariosTable" class="table table-striped align-middle mb-0 w-100">
-        <thead class="table-dark">
+        <thead class="table-dark text-center">
             <tr>
                 <th>ID</th>
                 <th>Foto</th>
@@ -97,16 +104,18 @@
             </h6>
           </div>
           <div class="card-body p-0">
-            <table class="table table-hover mb-0" id="tablaPermisosUsuario">
-              <thead class="table-secondary">
-                <tr>
-                  <th>Nombre</th>
-                  <th>Descripción</th>
-                  <th>Acciones</th>
-                </tr>
-              </thead>
-              <tbody></tbody>
-            </table>
+            <div class="table-responsive">
+                <table class="table table-hover mb-0 w-100" id="tablaPermisosUsuario">
+                <thead class="table-secondary">
+                    <tr>
+                    <th>Nombre</th>
+                    <th>Descripción</th>
+                    <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody></tbody>
+                </table>
+            </div>
           </div>
             <div class="text-center mt-2 px-3 pb-2">
                 <button class="btn btn-success btn-sm" id="btnAgregarPermiso">
@@ -123,15 +132,17 @@
             </h6>
           </div>
           <div class="card-body p-0">
-            <table class="table table-hover mb-0" id="tablaPermisosRol">
-              <thead class="table-secondary">
-                <tr>
-                  <th>Nombre</th>
-                  <th>Descripción</th>
-                </tr>
-              </thead>
-              <tbody></tbody>
-            </table>
+            <div class="table-responsive">
+                <table class="table table-hover mb-0 w-100" id="tablaPermisosRol">
+                <thead class="table-secondary">
+                    <tr>
+                    <th>Nombre</th>
+                    <th>Descripción</th>
+                    </tr>
+                </thead>
+                <tbody></tbody>
+                </table>
+            </div>
           </div>
         </div>
       </div>
@@ -151,7 +162,7 @@
         <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Cerrar"></button>
       </div>
       <div class="modal-body">
-        <table class="table table-sm table-hover" id="tablaPermisosDisponibles">
+        <table class="table table-sm table-hover w-100" id="tablaPermisosDisponibles">
           <thead class="table-light">
             <tr>
               <th>Nombre</th>

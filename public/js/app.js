@@ -1,19 +1,50 @@
-async function tienePermiso(nombrePermiso) {
-    return new Promise((resolve, reject) => {
-        apiRequest({
+let permisosUsuario = null; // cache global
+
+async function obtenerPermisosUsuario() {
+    if (permisosUsuario) return permisosUsuario; // si ya se cargaron, no volver a llamar
+    try {
+        const response = await apiRequest({
             url: `${apiUrl}/usuarios/permisos/mi-usuario`,
             type: 'GET'
-        })
-        .then(response => {
-            console.log(response);
-            const permisos = response.permisos || [];
-            resolve(permisos.includes(nombrePermiso));
-        })
-        .catch(err => {
-            console.error('Error al verificar permiso:', err);
-            resolve(false);
         });
+        permisosUsuario = response.permisos || [];
+        return permisosUsuario;
+    } catch (err) {
+        console.error('Error al obtener permisos:', err);
+        permisosUsuario = [];
+        return [];
+    }
+}
+
+async function tienePermiso(nombrePermiso) {
+    const permisos = await obtenerPermisosUsuario();
+    return permisos.includes(nombrePermiso);
+}
+
+async function validarPermisos(modulo, acciones) {
+    const permisos = await obtenerPermisosUsuario(); // solo una vez
+    acciones.forEach(accion => {
+        const nombrePermiso = `${accion}-${modulo}`;
+        const selectorBoton = getSelectorPorAccion(accion);
+        if (!selectorBoton) return;
+        if (permisos.includes(nombrePermiso)) {
+            $(selectorBoton).removeClass('d-none');
+        } else {
+            $(selectorBoton).addClass('d-none');
+        }
     });
+}
+
+
+function getSelectorPorAccion(accion) {
+    const map = {
+        ver: '#btnVer',
+        crear: '.btnNuevo',
+        editar: '.btnEditar',
+        eliminar: '.btnEliminar',
+        permisos: '.btnPermisos',
+    };
+    return map[accion];
 }
 
 function datatableAjax(url, options = {}) {
@@ -107,4 +138,9 @@ function validarCamposRequeridos(formSelector) {
     });
 
     return valido;
+}
+
+function limpiarCamposRequeridos(formSelector) {
+    $(`${formSelector} .is-invalid`).removeClass('is-invalid');
+    $(`${formSelector} .invalid-feedback`).remove();
 }

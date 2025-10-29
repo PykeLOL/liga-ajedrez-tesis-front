@@ -35,7 +35,6 @@ $(document).ready(function() {
 
         let email = $('#email').val();
         let password = $('#password').val();
-
         $.ajax({
             url: "{{ env('API_URL') }}/login",
             type: "POST",

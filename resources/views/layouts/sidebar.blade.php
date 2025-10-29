@@ -8,7 +8,7 @@
         <li class="nav-item">
             <a href="{{ route('admin.usuarios') }}"
                class="nav-link text-white px-3 py-2 d-flex align-items-center gap-2 {{ request()->routeIs('admin.usuarios') ? 'active' : '' }}">
-                <i class="bi bi-people-fill"></i> <span>Usuarios</span>
+                <i data-lucide="user-round-cog" class="me-2"></i> <span>Usuarios</span>
             </a>
         </li>
     </ul>

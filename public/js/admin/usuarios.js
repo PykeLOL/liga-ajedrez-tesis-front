@@ -1,10 +1,10 @@
 $(document).ready(function () {
-    tienePermiso('crear-usuarios').then(puedeCrear => {
-        if (puedeCrear) $('#btnNuevo').removeClass('d-none');
-    });
+    const acciones = ['ver', 'crear', 'editar', 'eliminar', 'permisos'];
+    const modulo = "usuarios";
 
     initUsuariosTable();
     bindEvents();
+    validarPermisos(modulo, acciones);
 
     let usuarioActualId = null;
     let usuarioActualNombre = null;
@@ -52,19 +52,33 @@ $(document).ready(function () {
                     data: null,
                     render: function (data) {
                         return `
-                            <button class="editBtn btn btn-warning btn-sm" data-id="${data.id}">Editar</button>
-                            <button class="deleteBtn btn btn-danger btn-sm" data-id="${data.id}">Eliminar</button>
-                            <button class="permBtn btn btn-info btn-sm" data-id="${data.id}" data-nombre="${data.nombre} ${data.apellido}">Permisos</button>
+                            <div class="d-flex justify-content-center gap-2">
+                                <button class="btnEditar btn btn-warning btn-sm d-none d-flex align-items-center gap-1" data-id="${data.id}" title="Editar">
+                                    <i data-lucide="pencil-line" class="icono-tabla"></i>
+                                </button>
+                                <button class="btnEliminar btn btn-danger btn-sm d-none d-flex align-items-center gap-1" data-id="${data.id}" title="Eliminar">
+                                    <i data-lucide="trash-2" class="icono-tabla"></i>
+                                </button>
+                                <button class="btnPermisos btn btn-info btn-sm d-flex align-items-center gap-1" data-id="${data.id}" data-nombre="${data.nombre} ${data.apellido}" title="Permisos">
+                                    <i data-lucide="shield-check" class="icono-tabla"></i>
+                                </button>
+                            </div>
                         `;
                     }
                 }
             ],
-            language: { url: dataTablesLangUrl }
+            language: { url: dataTablesLangUrl },
+            drawCallback: function () {
+                lucide.createIcons(); // <- Esto vuelve a renderizar los iconos al redibujar
+            }
+        });
+        $('#usuariosTable').on('draw.dt', function () {
+            validarPermisos(modulo, acciones);
         });
     }
 
     function bindEvents() {
-        $('#btnNuevo').on('click', function () {
+        $('.btnNuevo').on('click', function () {
             $('#usuarioForm')[0].reset();
             limpiarFormulario();
             loadRoles();
@@ -78,13 +92,13 @@ $(document).ready(function () {
             guardarUsuario();
         });
 
-        $('#usuariosTable').on('click', '.editBtn', function () {
+        $('#usuariosTable').on('click', '.btnEditar', function () {
             const id = $(this).data('id');
             limpiarFormulario();
             editarUsuario(id);
         });
 
-        $('#usuariosTable').on('click', '.deleteBtn', function () {
+        $('#usuariosTable').on('click', '.btnEliminar', function () {
             const id = $(this).data('id');
             eliminarUsuario(id);
         });
@@ -94,7 +108,7 @@ $(document).ready(function () {
             window.location.href = loginUrl;
         });
 
-        $('#usuariosTable').on('click', '.permBtn', function () {
+        $('#usuariosTable').on('click', '.btnPermisos', function () {
             const id = $(this).data('id');
             const nombre = $(this).data('nombre');
             mostrarPermisosUsuario(id, nombre);
@@ -272,6 +286,7 @@ $(document).ready(function () {
         $('#nombre, #apellido, #email, #documento, #telefono, #password, #imagen').val('');
         $('#rol_id').empty();
         imagenBase64 = null;
+        limpiarCamposRequeridos('#usuarioForm');
     }
 
     let imagenBase64 = null;
@@ -296,52 +311,62 @@ $(document).ready(function () {
             type: 'GET'
         }).then(data => {
             $('#permisosTitulo').text('Permisos del Usuario: ' + nombre);
-            // Título del rol
             $('#tituloRol').text(`Permisos por Rol: ${data.nombre_rol}`);
 
-            // Limpiar tablas
-            $('#tablaPermisosUsuario tbody').empty();
-            $('#tablaPermisosRol tbody').empty();
-            let usuarioId = data.usuario_id;
+            if ($.fn.DataTable.isDataTable('#tablaPermisosUsuario')) {
+                $('#tablaPermisosUsuario').DataTable().destroy();
+            }
 
-            // Llenar permisos por usuario
-            if (data.permisos_usuario.length > 0) {
-                data.permisos_usuario.forEach(p => {
-                    $('#tablaPermisosUsuario tbody').append(`
-                        <tr>
-                            <td>${p.nombre}</td>
-                            <td>${p.descripcion || ''}</td>
-                            <td>
-                                <button class="btn btn-danger btn-sm btnQuitarPermiso" data-permiso="${p.id}" data-usuario="${usuarioId}">
+            $('#tablaPermisosUsuario').DataTable({
+                data: data.permisos_usuario,
+                columns: [
+                    { data: 'nombre', title: 'Nombre' },
+                    { data: 'descripcion', title: 'Descripción', defaultContent: '' },
+                    {
+                        data: null,
+                        title: 'Acciones',
+                        orderable: false,
+                        render: function (permiso) {
+                            return `
+                                <button class="btn btn-danger btn-sm btnQuitarPermiso"
+                                        data-permiso="${permiso.id}"
+                                        data-usuario="${data.usuario_id}">
                                     <i class="bi bi-trash"></i>
                                 </button>
-                            </td>
-                        </tr>
-                    `);
-                });
-            } else {
-                $('#tablaPermisosUsuario tbody').append(`
-                    <tr><td colspan="2" class="text-center text-muted">Sin permisos asignados directamente</td></tr>
-                `);
+                            `;
+                        }
+                    }
+                ],
+                columnDefs: [
+                    {
+                        targets: 2,
+                        className: 'text-center align-middle'
+                    }
+                ],
+                language: { url: dataTablesLangUrl },
+                paging: true,
+                searching: true,
+                info: false
+            });
+
+            // --- Inicializar tabla permisos por rol ---
+            if ($.fn.DataTable.isDataTable('#tablaPermisosRol')) {
+                $('#tablaPermisosRol').DataTable().destroy();
             }
 
-            // Llenar permisos por rol
-            if (data.permisos_rol.length > 0) {
-                data.permisos_rol.forEach(p => {
-                    $('#tablaPermisosRol tbody').append(`
-                        <tr>
-                            <td>${p.nombre}</td>
-                            <td>${p.descripcion || ''}</td>
-                        </tr>
-                    `);
-                });
-            } else {
-                $('#tablaPermisosRol tbody').append(`
-                    <tr><td colspan="2" class="text-center text-muted">El rol no tiene permisos asignados</td></tr>
-                `);
-            }
+            $('#tablaPermisosRol').DataTable({
+                data: data.permisos_rol,
+                columns: [
+                    { data: 'nombre', title: 'Nombre' },
+                    { data: 'descripcion', title: 'Descripción', defaultContent: '' }
+                ],
+                language: { url: dataTablesLangUrl },
+                paging: true,
+                searching: true,
+                info: false
+            });
 
-            // Mostrar modal
+            // Mostrar el modal
             $('#modalPermisos').modal('show');
 
         }).catch(xhr => {
@@ -393,28 +418,50 @@ $(document).ready(function () {
             const tbody = $('#tablaPermisosDisponibles tbody');
             tbody.empty();
 
+            if ($.fn.DataTable.isDataTable('#tablaPermisosDisponibles')) {
+                $('#tablaPermisosDisponibles').DataTable().destroy(); // evita duplicados
+            }
+
             if (data.length > 0) {
-                data.forEach(p => {
-                    tbody.append(`
-                        <tr>
-                            <td>${p.nombre}</td>
-                            <td>${p.descripcion || ''}</td>
-                            <td class="text-center">
-                                <button class="btn btn-success btn-sm btnAsignarPermiso"
-                                        data-permiso="${p.id}" data-usuario="${usuarioId}">
-                                    <i class="bi bi-check-circle"></i>
-                                </button>
-                            </td>
-                        </tr>
-                    `);
+                $('#tablaPermisosDisponibles').DataTable({
+                    data: data,
+                    columns: [
+                        { data: 'nombre', title: 'Nombre' },
+                        { data: 'descripcion', title: 'Descripción', defaultContent: '' },
+                        {
+                            data: null,
+                            title: 'Acción',
+                            orderable: false,
+                            render: function (p) {
+                                return `
+                                    <button class="btn btn-success btn-sm btnAsignarPermiso"
+                                            data-permiso="${p.id}"
+                                            data-usuario="${usuarioId}">
+                                        <i class="bi bi-check-circle"></i>
+                                    </button>
+                                `;
+                            }
+                        }
+                    ],
+                    columnDefs: [
+                        {
+                            targets: 2, // columna Acción
+                            className: 'text-center align-middle'
+                        }
+                    ],
+                    language: { url: dataTablesLangUrl },
+                    paging: true,
+                    searching: true,
+                    info: false
                 });
             } else {
                 tbody.html(`
-                    <tr><td colspan="3" class="text-center text-muted">No hay permisos disponibles para asignar</td></tr>
+                    <tr><td colspan="3" class="text-center text-muted">
+                        No hay permisos disponibles para asignar
+                    </td></tr>
                 `);
             }
 
-            // Mostrar modal sin cerrar el anterior
             $('#modalAgregarPermiso').modal('show');
         }).catch(xhr => {
             console.error('Error cargando permisos disponibles:', xhr);
