@@ -20,6 +20,7 @@ Route::get('/login', [LoginController::class, 'index'])->name('login');
 Route::prefix('admin')->group(function () {
     Route::get('/', [AdminController::class, 'index'])->name('admin.index');
     Route::get('/usuarios', [AdminController::class, 'getUsuarios'])->name('admin.usuarios');
+    Route::get('/roles', [AdminController::class, 'getRoles'])->name('admin.roles');
 });
 
 Route::get('/', function () {

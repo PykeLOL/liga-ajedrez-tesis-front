@@ -15,4 +15,9 @@ class AdminController extends Controller
     {
         return view('admin.usuarios');
     }
+
+    public function getRoles()
+    {
+        return view('admin.roles');
+    }
 }

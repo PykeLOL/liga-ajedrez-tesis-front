@@ -11,6 +11,12 @@
                 <i data-lucide="user-round-cog" class="me-2"></i> <span>Usuarios</span>
             </a>
         </li>
+        <li class="nav-item">
+            <a href="{{ route('admin.roles') }}"
+               class="nav-link text-white px-3 py-2 d-flex align-items-center gap-2 {{ request()->routeIs('admin.roles') ? 'active' : '' }}">
+                <i data-lucide="pyramid" class="me-2"></i> <span>Roles</span>
+            </a>
+        </li>
     </ul>
 
     <div class="mt-auto text-center p-3 small text-muted border-top border-secondary">
