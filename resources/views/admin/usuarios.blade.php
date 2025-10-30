@@ -58,7 +58,7 @@
             </div>
             <div class="mb-3">
                 <label for="telefono" class="form-label">Telefono</label>
-                <input type="text" class="form-control required" id="telefono" name="telefono" required>
+                <input type="text" class="form-control" id="telefono" name="telefono" required>
             </div>
             <div class="mb-3">
                 <label for="email" class="form-label">Correo electrónico</label>
