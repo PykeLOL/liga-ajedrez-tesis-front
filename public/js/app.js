@@ -21,8 +21,18 @@ async function tienePermiso(nombrePermiso) {
     return permisos.includes(nombrePermiso);
 }
 
+function validarPermisosMenu(permisos) {
+    document.querySelectorAll('.nav-link').forEach(link => {
+        const tienePermiso = [...link.classList].some(clase => permisos.includes(clase));
+        if (tienePermiso) {
+            link.closest('li').style.display = '';
+        }
+    });
+}
+
 async function validarPermisos(modulo, acciones) {
     const permisos = await obtenerPermisosUsuario();
+    validarPermisosMenu(permisos);
     acciones.forEach(accion => {
         const nombrePermiso = `${accion}-${modulo}`;
         const selectorBoton = getSelectorPorAccion(accion);
@@ -34,7 +44,6 @@ async function validarPermisos(modulo, acciones) {
         }
     });
 }
-
 
 function getSelectorPorAccion(accion) {
     const map = {

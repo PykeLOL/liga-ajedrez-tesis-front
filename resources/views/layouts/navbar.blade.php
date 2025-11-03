@@ -1,11 +1,13 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark px-3"
      style="padding-left: 240px; z-index: 1030;">
-    <a class="navbar-brand fw-bold" href="{{ route('home') }}">Liga de Ajedrez del Meta</a>
+    <a class="navbar-brand fw-bold" href="{{ route('home') }}">
+        <i data-lucide="crown" class="me-2"></i> <span>Liga de Ajedrez del Meta</span>
+    </a>
 
     <div class="mx-auto"></div>
 
     <div class="d-flex align-items-center text-white">
-        <a href="/admin/perfil" id="userName"
+        <a href="{{ route('perfil') }}" id="userName"
            class="me-3 fw-semibold text-decoration-none text-white">
             Usuario
         </a>

@@ -11,6 +11,11 @@ class AdminController extends Controller
         return view('admin.index');
     }
 
+    public function perfil()
+    {
+        return view('admin.perfil');
+    }
+
     public function getUsuarios()
     {
         return view('admin.usuarios');

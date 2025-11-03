@@ -21,8 +21,11 @@ Route::get('/registrarse', [LoginController::class, 'registarse'])->name('regist
 
 Route::prefix('admin')->group(function () {
     Route::get('/', [AdminController::class, 'index'])->name('admin.index');
+    Route::get('/perfil', [AdminController::class, 'perfil'])->name('admin.perfil');
     Route::get('/usuarios', [AdminController::class, 'getUsuarios'])->name('admin.usuarios');
     Route::get('/roles', [AdminController::class, 'getRoles'])->name('admin.roles');
 });
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
+Route::get('/perfil', [HomeController::class, 'perfil'])->name('perfil');
+
