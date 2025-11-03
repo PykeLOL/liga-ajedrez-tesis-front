@@ -5,15 +5,15 @@
     </div>
 
     <ul class="nav flex-column mt-3">
-        <li class="nav-item">
+        <li class="nav-item" style="display: none;">
             <a href="{{ route('admin.usuarios') }}"
-               class="nav-link text-white px-3 py-2 d-flex align-items-center gap-2 {{ request()->routeIs('admin.usuarios') ? 'active' : '' }}">
+               class="ver-usuarios nav-link text-white px-3 py-2 d-flex align-items-center gap-2 {{ request()->routeIs('admin.usuarios') ? 'active' : '' }}">
                 <i data-lucide="user-round-cog" class="me-2"></i> <span>Usuarios</span>
             </a>
         </li>
-        <li class="nav-item">
+        <li class="nav-item" style="display: none;">
             <a href="{{ route('admin.roles') }}"
-               class="nav-link text-white px-3 py-2 d-flex align-items-center gap-2 {{ request()->routeIs('admin.roles') ? 'active' : '' }}">
+               class="ver-roles nav-link text-white px-3 py-2 d-flex align-items-center gap-2 {{ request()->routeIs('admin.roles') ? 'active' : '' }}">
                 <i data-lucide="pyramid" class="me-2"></i> <span>Roles</span>
             </a>
         </li>

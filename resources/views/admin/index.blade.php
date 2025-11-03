@@ -8,3 +8,8 @@
         <p class="text-muted">Aquí podrás gestionar usuarios y otras secciones del sistema.</p>
     </div>
 @endsection
+@push('scripts')
+<script>
+    validarPermisos(null, []);
+</script>
+@endpush

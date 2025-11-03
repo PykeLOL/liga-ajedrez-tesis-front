@@ -71,8 +71,15 @@
             <div class="mb-3">
             <label for="imagen" class="form-label">Foto de perfil</label>
             <input type="file" class="form-control" id="imagen" name="imagen" accept="image/*">
-            <div class="mt-2 text-center">
-                <img id="previewImagen" src="" alt="Vista previa" class="img-thumbnail d-none" width="120">
+            <div class="mt-2 d-flex justify-content-center">
+                <div class="position-relative d-inline-block">
+                    <img id="previewImagen" src="" alt="Vista previa" class="img-thumbnail d-none" width="120">
+                    <button type="button" id="btnQuitarFoto"
+                        class="btn btn-sm btn-danger position-absolute top-0 end-0 translate-middle badge rounded-pill d-none"
+                        title="Quitar foto">
+                        <i class="bi bi-x-circle"></i>
+                    </button>
+                </div>
             </div>
         </div>
           <input type="hidden" id="userId" name="userId">

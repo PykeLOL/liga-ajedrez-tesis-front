@@ -170,6 +170,7 @@ $(document).ready(function () {
             telefono: $('#telefono').val(),
             rol_id: $('#rol_id').val(),
             imagen_base64: imagenBase64,
+            eliminar_imagen: eliminarImagen
         };
 
         const method = id ? 'PUT' : 'POST';
@@ -212,6 +213,9 @@ $(document).ready(function () {
                 ? `${baseUrl}/storage/${user.imagen_path}`
                 : `${baseUrl}/storage/usuarios/default-user.png`;
             $('#previewImagen').attr('src', imageUrl).removeClass('d-none');
+            $('#btnQuitarFoto').removeClass('d-none');
+            eliminarImagen = false;
+            imagenBase64 = null;
             setTimeout(() => { $('#rol_id').val(user.rol_id); }, 300);
             $('#usuarioModal').modal('show');
         })
@@ -253,17 +257,28 @@ $(document).ready(function () {
     }
 
     let imagenBase64 = null;
+    let eliminarImagen = false;
 
-    $('#imagen').on('change', function () {
-        const file = this.files[0];
+    $('#imagen').on('change', function (event) {
+        const file = event.target.files[0];
         if (file) {
             const reader = new FileReader();
-            reader.onload = function (e) {
+            reader.onload = e => {
                 imagenBase64 = e.target.result;
-                $('#previewImagen').attr('src', imagenBase64).show();
+                $('#previewImagen').attr('src', imagenBase64).removeClass('d-none');
+                $('#btnQuitarFoto').removeClass('d-none');
+                eliminarImagen = false; // si selecciona nueva, no se elimina
             };
             reader.readAsDataURL(file);
         }
+    });
+
+    $('#btnQuitarFoto').on('click', function () {
+        $('#previewImagen').attr('src', '').addClass('d-none');
+        $('#imagen').val('');
+        $(this).addClass('d-none');
+        imagenBase64 = null;
+        eliminarImagen = true;
     });
 
     function mostrarPermisosUsuario(usuarioId, nombre) {

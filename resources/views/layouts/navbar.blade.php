@@ -8,7 +8,7 @@
     <div class="mx-auto"></div>
 
     <div class="d-flex align-items-center text-white">
-        <a href="/admin/perfil" id="userName"
+        <a href="{{ route('perfil') }}" id="userName"
            class="me-3 fw-semibold text-decoration-none text-white">
             Usuario
         </a>

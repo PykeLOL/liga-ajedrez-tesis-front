@@ -1,6 +1,8 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark px-3"
      style="padding-left: 240px; z-index: 1030;">
-    <a class="navbar-brand fw-bold" href="{{ route('admin.index') }}">🧭 Panel Administrativo</a>
+    <a class="navbar-brand fw-bold" href="{{ route('admin.index') }}">
+        <i data-lucide="compass" class="me-2"></i> <span>Panel Administrativo</span>
+    </a>
 
     <div class="mx-auto"></div>
 
