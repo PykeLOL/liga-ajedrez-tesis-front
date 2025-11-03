@@ -19,6 +19,9 @@
 
         <button type="submit" class="btn btn-primary w-100">Ingresar</button>
     </form>
+    <div class="text-center mt-3">
+        <a href="{{ route('registrarse') }}">¿No tienes cuenta? Regístrate</a>
+    </div>
 </div>
 @endsection
 
@@ -60,9 +63,18 @@ $(document).ready(function() {
                         sessionStorage.setItem('token', response.access_token);
                         sessionStorage.setItem('user_data', JSON.stringify(response.user));
                         localStorage.setItem('permisos', JSON.stringify(response.permisos));
-                        setTimeout(() => {
-                            window.location.href = "{{ route('admin.index') }}";
-                        }, 300);
+                        const rol = response.user.rol;
+
+                        if (rol && rol.toLowerCase() !== 'Deportista') {
+                            setTimeout(() => {
+                                window.location.href = "{{ route('admin.index') }}";
+                            }, 300);
+                        } else {
+                           setTimeout(() => {
+                                window.location.href = "{{ route('home') }}";
+                            }, 300);
+                        }
+
                     });
                 } else {
                     Swal.fire({

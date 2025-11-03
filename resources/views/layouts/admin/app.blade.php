@@ -37,11 +37,12 @@
         let apiUrl = "{{ env('API_URL') }}";
         let loginUrl = "{{ route('login') }}";
         let dataTablesLangUrl = "{{ asset('js/datatables/es-ES.json') }}"
+        let homeUrl = "{{ route('home') }}";
 
         let isRefreshing = false;
         let requestQueue = [];
     </script>
-    <script src="{{ asset('js/app.js') }}"></script>
+    <script src="{{ asset('js/admin/app.js') }}"></script>
     @stack('scripts')
 </body>
 </html>

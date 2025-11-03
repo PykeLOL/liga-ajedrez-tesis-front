@@ -1,3 +1,9 @@
+const user_data = JSON.parse(sessionStorage.getItem('user_data'));
+console.log(user_data);
+if (!user_data || user_data.rol == 'Deportista' || user_data.rol == 'Sin rol' ) {
+    window.location.href = homeUrl;
+}
+
 let permisosUsuario = null; // cache global
 
 async function obtenerPermisosUsuario() {
@@ -101,6 +107,38 @@ function apiRequest(options) {
             }
         });
     });
+}
+
+function validarRespuesta(xhr, mensaje) {
+    console.error('Error en la solicitud:', xhr);
+        let titulo = 'Error';
+        let icono = 'error';
+
+        if (xhr.responseJSON) {
+            const res = xhr.responseJSON;
+            // Error de validación (422)
+            if (res.errors) {
+                titulo = 'Advertencia';
+                icono = 'warning';
+                const errores = Object.values(res.errors).flat();
+                mensaje = errores.join('<br>');
+            }
+            // Error de permisos (403)
+            else if (res.message && xhr.status === 403) {
+                titulo = 'Advertencia';
+                icono = 'warning';
+                mensaje = 'No tienes permiso para realizar esta acción.';
+            }
+            // Mensaje genérico del backend
+            else if (res.message) {
+                mensaje = res.message;
+            }
+        }
+        Swal.fire({
+            title: titulo,
+            html: mensaje,
+            icon: icono
+        });
 }
 
 // === FUNCIÓN PARA REFRESCAR EL TOKEN ===

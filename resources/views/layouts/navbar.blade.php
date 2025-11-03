@@ -32,27 +32,26 @@
             userNameEl.style.opacity = '0.6';
         }
 
-        logoutBtn.addEventListener('click', () => {
-            Swal.fire({
+        logoutBtn.addEventListener('click', async () => {
+            const result = await Swal.fire({
                 title: '¿Cerrar sesión?',
                 text: 'Tu sesión actual se cerrará.',
                 icon: 'warning',
                 showCancelButton: true,
                 confirmButtonText: 'Sí, salir',
                 cancelButtonText: 'Cancelar',
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    sessionStorage.clear();
-                    Swal.fire({
-                        icon: 'success',
-                        title: 'Sesión cerrada',
-                        showConfirmButton: false,
-                        timer: 1000
-                    }).then(() => {
-                        window.location.href = '/login';
-                    });
-                }
             });
+            if (result.isConfirmed) {
+                sessionStorage.clear();
+                await Swal.fire({
+                    icon: 'success',
+                    title: 'Sesión cerrada',
+                    timer: 1000,
+                    showConfirmButton: false
+                });
+
+                window.location.href = '/login';
+            }
         });
     });
 </script>

@@ -16,6 +16,7 @@ use App\Http\Controllers\AdminController;
 */
 
 Route::get('/login', [LoginController::class, 'index'])->name('login');
+Route::get('/registrarse', [LoginController::class, 'registarse'])->name('registrarse');
 
 Route::prefix('admin')->group(function () {
     Route::get('/', [AdminController::class, 'index'])->name('admin.index');
@@ -25,4 +26,4 @@ Route::prefix('admin')->group(function () {
 
 Route::get('/', function () {
     return view('welcome');
-});
+})->name('home');

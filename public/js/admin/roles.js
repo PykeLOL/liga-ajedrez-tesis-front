@@ -88,11 +88,6 @@ $(document).ready(function () {
             eliminarRol(id);
         });
 
-        $('#logoutBtn').on('click', function () {
-            sessionStorage.removeItem('token');
-            window.location.href = loginUrl;
-        });
-
         $('#rolesTable').on('click', '.btnPermisos', function () {
             const id = $(this).data('id');
             const nombre = $(this).data('nombre');
@@ -133,7 +128,7 @@ $(document).ready(function () {
         console.log("data: " + data);
 
         const method = id ? 'PUT' : 'POST';
-        const url = id ? `${apiUrl}/roles/${id}` : `${apiUrl}/roles`;   
+        const url = id ? `${apiUrl}/roles/${id}` : `${apiUrl}/roles`;
 
         $('#rolForm .is-invalid').removeClass('is-invalid');
         $('#rolForm .invalid-feedback').remove();

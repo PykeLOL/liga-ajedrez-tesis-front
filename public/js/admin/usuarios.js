@@ -103,11 +103,6 @@ $(document).ready(function () {
             eliminarUsuario(id);
         });
 
-        $('#logoutBtn').on('click', function () {
-            sessionStorage.removeItem('token');
-            window.location.href = loginUrl;
-        });
-
         $('#usuariosTable').on('click', '.btnPermisos', function () {
             const id = $(this).data('id');
             const nombre = $(this).data('nombre');
@@ -198,38 +193,6 @@ $(document).ready(function () {
             let mensaje = 'No se pudo guardar el usuario';
             validarRespuesta(xhr, mensaje);
         });
-    }
-
-    function validarRespuesta(xhr, mensaje) {
-        console.error('Error en la solicitud:', xhr);
-            let titulo = 'Error';
-            let icono = 'error';
-
-            if (xhr.responseJSON) {
-                const res = xhr.responseJSON;
-                // Error de validación (422)
-                if (res.errors) {
-                    titulo = 'Advertencia';
-                    icono = 'warning';
-                    const errores = Object.values(res.errors).flat();
-                    mensaje = errores.join('<br>');
-                }
-                // Error de permisos (403)
-                else if (res.message && xhr.status === 403) {
-                    titulo = 'Advertencia';
-                    icono = 'warning';
-                    mensaje = 'No tienes permiso para realizar esta acción.';
-                }
-                // Mensaje genérico del backend
-                else if (res.message) {
-                    mensaje = res.message;
-                }
-            }
-            Swal.fire({
-                title: titulo,
-                html: mensaje,
-                icon: icono
-            });
     }
 
     function editarUsuario(id) {
