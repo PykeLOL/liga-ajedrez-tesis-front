@@ -1,10 +1,4 @@
-const user_data = JSON.parse(sessionStorage.getItem('user_data'));
-console.log(user_data);
-if (!user_data || user_data.rol == 'Deportista' || user_data.rol == 'Sin rol' ) {
-    window.location.href = homeUrl;
-}
-
-let permisosUsuario = null; // cache global
+let permisosUsuario = null;
 
 async function obtenerPermisosUsuario() {
     if (permisosUsuario) return permisosUsuario; // si ya se cargaron, no volver a llamar
@@ -28,7 +22,7 @@ async function tienePermiso(nombrePermiso) {
 }
 
 async function validarPermisos(modulo, acciones) {
-    const permisos = await obtenerPermisosUsuario(); // solo una vez
+    const permisos = await obtenerPermisosUsuario();
     acciones.forEach(accion => {
         const nombrePermiso = `${accion}-${modulo}`;
         const selectorBoton = getSelectorPorAccion(accion);
@@ -70,7 +64,7 @@ function datatableAjax(url, options = {}) {
                     config.headers["Authorization"] = "Bearer " + newToken;
                     $.ajax(config).done(resolve).fail(reject); // reintenta solo esta petición
                 } catch (err) {
-                    sessionStorage.removeItem('token');
+                    localStorage.removeItem('token');
                     window.location.href = loginUrl;
                 }
             } else {
@@ -80,7 +74,6 @@ function datatableAjax(url, options = {}) {
     });
 }
 
-// === FUNCIÓN GENERAL PARA PETICIONES NORMALES ===
 function apiRequest(options) {
     const config = {
         type: options.type || 'GET',
@@ -99,7 +92,7 @@ function apiRequest(options) {
                     config.headers["Authorization"] = "Bearer " + newToken;
                     $.ajax(config).done(resolve).fail(reject); // reintenta solo esta
                 } catch (err) {
-                    sessionStorage.removeItem('token');
+                    localStorage.removeItem('token');
                     window.location.href = loginUrl;
                 }
             } else {
@@ -141,7 +134,6 @@ function validarRespuesta(xhr, mensaje) {
         });
 }
 
-// === FUNCIÓN PARA REFRESCAR EL TOKEN ===
 function refreshToken() {
     return new Promise((resolve, reject) => {
         $.ajax({
@@ -150,7 +142,7 @@ function refreshToken() {
             headers: { "Authorization": "Bearer " + token },
             success: function(data) {
                 const newToken = data.access_token;
-                sessionStorage.setItem('token', newToken);
+                localStorage.setItem('token', newToken);
                 resolve(newToken);
             },
             error: function(err) {

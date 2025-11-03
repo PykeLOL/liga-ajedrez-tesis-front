@@ -28,7 +28,7 @@
 @push('scripts')
 <script>
 $(document).ready(function() {
-    if (sessionStorage.getItem('token')) {
+    if (localStorage.getItem('token')) {
         window.location.href = "{{ route('admin.index') }}";
         return;
     }
@@ -60,8 +60,8 @@ $(document).ready(function() {
                         showConfirmButton: false,
                         timer: 1500
                     }).then(() => {
-                        sessionStorage.setItem('token', response.access_token);
-                        sessionStorage.setItem('user_data', JSON.stringify(response.user));
+                        localStorage.setItem('token', response.access_token);
+                        localStorage.setItem('user_data', JSON.stringify(response.user));
                         localStorage.setItem('permisos', JSON.stringify(response.permisos));
                         const rol = response.user.rol;
 
