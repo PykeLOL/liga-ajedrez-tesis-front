@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\PermisoController;
 
 /*
 |--------------------------------------------------------------------------
@@ -21,6 +22,7 @@ Route::prefix('admin')->group(function () {
     Route::get('/', [AdminController::class, 'index'])->name('admin.index');
     Route::get('/usuarios', [AdminController::class, 'getUsuarios'])->name('admin.usuarios');
     Route::get('/roles', [AdminController::class, 'getRoles'])->name('admin.roles');
+    Route::get('/permisos', [AdminController::class, 'getPermisos'])->name('admin.permisos');
 });
 
 Route::get('/', function () {
