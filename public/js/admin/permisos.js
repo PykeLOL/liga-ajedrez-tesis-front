@@ -1,5 +1,5 @@
 $(document).ready(function () {
-    const acciones = ['ver', 'crear', 'editar', 'eliminar']; 
+    const acciones = ['ver', 'crear', 'editar', 'eliminar'];
     const modulo = "permisos";
 
     initPermisosTable();
@@ -11,19 +11,19 @@ $(document).ready(function () {
         return;
     }
 
-    function initPermisosTable() { 
-        if ($.fn.DataTable.isDataTable('#permisosTable')) { 
-            $('#permisosTable').DataTable().destroy(); 
+    function initPermisosTable() {
+        if ($.fn.DataTable.isDataTable('#permisosTable')) {
+            $('#permisosTable').DataTable().destroy();
         }
-        $('#permisosTable').DataTable({ 
+        $('#permisosTable').DataTable({
             ajax: function(data, callback, settings) {
-                datatableAjax(`${apiUrl}/permisos`) 
+                datatableAjax(`${apiUrl}/permisos`)
                     .then(response => {
                         callback({ data: response });
                     })
                     .catch(err => {
                         callback({ data: [] });
-                        let mensaje = 'No se pudo cargar el listado de permisos'; 
+                        let mensaje = 'No se pudo cargar el listado de permisos';
                         validarRespuesta(err, mensaje);
                     });
             },
@@ -34,7 +34,7 @@ $(document).ready(function () {
                 {
                     data: null,
                     render: function (data) {
-                    
+
                         return `
                             <div class="d-flex justify-content-center gap-2">
                                 <button class="btnEditar btn btn-warning btn-sm d-none d-flex align-items-center gap-1" data-id="${data.id}" title="Editar">
@@ -62,32 +62,25 @@ $(document).ready(function () {
         $('.btnNuevo').on('click', function () {
             $('#permisoForm')[0].reset();
             limpiarFormulario();
-            $('#permisoId').val(''); 
-            $('#permisoModalLabel').text('Nuevo Permiso'); 
-            $('#permisoModal').modal('show'); 
+            $('#permisoId').val('');
+            $('#permisoModalLabel').text('Nuevo Permiso');
+            $('#permisoModal').modal('show');
         });
 
         $('#btnGuardar').on('click', function () {
-            guardarPermiso(); 
+            guardarPermiso();
         });
 
-        $('#permisosTable').on('click', '.btnEditar', function () { 
+        $('#permisosTable').on('click', '.btnEditar', function () {
             const id = $(this).data('id');
             limpiarFormulario();
-            editarPermiso(id); 
+            editarPermiso(id);
         });
 
-        $('#permisosTable').on('click', '.btnEliminar', function () { 
+        $('#permisosTable').on('click', '.btnEliminar', function () {
             const id = $(this).data('id');
-            eliminarPermiso(id); 
+            eliminarPermiso(id);
         });
-
-        $('#logoutBtn').on('click', function () {
-            sessionStorage.removeItem('token');
-            window.location.href = loginUrl;
-        });
-        
-        
     }
 
     $(document).on('input change', '.required', function() {
@@ -97,8 +90,8 @@ $(document).ready(function () {
         }
     });
 
-    function guardarPermiso() { 
-        if (!validarCamposRequeridos('#permisoForm')) { 
+    function guardarPermiso() {
+        if (!validarCamposRequeridos('#permisoForm')) {
             Swal.fire('Advertencia', 'Por favor completa los campos obligatorios.', 'warning');
             return;
         }
@@ -109,10 +102,10 @@ $(document).ready(function () {
         };
 
         const method = id ? 'PUT' : 'POST';
-        const url = id ? `${apiUrl}/permisos/${id}` : `${apiUrl}/permisos`;  
+        const url = id ? `${apiUrl}/permisos/${id}` : `${apiUrl}/permisos`;
 
-        $('#permisoForm .is-invalid').removeClass('is-invalid'); 
-        $('#permisoForm .invalid-feedback').remove(); 
+        $('#permisoForm .is-invalid').removeClass('is-invalid');
+        $('#permisoForm .invalid-feedback').remove();
 
         apiRequest({
             url,
@@ -121,12 +114,12 @@ $(document).ready(function () {
             contentType: 'application/json'
         })
         .then(() => {
-            Swal.fire('Éxito', 'Permiso guardado correctamente', 'success'); 
-            $('#permisoModal').modal('hide'); 
-            $('#permisosTable').DataTable().ajax.reload(null, false); 
+            Swal.fire('Éxito', 'Permiso guardado correctamente', 'success');
+            $('#permisoModal').modal('hide');
+            $('#permisosTable').DataTable().ajax.reload(null, false);
         })
         .catch(xhr => {
-            let mensaje = 'No se pudo guardar el permiso'; 
+            let mensaje = 'No se pudo guardar el permiso';
             validarRespuesta(xhr, mensaje);
         });
     }
@@ -160,24 +153,24 @@ $(document).ready(function () {
             });
     }
 
-    function editarPermiso(id) { 
-        apiRequest({ url: `${apiUrl}/permisos/${id}`, type: 'GET' }) 
-        .then(permiso => { 
-            $('#permisoModalLabel').text('Editar Permiso'); 
-            $('#permisoId').val(permiso.id); 
+    function editarPermiso(id) {
+        apiRequest({ url: `${apiUrl}/permisos/${id}`, type: 'GET' })
+        .then(permiso => {
+            $('#permisoModalLabel').text('Editar Permiso');
+            $('#permisoId').val(permiso.id);
             $('#nombre').val(permiso.nombre);
             $('#descripcion').val(permiso.descripcion);
-            $('#permisoModal').modal('show'); 
+            $('#permisoModal').modal('show');
         })
         .catch(xhr => {
-            let mensaje = 'No se pudo editar el permiso'; 
+            let mensaje = 'No se pudo editar el permiso';
             validarRespuesta(xhr, mensaje);
         });
     }
 
     function eliminarPermiso(id) {
         Swal.fire({
-            title: '¿Eliminar permiso?', 
+            title: '¿Eliminar permiso?',
             text: 'Esta acción no se puede deshacer',
             icon: 'warning',
             showCancelButton: true,
@@ -185,13 +178,13 @@ $(document).ready(function () {
             cancelButtonText: 'Cancelar'
         }).then((result) => {
             if (result.isConfirmed) {
-                apiRequest({ url: `${apiUrl}/permisos/${id}`, type: 'DELETE' }) 
+                apiRequest({ url: `${apiUrl}/permisos/${id}`, type: 'DELETE' })
                 .then(() => {
-                    Swal.fire('Eliminado', 'Permiso eliminado correctamente', 'success'); 
-                    $('#permisosTable').DataTable().ajax.reload(null, false); 
+                    Swal.fire('Eliminado', 'Permiso eliminado correctamente', 'success');
+                    $('#permisosTable').DataTable().ajax.reload(null, false);
                 })
                 .catch(xhr => {
-                    let mensaje = 'No se pudo eliminar el permiso'; 
+                    let mensaje = 'No se pudo eliminar el permiso';
                     validarRespuesta(xhr, mensaje);
                 });
             }
@@ -199,10 +192,8 @@ $(document).ready(function () {
     }
 
     function limpiarFormulario() {
-        $('#permisoId').val(''); 
+        $('#permisoId').val('');
         $('#nombre, #descripcion').val('');
-        limpiarCamposRequeridos('#permisoForm'); 
+        limpiarCamposRequeridos('#permisoForm');
     }
-
-   
 });

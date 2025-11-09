@@ -1,8 +1,8 @@
-@extends('layouts.app')
+@extends('layouts.admin.app')
 @section('title', 'Permisos')
 @section('styles')
     {{-- Puedes crear un CSS si quieres, o borrar esta línea --}}
-    <link rel="stylesheet" href="{{ asset('css/admin/roles.css') }}"> 
+    <link rel="stylesheet" href="{{ asset('css/admin/permisos.css') }}">
 @endsection
 @section('content')
 <div class="d-flex justify-content-between align-items-center mb-4 border-bottom pb-2">
@@ -36,7 +36,7 @@
     <div class="modal-content">
       <div class="modal-header bg-primary text-white">
         <h5 class="modal-title" id="permisoModalLabel">Agregar Permiso</h5> {{-- IDs cambiados --}}
-        <button type"button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Cerrar"></button>
       </div>
       <div class="modal-body">
         <form id="permisoForm"> {{-- ID cambiado --}}
