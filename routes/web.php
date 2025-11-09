@@ -24,6 +24,7 @@ Route::prefix('admin')->group(function () {
     Route::get('/perfil', [AdminController::class, 'perfil'])->name('admin.perfil');
     Route::get('/usuarios', [AdminController::class, 'getUsuarios'])->name('admin.usuarios');
     Route::get('/roles', [AdminController::class, 'getRoles'])->name('admin.roles');
+    Route::get('/permisos', [AdminController::class, 'getPermisos'])->name('admin.permisos');
 });
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
