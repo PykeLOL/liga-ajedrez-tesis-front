@@ -123,7 +123,7 @@ $(document).ready(function () {
 
     function loadRoles(selectedId = null) {
         apiRequest({
-            url: `${apiUrl}/roles`,
+            url: `${apiUrl}/roles/select`,
             type: 'GET'
         })
         .then(roles => {
