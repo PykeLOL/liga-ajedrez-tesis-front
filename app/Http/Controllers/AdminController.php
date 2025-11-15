@@ -30,4 +30,9 @@ class AdminController extends Controller
     {
         return view('admin.permisos');
     }
+
+    public function getModulos()
+    {
+        return view('admin.modulos');
+    }
 }

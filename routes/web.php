@@ -25,6 +25,8 @@ Route::prefix('admin')->group(function () {
     Route::get('/usuarios', [AdminController::class, 'getUsuarios'])->name('admin.usuarios');
     Route::get('/roles', [AdminController::class, 'getRoles'])->name('admin.roles');
     Route::get('/permisos', [AdminController::class, 'getPermisos'])->name('admin.permisos');
+    Route::get('/modulos', [AdminController::class, 'getModulos'])->name('admin.modulos');
+
 });
 
 Route::get('/', [HomeController::class, 'index'])->name('home');

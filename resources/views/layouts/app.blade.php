@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="es">
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 <head>
     <meta charset="UTF-8">
     <title>@yield('title', 'Liga de Ajedrez del Meta')</title>
