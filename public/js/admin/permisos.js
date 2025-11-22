@@ -7,10 +7,10 @@ $(document).ready(function () {
 
     initPermisosTable();
     bindEvents();
-    validarPermisos(modulo, acciones); 
+    validarPermisos(modulo, acciones);
 
-    if (!token) { 
-        window.location.href = loginUrl; 
+    if (!token) {
+        window.location.href = loginUrl;
         return;
     }
 
@@ -27,7 +27,7 @@ $(document).ready(function () {
                     .catch(err => {
                         callback({ data: [] });
                         let mensaje = 'No se pudo cargar el listado de permisos';
-                        validarRespuesta(err, mensaje); 
+                        validarRespuesta(err, mensaje);
                     });
             },
             columns: [
@@ -50,9 +50,9 @@ $(document).ready(function () {
                     }
                 }
             ],
-            language: { url: dataTablesLangUrl }, 
+            language: { url: dataTablesLangUrl },
             drawCallback: function () {
-                lucide.createIcons(); 
+                lucide.createIcons();
             }
         });
         $('#permisosTable').on('draw.dt', function () {
@@ -63,12 +63,12 @@ $(document).ready(function () {
     function bindEvents() {
         $('.btnNuevo').on('click', function () {
             $('#permisoForm')[0].reset();
-            limpiarFormulario(); 
+            limpiarFormulario();
             $('#permisoId').val('');
             $('#permisoModalLabel').text('Nuevo Permiso');
             cargarTipoAcciones();
             cargarModulos();
-            
+
             $('#permisoModal').modal('show');
         });
 
@@ -81,17 +81,17 @@ $(document).ready(function () {
             try {
                 const permiso = await apiRequest({ url: `${apiUrl}/permisos/${id}`, type: 'GET' });
 
-                
+
                 $('#permisoId').val(permiso.id);
                 $('#descripcion').val(permiso.descripcion);
                 $('#nombreGenerado').val(permiso.nombre);
                 $('#nombre').val(permiso.nombre);
 
-               
+
                 await cargarTipoAcciones(permiso.tipo_accion_id);
                 await cargarModulos(permiso.modulo_id);
-                
-                
+
+
                 $('#permisoModal').modal('show');
 
             } catch (xhr) {
@@ -99,12 +99,12 @@ $(document).ready(function () {
                 validarRespuesta(xhr, mensaje);
             }
         });
-        
-        
+
+
         $('#btnGuardar').on('click', function () {
             guardarPermiso();
         });
-        
+
         $('#permisosTable').on('click', '.btnEliminar', function () {
             const id = $(this).data('id');
             eliminarPermiso(id);
@@ -114,8 +114,8 @@ $(document).ready(function () {
             sessionStorage.removeItem('token');
             window.location.href = loginUrl;
         });
-        
-        
+
+
         $('#tipoAccionSelect').off('change').on('change', generarNombrePermiso);
         $('#moduloSelect').off('change').on('change', generarNombrePermiso);
     }
@@ -128,7 +128,7 @@ $(document).ready(function () {
     });
 
     function guardarPermiso() {
-        if (!validarCamposRequeridos('#permisoForm')) { 
+        if (!validarCamposRequeridos('#permisoForm')) {
             Swal.fire('Advertencia', 'Por favor completa los campos obligatorios.', 'warning');
             return;
         }
@@ -137,21 +137,21 @@ $(document).ready(function () {
         const data = {
             tipo_accion_id: $('#tipoAccionSelect').val(),
             modulo_id: $('#moduloSelect').val(),
-            nombre: $('#nombreGenerado').val(), 
+            nombre: $('#nombreGenerado').val(),
             descripcion: $('#descripcion').val(),
         };
 
         const method = id ? 'PUT' : 'POST';
-        const url = id ? `${apiUrl}/permisos/${id}` : `${apiUrl}/permisos`;   
+        const url = id ? `${apiUrl}/permisos/${id}` : `${apiUrl}/permisos`;
 
         $('#permisoForm .is-invalid').removeClass('is-invalid');
         $('#permisoForm .invalid-feedback').remove();
 
-        apiRequest({ 
+        apiRequest({
             url,
             type: method,
             data: JSON.stringify(data),
-            contentType: 'application/json'
+            contentType: 'application/json',
         })
         .then(() => {
             Swal.fire('Éxito', 'Permiso guardado correctamente', 'success');
@@ -193,7 +193,7 @@ $(document).ready(function () {
         $('#nombreGenerado').val('');
         $('#nombre').val('');
 
-     
+
         if ($('#tipoAccionSelect').hasClass('select2-hidden-accessible')) {
             $('#tipoAccionSelect').select2('destroy');
         }
@@ -202,8 +202,8 @@ $(document).ready(function () {
         }
         $('#tipoAccionSelect').html('');
         $('#moduloSelect').html('');
-        
-        limpiarCamposRequeridos('#permisoForm'); 
+
+        limpiarCamposRequeridos('#permisoForm');
     }
 
      function cargarTipoAcciones(selectedId = null) {
@@ -261,8 +261,8 @@ $(document).ready(function () {
         })
         .catch(xhr => console.error('Error cargando modulos:', xhr));
     }
-   
-   
+
+
     function generarNombrePermiso() {
         const tipoAccionData = $('#tipoAccionSelect').hasClass('select2-hidden-accessible') ? $('#tipoAccionSelect').select2('data') : [];
         const moduloData = $('#moduloSelect').hasClass('select2-hidden-accessible') ? $('#moduloSelect').select2('data') : [];
@@ -279,7 +279,7 @@ $(document).ready(function () {
             $('#nombre').val('');
         }
     }
-    
+
     function validarRespuesta(xhr, mensaje) {
         console.error('Error en la solicitud:', xhr);
             let titulo = 'Error';

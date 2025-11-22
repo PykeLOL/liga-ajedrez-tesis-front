@@ -1,5 +1,5 @@
 $(document).ready(function () {
-    const acciones = ['ver', 'editar'];
+    const acciones = [];
     const modulo = "perfil";
 
     validarPermisos(modulo, acciones);

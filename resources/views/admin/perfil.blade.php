@@ -39,7 +39,7 @@
                 </div>
 
                 <div class="mt-4">
-                    <button id="btnEditarPerfil" class="btnEditar editar-perfil btn btn-primary px-4 d-none">
+                    <button id="btnEditarPerfil" class="btnEditar btn btn-primary px-4">
                         <i data-lucide="edit-3" class="me-1"></i> Editar Perfil
                     </button>
                 </div>

@@ -87,7 +87,10 @@ function apiRequest(options) {
     const config = {
         type: options.type || 'GET',
         url: options.url,
-        headers: { "Authorization": "Bearer " + token },
+        headers: {
+            "Authorization": "Bearer " + token,
+            "Accept": "application/json"
+        },
         contentType: options.contentType || 'application/json',
         data: options.data || null,
     };

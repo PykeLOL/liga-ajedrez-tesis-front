@@ -79,20 +79,25 @@
           <div class="card-body p-0">
             <div class="table-responsive">
                 <table class="table table-hover mb-0 w-100" id="tablaPermisosRol">
-                <thead class="table-secondary">
-                    <tr>
-                    <th>Nombre</th>
-                    <th>Descripción</th>
-                    <th>Acciones</th>
-                    </tr>
-                </thead>
-                <tbody></tbody>
+                    <thead class="table-secondary">
+                        <tr>
+                            <th class="text-center" style="width: 40px;">
+                                <input type="checkbox" id="checkTodosQuitar">
+                            </th>
+                            <th>Nombre</th>
+                            <th>Descripción</th>
+                        </tr>
+                    </thead>
+                    <tbody></tbody>
                 </table>
             </div>
           </div>
             <div class="text-center mt-2 px-3 pb-2">
+                <button class="btn btn-danger btn-sm" id="btnQuitarSeleccionados">
+                    <i class="bi bi-trash"></i> Quitar Permisos (0)
+                </button>
                 <button class="btn btn-success btn-sm" id="btnAgregarPermiso">
-                    <i class="bi bi-plus-circle"></i> Asignar Permiso
+                    <i class="bi bi-plus-circle"></i> Asignar Permisos
                 </button>
             </div>
         </div>
@@ -105,21 +110,23 @@
   </div>
 </div>
 
-<!-- Modal Asignar Permiso -->
+<!-- Modal Asignar Permisos -->
 <div class="modal fade" id="modalAgregarPermiso" tabindex="-1" aria-hidden="true">
   <div class="modal-dialog modal-lg modal-dialog-centered">
     <div class="modal-content">
       <div class="modal-header bg-success text-white">
-        <h5 class="modal-title" id="permisosDisponiblesTitulo">Asignar Permiso al Rol</h5>
+        <h5 class="modal-title" id="permisosDisponiblesTitulo">Asignar Permisos al Rol</h5>
         <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Cerrar"></button>
       </div>
       <div class="modal-body">
         <table class="table table-sm table-hover w-100" id="tablaPermisosDisponibles">
           <thead class="table-light">
             <tr>
+              <th class="text-center" style="width: 40px;">
+                <input type="checkbox" id="checkTodos">
+              </th>
               <th>Nombre</th>
               <th>Descripción</th>
-              <th class="text-center">Acción</th>
             </tr>
           </thead>
           <tbody class="text-muted">
@@ -128,6 +135,9 @@
         </table>
       </div>
       <div class="modal-footer">
+        <button type="button" class="btn btn-primary btn-sm" id="btnAsignarSeleccionados">
+          Asignar Permisos (0)
+        </button>
         <button type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="modal">Cerrar</button>
       </div>
     </div>

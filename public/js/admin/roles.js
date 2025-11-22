@@ -45,7 +45,7 @@ $(document).ready(function () {
                                 <button class="btnEliminar btn btn-danger btn-sm d-none d-flex align-items-center gap-1" data-id="${data.id}" title="Eliminar">
                                     <i data-lucide="trash-2" class="icono-tabla"></i>
                                 </button>
-                                <button class="btnPermisos btn btn-info btn-sm d-flex align-items-center gap-1" data-id="${data.id}" data-nombre="${data.nombre} ${data.apellido}" title="Permisos">
+                                <button class="btnPermisos btn btn-info btn-sm d-flex align-items-center gap-1" data-id="${data.id}" data-nombre="${data.nombre}" title="Permisos">
                                     <i data-lucide="shield-check" class="icono-tabla"></i>
                                 </button>
                             </div>
@@ -94,10 +94,56 @@ $(document).ready(function () {
             mostrarPermisosRol(id, nombre);
         });
 
-        $('#tablaPermisosRol').on('click', '.btnQuitarPermiso', function () {
-            const permiso = $(this).data('permiso');
-            const rol = $(this).data('rol');
-            quitarPermisoRol(permiso, rol);
+        $('#tablaPermisosRol').on('change', '.checkQuitarPermiso', function () {
+            const id = parseInt($(this).val());
+
+            if (this.checked) {
+                permisosSeleccionadosQuitar.push(id);
+            } else {
+                permisosSeleccionadosQuitar = permisosSeleccionadosQuitar.filter(p => p !== id);
+            }
+
+            $('#btnQuitarSeleccionados').html(`
+                <i class="bi bi-trash"></i> Quitar Permisos (${permisosSeleccionadosQuitar.length})
+            `);
+        });
+
+        $('#checkTodosQuitar').on('change', function () {
+            const checked = $(this).is(':checked');
+            $('.checkQuitarPermiso').prop('checked', checked).trigger('change');
+        });
+
+        $('#btnQuitarSeleccionados').on('click', function () {
+            if (permisosSeleccionadosQuitar.length === 0) {
+                return Swal.fire('Aviso', 'Seleccione al menos un permiso.', 'warning');
+            }
+
+            Swal.fire({
+                title: `¿Eliminar ${permisosSeleccionadosQuitar.length} permisos?`,
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonText: 'Sí, eliminar',
+                cancelButtonText: 'Cancelar'
+            }).then(result => {
+                if (!result.isConfirmed) return;
+
+                apiRequest({
+                    url: `${apiUrl}/permisos/quitar/permiso`,
+                    type: 'DELETE',
+                    data: JSON.stringify({
+                        id: rolActualId,
+                        permisos: permisosSeleccionadosQuitar,
+                        tipo: "rol"
+                    })
+                }).then(() => {
+                    Swal.fire('Éxito', 'Permisos eliminados correctamente', 'success');
+
+                    permisosSeleccionadosQuitar = [];
+                    $('#btnQuitarSeleccionados').html(`<i class="bi bi-trash"></i> Quitar Permisos (0)`);
+
+                    mostrarPermisosRol(rolActualId, rolActualNombre);
+                });
+            });
         });
 
         $('#btnAgregarPermiso').on('click', function () {
@@ -123,9 +169,6 @@ $(document).ready(function () {
             nombre: $('#nombre').val(),
             descripcion: $('#descripcion').val(),
         };
-
-        console.log("id: " + id);
-        console.log("data: " + data);
 
         const method = id ? 'PUT' : 'POST';
         const url = id ? `${apiUrl}/roles/${id}` : `${apiUrl}/roles`;
@@ -226,6 +269,8 @@ $(document).ready(function () {
         limpiarCamposRequeridos('#rolForm');
     }
 
+    let permisosSeleccionadosQuitar = [];
+
     function mostrarPermisosRol(rolId, nombre) {
         rolActualId = rolId;
         rolActualNombre = nombre;
@@ -243,22 +288,15 @@ $(document).ready(function () {
             $('#tablaPermisosRol').DataTable({
                 data: data.permisos_rol,
                 columns: [
-                    { data: 'nombre', title: 'Nombre' },
-                    { data: 'descripcion', title: 'Descripción', defaultContent: '' },
                     {
                         data: null,
-                        title: 'Acciones',
-                        orderable: false,
-                        render: function (permiso) {
-                            return `
-                                <button class="btn btn-danger btn-sm btnQuitarPermiso"
-                                        data-permiso="${permiso.id}"
-                                        data-rol="${data.rol_id}">
-                                    <i class="bi bi-trash"></i>
-                                </button>
-                            `;
-                        }
-                    }
+                        render: p => `
+                            <input type="checkbox" class="checkQuitarPermiso" value="${p.id}">
+                        `,
+                        className: "text-center"
+                    },
+                    { data: 'nombre' },
+                    { data: 'descripcion' }
                 ],
                 columnDefs: [
                     {
@@ -281,38 +319,10 @@ $(document).ready(function () {
         });
     }
 
-    function quitarPermisoRol(permiso, rol) {
-        Swal.fire({
-            title: '¿Eliminar Permiso del Rol?',
-            text: 'Esta acción no se puede deshacer',
-            icon: 'warning',
-            showCancelButton: true,
-            confirmButtonText: 'Sí, eliminar',
-            cancelButtonText: 'Cancelar'
-        }).then((result) => {
-            if (result.isConfirmed) {
-                const data = {
-                    id: rol,
-                    permiso: permiso,
-                    tipo: "rol"
-                };
-                apiRequest({
-                    url: `${apiUrl}/permisos/quitar/permiso`,
-                    type: 'DELETE',
-                    data: JSON.stringify(data),
-                }).then(data => {
-                    Swal.fire('Éxito', 'Permiso Eliminado del Rol', 'success');
-                    mostrarPermisosRol(rol, rolActualNombre);
-                }).catch(xhr => {
-                    console.error('Error cargando permisos:', xhr);
-                    alert('No se pudieron cargar los permisos del rol.');
-                });
-            }
-        });
-    }
-
     function cargarPermisosDisponibles(rolId) {
-        $('#permisosDisponiblesTitulo').text('Asignar Permiso al Rol: ' + rolActualNombre);
+        $('#permisosDisponiblesTitulo').text('Asignar Permisos al Rol: ' + rolActualNombre);
+        $('#btnAsignarSeleccionados').text('Asignar Permisos (0)');
+        permisosSeleccionados = [];
         $('#tablaPermisosDisponibles tbody').html(`
             <tr><td colspan="3" class="text-center text-muted">Cargando permisos...</td></tr>
         `);
@@ -325,35 +335,22 @@ $(document).ready(function () {
             tbody.empty();
 
             if ($.fn.DataTable.isDataTable('#tablaPermisosDisponibles')) {
-                $('#tablaPermisosDisponibles').DataTable().destroy(); // evita duplicados
+                $('#tablaPermisosDisponibles').DataTable().destroy();
             }
 
             if (data.length > 0) {
                 $('#tablaPermisosDisponibles').DataTable({
                     data: data,
                     columns: [
-                        { data: 'nombre', title: 'Nombre' },
-                        { data: 'descripcion', title: 'Descripción', defaultContent: '' },
                         {
                             data: null,
-                            title: 'Acción',
-                            orderable: false,
-                            render: function (p) {
-                                return `
-                                    <button class="btn btn-success btn-sm btnAsignarPermiso"
-                                            data-permiso="${p.id}"
-                                            data-rol="${rolId}">
-                                        <i class="bi bi-check-circle"></i>
-                                    </button>
-                                `;
-                            }
-                        }
-                    ],
-                    columnDefs: [
-                        {
-                            targets: 2, // columna Acción
-                            className: 'text-center align-middle'
-                        }
+                            className: "text-center",
+                            render: p => `
+                                <input type="checkbox" class="checkPermiso" value="${p.id}">
+                            `
+                        },
+                        { data: 'nombre', title: 'Nombre' },
+                        { data: 'descripcion', title: 'Descripción', defaultContent: '' },
                     ],
                     language: { url: dataTablesLangUrl },
                     paging: true,
@@ -375,42 +372,63 @@ $(document).ready(function () {
         });
     }
 
-    $('#tablaPermisosDisponibles').on('click', '.btnAsignarPermiso', function () {
-        const permiso = $(this).data('permiso');
-        const rol = $(this).data('rol');
+    let permisosSeleccionados = [];
+
+    $('#tablaPermisosDisponibles').on('change', '.checkPermiso', function () {
+        const valor = parseInt($(this).val());
+
+        if (this.checked) {
+            permisosSeleccionados.push(valor);
+        } else {
+            permisosSeleccionados = permisosSeleccionados.filter(id => id !== valor);
+        }
+
+        $('#btnAsignarSeleccionados').text(`Asignar Permisos (${permisosSeleccionados.length})`);
+    });
+
+    $('#checkTodos').on('change', function () {
+        const estado = $(this).is(':checked');
+        $('.checkPermiso').prop('checked', estado).trigger('change');
+    });
+
+    $('#btnAsignarSeleccionados').on('click', function () {
+        if (permisosSeleccionados.length === 0) {
+            return Swal.fire('Aviso', 'Debe seleccionar al menos un permiso.', 'warning');
+        }
 
         Swal.fire({
-            title: '¿Asignar este permiso?',
+            title: `¿Asignar ${permisosSeleccionados.length} permisos?`,
             icon: 'question',
             showCancelButton: true,
             confirmButtonText: 'Sí, asignar',
-            cancelButtonText: 'Cancelar'
-        }).then((result) => {
-            if (result.isConfirmed) {
-                const data = {
-                    id: rol,
-                    permiso: permiso,
-                    tipo: "rol"
-                };
-                apiRequest({
-                    url: `${apiUrl}/permisos/asignar`,
-                    type: 'POST',
-                    data: JSON.stringify(data)
-                }).then(res => {
-                    Swal.fire({
-                        title: 'Éxito',
-                        text: 'Permiso asignado correctamente',
-                        icon: 'success',
-                        timer: 1500,
-                        showConfirmButton: false
-                    });
-                    mostrarPermisosRol(rolActualId, rolActualNombre);
-                    cargarPermisosDisponibles(rolActualId);
-                }).catch(xhr => {
-                    console.error('Error asignando permiso:', xhr);
-                    Swal.fire('Error', 'No se pudo asignar el permiso.', 'error');
+        }).then(result => {
+            if (!result.isConfirmed) return;
+
+            const data = {
+                id: rolActualId,
+                permisos: permisosSeleccionados,
+                tipo: "rol"
+            };
+
+            apiRequest({
+                url: `${apiUrl}/permisos/asignar`,
+                type: 'POST',
+                data: JSON.stringify(data)
+            }).then(res => {
+                Swal.fire({
+                    title: 'Éxito',
+                    text: 'Permisos asignados correctamente.',
+                    icon: 'success',
+                    timer: 1500,
+                    showConfirmButton: false
                 });
-            }
+
+                mostrarPermisosRol(rolActualId, rolActualNombre);
+                cargarPermisosDisponibles(rolActualId);
+
+            }).catch(err => {
+                Swal.fire('Error', 'No se pudieron asignar los permisos.', 'error');
+            });
         });
     });
 });
