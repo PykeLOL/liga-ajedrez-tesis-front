@@ -28,33 +28,42 @@
                 console.error('Error al leer user_data:', error);
                 userNameEl.textContent = 'Usuario';
             }
+
+            // Acción normal de logout
+            logoutBtn.addEventListener('click', async () => {
+                const result = await Swal.fire({
+                    title: '¿Cerrar sesión?',
+                    text: 'Tu sesión actual se cerrará.',
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonText: 'Sí, salir',
+                    cancelButtonText: 'Cancelar',
+                });
+                if (result.isConfirmed) {
+                    localStorage.clear();
+                    await Swal.fire({
+                        icon: 'success',
+                        title: 'Sesión cerrada',
+                        timer: 1000,
+                        showConfirmButton: false
+                    });
+                    window.location.href = '/login';
+                }
+            });
+
         } else {
             userNameEl.textContent = 'Invitado';
             userNameEl.removeAttribute('href');
             userNameEl.style.pointerEvents = 'none';
             userNameEl.style.opacity = '0.6';
-        }
 
-        logoutBtn.addEventListener('click', async () => {
-            const result = await Swal.fire({
-                title: '¿Cerrar sesión?',
-                text: 'Tu sesión actual se cerrará.',
-                icon: 'warning',
-                showCancelButton: true,
-                confirmButtonText: 'Sí, salir',
-                cancelButtonText: 'Cancelar',
+            logoutBtn.textContent = 'Iniciar Sesión';
+            logoutBtn.classList.remove('btn-outline-light');
+            logoutBtn.classList.add('btn-success');
+
+            logoutBtn.addEventListener('click', () => {
+                window.location.href = loginUrl;
             });
-            if (result.isConfirmed) {
-                localStorage.clear();
-                await Swal.fire({
-                    icon: 'success',
-                    title: 'Sesión cerrada',
-                    timer: 1000,
-                    showConfirmButton: false
-                });
-
-                window.location.href = '/login';
-            }
-        });
+        }
     });
 </script>

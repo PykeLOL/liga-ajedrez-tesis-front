@@ -3,63 +3,62 @@
 @section('title', 'Registrarse')
 
 @section('content')
-<div class="login-card bg-white shadow rounded-4 p-4">
-    <h3 class="text-center mb-4 fw-bold">Crear cuenta</h3>
-
-    <form id="registerForm" enctype="multipart/form-data">
-        <div class="row">
-            <div class="col-md-6 mb-3">
-                <label for="nombre" class="form-label">Nombre</label>
-                <input type="text" class="form-control required" id="nombre" name="nombre">
+<div class="container text-center">
+    <h1 class="fw-bold mb-4" style="cursor: pointer;">
+        <a href="{{ route('home') }}" class="text-decoration-none text-light">
+            Liga de Ajedrez del Meta
+        </a>
+    </h1>
+    <div class="d-flex justify-content-center">
+        <div class="login-card bg-white shadow rounded-4 p-4" style="max-width: 450px; width: 100%;">
+        <h3 class="text-center mb-4 fw-bold">Crear cuenta</h3>
+        <form id="registerForm" enctype="multipart/form-data">
+            <div class="row">
+                <div class="col-md-6 mb-3">
+                    <label for="nombre" class="form-label">Nombre</label>
+                    <input type="text" class="form-control required" id="nombre" name="nombre">
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label for="apellido" class="form-label">Apellido</label>
+                    <input type="text" class="form-control required" id="apellido" name="apellido">
+                </div>
+            </div>
+            <div class="mb-3">
+                <label for="documento" class="form-label">Documento</label>
+                <input type="text" class="form-control required" id="documento" name="documento">
+            </div>
+            <div class="mb-3">
+                <label for="email" class="form-label">Correo electrónico</label>
+                <input type="email" class="form-control required" id="email" name="email">
+            </div>
+            <div class="mb-3">
+                <label for="telefono" class="form-label">Teléfono</label>
+                <input type="text" class="form-control required" id="telefono" name="telefono">
+            </div>
+            <div class="mb-3">
+                <label for="contraseña" class="form-label">Contraseña</label>
+                <input type="password" class="form-control required" id="contraseña" name="contraseña">
+            </div>
+            <div class="mb-3">
+                <label for="confirmar_contraseña" class="form-label">Confirmar Contraseña</label>
+                <input type="password" class="form-control required" id="confirmar_contraseña" name="confirmar_contraseña">
+            </div>
+            <div class="mb-3">
+                <label for="imagen" class="form-label">Foto de perfil (opcional)</label>
+                <input type="file" class="form-control" id="imagen" name="imagen" accept="image/*">
+                <div class="mt-3 text-center">
+                    <img id="previewImagen" src="#" alt="Vista previa" class="img-thumbnail d-none" width="120" style="border-radius: 50%;">
+                    <p id="previewTexto" class="text-muted small mt-2 d-none">Vista previa de tu foto</p>
+                </div>
             </div>
 
-            <div class="col-md-6 mb-3">
-                <label for="apellido" class="form-label">Apellido</label>
-                <input type="text" class="form-control required" id="apellido" name="apellido">
+            <button type="submit" class="btn btn-success w-100">Registrarse</button>
+            <div class="text-center mt-3">
+                <a href="{{ route('login') }}">¿Ya tienes cuenta? Inicia sesión</a>
             </div>
+        </form>
         </div>
-
-        <div class="mb-3">
-            <label for="documento" class="form-label">Documento</label>
-            <input type="text" class="form-control required" id="documento" name="documento">
-        </div>
-
-        <div class="mb-3">
-            <label for="email" class="form-label">Correo electrónico</label>
-            <input type="email" class="form-control required" id="email" name="email">
-        </div>
-
-        <div class="mb-3">
-            <label for="telefono" class="form-label">Teléfono</label>
-            <input type="text" class="form-control required" id="telefono" name="telefono">
-        </div>
-
-        <div class="mb-3">
-            <label for="contraseña" class="form-label">Contraseña</label>
-            <input type="password" class="form-control required" id="contraseña" name="contraseña">
-        </div>
-
-        <div class="mb-3">
-            <label for="confirmar_contraseña" class="form-label">Confirmar Contraseña</label>
-            <input type="password" class="form-control required" id="confirmar_contraseña" name="confirmar_contraseña">
-        </div>
-
-        <div class="mb-3">
-            <label for="imagen" class="form-label">Foto de perfil (opcional)</label>
-            <input type="file" class="form-control" id="imagen" name="imagen" accept="image/*">
-
-            <div class="mt-3 text-center">
-                <img id="previewImagen" src="#" alt="Vista previa" class="img-thumbnail d-none" width="120" style="border-radius: 50%;">
-                <p id="previewTexto" class="text-muted small mt-2 d-none">Vista previa de tu foto</p>
-            </div>
-        </div>
-
-        <button type="submit" class="btn btn-success w-100">Registrarse</button>
-
-        <div class="text-center mt-3">
-            <a href="{{ route('login') }}">¿Ya tienes cuenta? Inicia sesión</a>
-        </div>
-    </form>
+    </div>
 </div>
 @endsection
 
@@ -135,7 +134,6 @@ $(document).ready(function() {
         const texto = $('#previewTexto');
 
         if (file) {
-            // Validar tipo de archivo (solo imágenes)
             const validTypes = ['image/jpeg', 'image/png', 'image/jpg', 'image/webp'];
             if (!validTypes.includes(file.type)) {
                 Swal.fire('Archivo inválido', 'Por favor selecciona una imagen (JPG, PNG o WEBP).', 'warning');
@@ -153,7 +151,6 @@ $(document).ready(function() {
             };
             reader.readAsDataURL(file);
         } else {
-            // Si se quita la imagen, ocultar vista previa
             preview.addClass('d-none');
             texto.addClass('d-none');
         }

@@ -3,24 +3,30 @@
 @section('title', 'Login')
 
 @section('content')
-<div class="login-card bg-white shadow rounded-4 p-4">
-    <h3 class="text-center mb-4 fw-bold">Iniciar Sesión</h3>
+<div class="text-center">
+    <h1 class="fw-bold mb-4" style="cursor: pointer;">
+        <a href="{{ route('home') }}" class="text-decoration-none text-light">
+            Liga de Ajedrez del Meta
+        </a>
+    </h1>
 
-    <form id="loginForm">
-        <div class="mb-3">
-            <label for="email" class="form-label">Correo electrónico</label>
-            <input type="email" class="form-control" id="email" required placeholder="Ej. usuario@correo.com">
+    <div class="login-card bg-white shadow rounded-4 p-4 mx-auto">
+        <h3 class="text-center mb-4 fw-bold text-dark">Iniciar Sesión</h3>
+        <form id="loginForm">
+            <div class="mb-3 text-start">
+                <label for="email" class="form-label">Correo electrónico</label>
+                <input type="email" class="form-control" id="email" required placeholder="Ej. usuario@correo.com">
+            </div>
+            <div class="mb-3 text-start">
+                <label for="password" class="form-label">Contraseña</label>
+                <input type="password" class="form-control" id="password" required placeholder="••••••••">
+            </div>
+
+            <button type="submit" class="btn btn-primary w-100">Ingresar</button>
+        </form>
+        <div class="text-center mt-3">
+            <a href="{{ route('registrarse') }}">¿No tienes cuenta? Regístrate</a>
         </div>
-
-        <div class="mb-3">
-            <label for="password" class="form-label">Contraseña</label>
-            <input type="password" class="form-control" id="password" required placeholder="••••••••">
-        </div>
-
-        <button type="submit" class="btn btn-primary w-100">Ingresar</button>
-    </form>
-    <div class="text-center mt-3">
-        <a href="{{ route('registrarse') }}">¿No tienes cuenta? Regístrate</a>
     </div>
 </div>
 @endsection

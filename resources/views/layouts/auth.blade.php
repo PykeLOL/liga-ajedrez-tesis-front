@@ -19,7 +19,7 @@
             min-height: 100vh;
             display: flex;
             justify-content: center;
-            align-items: center; /* Centrado vertical */
+            align-items: center;
         }
 
         .login-card {

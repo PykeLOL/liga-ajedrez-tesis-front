@@ -25,7 +25,7 @@
                 <th>Nombres</th>
                 <th>Apellidos</th>
                 <th>Email</th>
-                <th>Documento</th>
+                <th>Identificacion</th>
                 <th>Teléfono</th>
                 <th>Rol</th>
                 <th>Acciones</th>
@@ -53,8 +53,12 @@
                 <input type="text" class="form-control required" id="apellido" name="apellido" required>
             </div>
             <div class="mb-3">
-                <label for="documento" class="form-label">Documento</label>
-                <input type="text" class="form-control required" id="documento" name="documento" required>
+                <label for="tipo_identificacion_id" class="form-label">Tipo Identificacion</label>
+                <select id="tipo_identificacion_id" name="tipo_identificacion_id" class="form-select required" required style="width:100%"></select>
+            </div>
+            <div class="mb-3">
+                <label for="numero_identificacion" class="form-label">Numero Identificacion</label>
+                <input type="text" class="form-control required" id="numero_identificacion" name="numero_identificacion" required>
             </div>
             <div class="mb-3">
                 <label for="telefono" class="form-label">Telefono</label>

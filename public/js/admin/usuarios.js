@@ -45,7 +45,7 @@ $(document).ready(function () {
                 { data: 'nombre' },
                 { data: 'apellido' },
                 { data: 'email' },
-                { data: 'documento' },
+                { data: 'identificacion' },
                 { data: 'telefono' },
                 { data: 'rol' },
                 {
@@ -82,6 +82,7 @@ $(document).ready(function () {
             $('#usuarioForm')[0].reset();
             limpiarFormulario();
             loadRoles();
+            loadTiposIdentificacion();
             $('#userId').val('');
             $('#usuarioModalLabel').text('Nuevo Usuario');
             $('#previewImagen').attr('src', '').addClass('d-none');
@@ -195,6 +196,34 @@ $(document).ready(function () {
         .catch(xhr => console.error('Error cargando roles:', xhr));
     }
 
+    function loadTiposIdentificacion(selectedId = null) {
+        apiRequest({
+            url: `${apiUrl}/usuarios/tipos-identificacion/select`,
+            type: 'GET'
+        })
+        .then(tiposIdentificacion => {
+            const $tipoIdentificacionSelect = $('#tipo_identificacion_id');
+            $tipoIdentificacionSelect.empty().append('<option value="">Seleccione un tipo de identificacion</option>');
+            tiposIdentificacion.forEach(t => {
+                $tipoIdentificacionSelect.append(new Option(t.nombre, t.id, false, false));
+            });
+            if ($tipoIdentificacionSelect.hasClass('select2-hidden-accessible')) {
+                $tipoIdentificacionSelect.trigger('change.select2');
+            } else {
+                $tipoIdentificacionSelect.select2({
+                    placeholder: 'Seleccione un rol',
+                    allowClear: true,
+                    width: 'resolve',
+                    dropdownParent: $('#usuarioModal')
+                });
+            }
+            if (selectedId) {
+                $tipoIdentificacionSelect.val(selectedId).trigger('change');
+            }
+        })
+        .catch(xhr => console.error('Error cargando tipos de identificacion:', xhr));
+    }
+
     $(document).on('input change', '.required', function() {
         if ($(this).val()?.trim()) {
             $(this).removeClass('is-invalid');
@@ -212,7 +241,8 @@ $(document).ready(function () {
             nombre: $('#nombre').val(),
             apellido: $('#apellido').val(),
             email: $('#email').val(),
-            documento: $('#documento').val(),
+            tipo_identificacion_id: $('#tipo_identificacion_id').val(),
+            numero_identificacion: $('#numero_identificacion').val(),
             telefono: $('#telefono').val(),
             rol_id: $('#rol_id').val(),
             imagen_base64: imagenBase64,
@@ -250,9 +280,11 @@ $(document).ready(function () {
             $('#nombre').val(user.nombre);
             $('#apellido').val(user.apellido);
             $('#email').val(user.email);
-            $('#documento').val(user.documento);
+            $('#tipo_identificacion').val(user.tipo_identificacion_id);
+            $('#numero_identificacion').val(user.numero_identificacion);
             $('#telefono').val(user.telefono);
             loadRoles(user.rol_id);
+            loadTiposIdentificacion(user.tipo_identificacion_id);
 
             const baseUrl = apiUrl.replace('/api', '');
             const imageUrl = user.imagen_path
@@ -296,7 +328,7 @@ $(document).ready(function () {
 
     function limpiarFormulario() {
         $('#userId').val('');
-        $('#nombre, #apellido, #email, #documento, #telefono, #password, #imagen').val('');
+        $('#nombre, #apellido, #email, #numero_identificacion, #tipo_identificacion_id, #telefono, #password, #imagen').val('');
         $('#rol_id').empty();
         imagenBase64 = null;
         limpiarCamposRequeridos('#usuarioForm');
