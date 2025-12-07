@@ -33,7 +33,6 @@
         lucide.createIcons();
     </script>
     <script>
-        let token = localStorage.getItem('token');
         let apiUrl = "{{ env('API_URL') }}";
         let loginUrl = "{{ route('login') }}";
         let dataTablesLangUrl = "{{ asset('js/datatables/es-ES.json') }}"

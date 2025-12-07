@@ -1,9 +1,10 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\HomeController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\AdminController;
-use App\Http\Controllers\HomeController;
+use App\Http\Controllers\EntrenamientoControler;
 
 /*
 |--------------------------------------------------------------------------
@@ -26,9 +27,12 @@ Route::prefix('admin')->group(function () {
     Route::get('/roles', [AdminController::class, 'getRoles'])->name('admin.roles');
     Route::get('/permisos', [AdminController::class, 'getPermisos'])->name('admin.permisos');
     Route::get('/modulos', [AdminController::class, 'getModulos'])->name('admin.modulos');
-
 });
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('/perfil', [HomeController::class, 'perfil'])->name('perfil');
+
+Route::prefix('entrenamientos')->group(function () {
+    Route::get('/', [EntrenamientoControler::class, 'index'])->name('entrenamientos.index');
+});
 

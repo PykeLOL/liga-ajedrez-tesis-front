@@ -59,8 +59,13 @@ function getSelectorPorAccion(accion) {
 function datatableAjax(url, options = {}) {
     const config = {
         url: url,
-        type: 'GET',
-        headers: { "Authorization": "Bearer " + token },
+        type: options.type || 'GET',
+        contentType: options.contentType || 'application/json',
+        data: options.data || null,
+        xhrFields: { withCredentials: true },
+        headers: {
+            "Accept": "application/json"
+        },
         ...options
     };
 
@@ -68,12 +73,10 @@ function datatableAjax(url, options = {}) {
         $.ajax(config).done(resolve).fail(async function(xhr) {
             if (xhr.status === 401) {
                 try {
-                    const newToken = await refreshToken();
-                    token = newToken;
-                    config.headers["Authorization"] = "Bearer " + newToken;
-                    $.ajax(config).done(resolve).fail(reject); // reintenta solo esta petición
+                    await refreshToken();
+                    $.ajax(config).done(resolve).fail(reject);
                 } catch (err) {
-                    localStorage.removeItem('token');
+                    localStorage.removeItem('user_data');
                     window.location.href = loginUrl;
                 }
             } else {
@@ -87,25 +90,25 @@ function apiRequest(options) {
     const config = {
         type: options.type || 'GET',
         url: options.url,
-        headers: {
-            "Authorization": "Bearer " + token,
-            "Accept": "application/json"
-        },
         contentType: options.contentType || 'application/json',
         data: options.data || null,
+        xhrFields: { withCredentials: true }, // envía cookies automáticamente
+        headers: {
+            "Accept": "application/json"
+        }
     };
 
     return new Promise((resolve, reject) => {
-        $.ajax(config).done(resolve).fail(async function(xhr) {
+        $.ajax(config)
+        .done(resolve)
+        .fail(async function(xhr) {
             if (xhr.status === 401) {
                 try {
-                    const newToken = await refreshToken();
-                    token = newToken;
-                    config.headers["Authorization"] = "Bearer " + newToken;
-                    $.ajax(config).done(resolve).fail(reject); // reintenta solo esta
+                    await refreshToken();
+                    $.ajax(config).done(resolve).fail(reject);
                 } catch (err) {
-                    localStorage.removeItem('token');
-                    window.location.href = loginUrl;
+                    localStorage.removeItem('user_data');
+                    window.location.href = '/login';
                 }
             } else {
                 reject(xhr);
@@ -151,11 +154,9 @@ function refreshToken() {
         $.ajax({
             url: `${apiUrl}/refresh`,
             type: 'POST',
-            headers: { "Authorization": "Bearer " + token },
+            xhrFields: { withCredentials: true },
             success: function(data) {
-                const newToken = data.access_token;
-                localStorage.setItem('token', newToken);
-                resolve(newToken);
+                resolve();
             },
             error: function(err) {
                 reject(err);

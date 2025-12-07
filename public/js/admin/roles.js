@@ -9,11 +9,6 @@ $(document).ready(function () {
     let rolActualId = null;
     let rolActualNombre = null;
 
-    if (!token) {
-        window.location.href = loginUrl;
-        return;
-    }
-
     function initRolesTable() {
         if ($.fn.DataTable.isDataTable('#rolesTable')) {
             $('#rolesTable').DataTable().destroy();

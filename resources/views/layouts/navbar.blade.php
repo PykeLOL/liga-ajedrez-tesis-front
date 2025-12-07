@@ -41,13 +41,29 @@
                 });
                 if (result.isConfirmed) {
                     localStorage.clear();
-                    await Swal.fire({
-                        icon: 'success',
-                        title: 'Sesión cerrada',
-                        timer: 1000,
-                        showConfirmButton: false
+                    $.ajax({
+                        url: "{{ env('API_URL') }}/logout",
+                        type: "POST",
+                        xhrFields: { withCredentials: true }, // envía cookies
+                        success: function(resp) {
+                            localStorage.clear();
+                            Swal.fire({
+                                icon: 'success',
+                                title: 'Sesión cerrada',
+                                timer: 1000,
+                                showConfirmButton: false
+                            }).then(() => {
+                                window.location.href = '/login';
+                            });
+                        },
+                        error: function(xhr) {
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Error',
+                                text: 'No se pudo cerrar la sesión. Intenta de nuevo.'
+                            });
+                        }
                     });
-                    window.location.href = '/login';
                 }
             });
 

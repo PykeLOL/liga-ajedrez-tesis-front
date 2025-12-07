@@ -34,77 +34,93 @@
 @push('scripts')
 <script>
 $(document).ready(function() {
-    if (localStorage.getItem('token')) {
-        window.location.href = "{{ route('admin.index') }}";
-        return;
-    }
+    $.ajax({
+        url: "{{ env('API_URL') }}/me",
+        method: "GET",
+        xhrFields: { withCredentials: true },
+        success: function(resp) {
+            if (!resp) {
+                console.log("No hay sesión iniciada.");
+                return;
+            }
+            const rol = resp.user.rol;
+            if (rol && rol.toLowerCase() !== 'Deportista') {
+                setTimeout(() => {
+                    window.location.href = "{{ route('admin.index') }}";
+                }, 300);
+            } else {
+                setTimeout(() => {
+                    window.location.href = "{{ route('home') }}";
+                }, 300);
+            }
+        }
+    });
+});
 
-    $('#loginForm').on('submit', function(e) {
-        e.preventDefault();
+$('#loginForm').on('submit', function(e) {
+    e.preventDefault();
 
-        let email = $('#email').val();
-        let password = $('#password').val();
-        $.ajax({
-            url: "{{ env('API_URL') }}/login",
-            type: "POST",
-            contentType: "application/json",
-            data: JSON.stringify({ email: email, password: password }),
-            beforeSend: function() {
+    let email = $('#email').val();
+    let password = $('#password').val();
+    $.ajax({
+        url: "{{ env('API_URL') }}/login",
+        type: "POST",
+        contentType: "application/json",
+        data: JSON.stringify({ email: email, password: password }),
+        xhrFields: { withCredentials: true },
+        beforeSend: function() {
+            Swal.fire({
+                title: 'Iniciando sesión...',
+                allowOutsideClick: false,
+                didOpen: () => Swal.showLoading()
+            });
+        },
+        success: function(response) {
+            Swal.close();
+            if (response.user) {
                 Swal.fire({
-                    title: 'Iniciando sesión...',
-                    allowOutsideClick: false,
-                    didOpen: () => Swal.showLoading()
+                    icon: 'success',
+                    title: '¡Bienvenido!',
+                    text: 'Inicio de sesión correcto',
+                    showConfirmButton: false,
+                    timer: 1500
+                }).then(() => {
+                    localStorage.setItem('user_data', JSON.stringify(response.user));
+                    localStorage.setItem('permisos', JSON.stringify(response.permisos));
+                    const rol = response.user.rol;
+
+                    if (rol && rol.toLowerCase() !== 'Deportista') {
+                        setTimeout(() => {
+                            window.location.href = "{{ route('admin.index') }}";
+                        }, 300);
+                    } else {
+                        setTimeout(() => {
+                            window.location.href = "{{ route('home') }}";
+                        }, 300);
+                    }
                 });
-            },
-            success: function(response) {
-                Swal.close();
-                if (response.access_token) {
-                    Swal.fire({
-                        icon: 'success',
-                        title: '¡Bienvenido!',
-                        text: 'Inicio de sesión correcto',
-                        showConfirmButton: false,
-                        timer: 1500
-                    }).then(() => {
-                        localStorage.setItem('token', response.access_token);
-                        localStorage.setItem('user_data', JSON.stringify(response.user));
-                        localStorage.setItem('permisos', JSON.stringify(response.permisos));
-                        const rol = response.user.rol;
-
-                        if (rol && rol.toLowerCase() !== 'Deportista') {
-                            setTimeout(() => {
-                                window.location.href = "{{ route('admin.index') }}";
-                            }, 300);
-                        } else {
-                           setTimeout(() => {
-                                window.location.href = "{{ route('home') }}";
-                            }, 300);
-                        }
-
-                    });
-                } else {
-                    Swal.fire({
-                        icon: 'warning',
-                        title: 'Error',
-                        text: 'Respuesta inesperada del servidor.'
-                    });
-                }
-            },
-            error: function(xhr) {
-                Swal.close();
-                let title = 'Error';
-                let msg = 'Error desconocido';
-                if (xhr.responseJSON && xhr.responseJSON.error) {
-                    title = xhr.responseJSON.error;
-                    msg = xhr.responseJSON.message;
-                }
+            } else {
                 Swal.fire({
-                    icon: 'error',
-                    title: title,
-                    text: msg
+                    icon: 'warning',
+                    title: 'Error',
+                    text: 'Respuesta inesperada del servidor.'
                 });
             }
-        });
+        },
+        error: function(xhr) {
+            Swal.close();
+            let title = 'Error';
+            let msg = 'Error desconocido';
+            if (xhr.responseJSON && xhr.responseJSON.error) {
+                title = xhr.responseJSON.error;
+                msg = xhr.responseJSON.message;
+            }
+            Swal.fire({
+                icon: 'error',
+                title: title,
+                text: msg
+            });
+        }
     });
 });
 </script>

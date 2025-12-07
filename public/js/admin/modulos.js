@@ -1,6 +1,6 @@
 $(document).ready(function () {
     const acciones = ['ver', 'crear', 'editar', 'eliminar'];
-    const modulo = "modulos"; 
+    const modulo = "modulos";
 
     const modulosApiUrl = `${apiUrl}/modulos`;
 
@@ -8,25 +8,20 @@ $(document).ready(function () {
     bindEvents();
     validarPermisos(modulo, acciones); 
 
-    if (!token) { 
-        window.location.href = loginUrl; 
-        return;
-    }
-
     function initModulosTable() {
         if ($.fn.DataTable.isDataTable('#modulosTable')) {
             $('#modulosTable').DataTable().destroy();
         }
         $('#modulosTable').DataTable({
             ajax: function(data, callback, settings) {
-                datatableAjax(modulosApiUrl) 
+                datatableAjax(modulosApiUrl)
                     .then(response => {
                         callback({ data: response });
                     })
                     .catch(err => {
                         callback({ data: [] });
                         let mensaje = 'No se pudo cargar el listado de módulos';
-                        validarRespuesta(err, mensaje); 
+                        validarRespuesta(err, mensaje);
                     });
             },
             columns: [
@@ -51,7 +46,7 @@ $(document).ready(function () {
             ],
             language: { url: dataTablesLangUrl },
             drawCallback: function () {
-                lucide.createIcons(); 
+                lucide.createIcons();
             }
         });
         $('#modulosTable').on('draw.dt', function () {
@@ -68,32 +63,32 @@ $(document).ready(function () {
             $('#moduloModal').modal('show');
         });
 
-        
+
         $('#btnGuardar').on('click', function () {
             guardarModulo();
         });
 
-        
+
         $('#modulosTable').on('click', '.btnEditar', function () {
             const id = $(this).data('id');
             limpiarFormulario();
             editarModulo(id);
         });
 
-        
+
         $('#modulosTable').on('click', '.btnEliminar', function () {
             const id = $(this).data('id');
             eliminarModulo(id);
         });
 
-        
+
         $('#logoutBtn').on('click', function () {
             sessionStorage.removeItem('token');
             window.location.href = loginUrl;
         });
     }
 
-    
+
     $(document).on('input change', '.required', function() {
         if ($(this).val()?.trim()) {
             $(this).removeClass('is-invalid');
@@ -102,7 +97,7 @@ $(document).ready(function () {
     });
 
     function guardarModulo() {
-        if (!validarCamposRequeridos('#moduloForm')) { 
+        if (!validarCamposRequeridos('#moduloForm')) {
             Swal.fire('Advertencia', 'Por favor completa los campos obligatorios.', 'warning');
             return;
         }
@@ -112,13 +107,13 @@ $(document).ready(function () {
             descripcion: $('#descripcion').val(),
         };
 
-        
+
         const method = id ? 'PUT' : 'POST';
-        const url = id ? `${modulosApiUrl}/${id}` : modulosApiUrl; 
+        const url = id ? `${modulosApiUrl}/${id}` : modulosApiUrl;
         $('#moduloForm .is-invalid').removeClass('is-invalid');
         $('#moduloForm .invalid-feedback').remove();
 
-        apiRequest({ 
+        apiRequest({
             url,
             type: method,
             data: JSON.stringify(data),
@@ -131,7 +126,7 @@ $(document).ready(function () {
         })
         .catch(xhr => {
             let mensaje = 'No se pudo guardar el módulo';
-            validarRespuesta(xhr, mensaje); 
+            validarRespuesta(xhr, mensaje);
         });
     }
 
@@ -176,6 +171,6 @@ $(document).ready(function () {
     function limpiarFormulario() {
         $('#moduloId').val('');
         $('#nombre, #descripcion').val('');
-        limpiarCamposRequeridos('#moduloForm'); 
+        limpiarCamposRequeridos('#moduloForm');
     }
 });

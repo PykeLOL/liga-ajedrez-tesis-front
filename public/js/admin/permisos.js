@@ -9,11 +9,6 @@ $(document).ready(function () {
     bindEvents();
     validarPermisos(modulo, acciones);
 
-    if (!token) {
-        window.location.href = loginUrl;
-        return;
-    }
-
     function initPermisosTable() {
         if ($.fn.DataTable.isDataTable('#permisosTable')) {
             $('#permisosTable').DataTable().destroy();

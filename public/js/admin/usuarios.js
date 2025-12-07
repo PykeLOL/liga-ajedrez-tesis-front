@@ -9,10 +9,10 @@ $(document).ready(function () {
     let usuarioActualId = null;
     let usuarioActualNombre = null;
 
-    if (!token) {
-        window.location.href = loginUrl;
-        return;
-    }
+    // if (!token) {
+    //     window.location.href = loginUrl;
+    //     return;
+    // }
 
     function initUsuariosTable() {
         if ($.fn.DataTable.isDataTable('#usuariosTable')) {
