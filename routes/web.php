@@ -33,6 +33,6 @@ Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('/perfil', [HomeController::class, 'perfil'])->name('perfil');
 
 Route::prefix('entrenamientos')->group(function () {
-    Route::get('/', [EntrenamientoControler::class, 'index'])->name('entrenamientos.index');
+    Route::get('/mis-entrenamientos', [EntrenamientoControler::class, 'misEntrenamientos'])->name('entrenamientos.misEntrenamientos');
 });
 

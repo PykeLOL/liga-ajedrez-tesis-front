@@ -1,8 +1,5 @@
 $(document).ready(function () {
 
-    /* =========================
-       TABLA DE ENTRENAMIENTOS
-    ========================= */
     initEntrenamientosTable();
 
     function initEntrenamientosTable() {
@@ -12,7 +9,7 @@ $(document).ready(function () {
 
         $('#entrenamientosTable').DataTable({
             ajax: function (data, callback) {
-                datatableAjaxNoLogin(`${apiUrl}/entrenamientos`)
+                datatableAjaxNoLogin(`${apiUrl}/entrenamientos/mis-entrenamientos`)
                     .then(response => callback({ data: response }))
                     .catch(() => callback({ data: [] }));
             },
@@ -41,9 +38,6 @@ $(document).ready(function () {
         });
     }
 
-    /* =========================
-       SINCRONIZAR ENTRENAMIENTO
-    ========================= */
     $('#entrenamientosTable').on('click', '.sync-google', function () {
         const trainingId = $(this).data('id');
 
@@ -64,9 +58,6 @@ $(document).ready(function () {
         });
     });
 
-    /* =========================
-       CALLBACK GOOGLE
-    ========================= */
     const params = new URLSearchParams(window.location.search);
 
     if (params.get('google') === 'ok') {
@@ -78,9 +69,6 @@ $(document).ready(function () {
         Swal.fire('Error', 'No se pudo conectar Google Calendar', 'error');
     }
 
-    /* =========================
-       CARGAR CALENDARIO GOOGLE
-    ========================= */
     loadGoogleCalendar();
 
     function loadGoogleCalendar() {
@@ -102,9 +90,6 @@ $(document).ready(function () {
         $('#googleCalendarContainer').removeClass('d-none');
     }
 
-    /* =========================
-       REFRESCAR USER DATA
-    ========================= */
     function refreshUserData() {
         return $.ajax({
             url: `${apiUrl}/me`,

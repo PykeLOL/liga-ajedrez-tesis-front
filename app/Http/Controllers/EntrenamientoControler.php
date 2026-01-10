@@ -10,4 +10,9 @@ class EntrenamientoControler extends Controller
     {
         return view('entrenamientos.index');
     }
+
+    public function misEntrenamientos()
+    {
+        return view('entrenamientos.misEntrenamientos');
+    }
 }

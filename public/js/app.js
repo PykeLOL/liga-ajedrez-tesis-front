@@ -187,3 +187,63 @@ function limpiarCamposRequeridos(formSelector) {
     $(`${formSelector} .is-invalid`).removeClass('is-invalid');
     $(`${formSelector} .invalid-feedback`).remove();
 }
+
+function apiRequestNoLogin(options) {
+    const config = {
+        type: options.type || 'GET',
+        url: options.url,
+        contentType: options.contentType || 'application/json',
+        data: options.data || null,
+        xhrFields: { withCredentials: true }, // envía cookies automáticamente
+        headers: {
+            "Accept": "application/json"
+        }
+    };
+
+    return new Promise((resolve, reject) => {
+        $.ajax(config)
+        .done(resolve)
+        .fail(async function(xhr) {
+            if (xhr.status === 401) {
+                try {
+                    await refreshToken();
+                    $.ajax(config).done(resolve).fail(reject);
+                } catch (err) {
+                    localStorage.removeItem('user_data');
+                    window.location.href = '/login';
+                }
+            } else {
+                reject(xhr);
+            }
+        });
+    });
+}
+
+function datatableAjaxNoLogin(url, options = {}) {
+    const config = {
+        url: url,
+        type: options.type || 'GET',
+        contentType: options.contentType || 'application/json',
+        data: options.data || null,
+        xhrFields: { withCredentials: true },
+        headers: {
+            "Accept": "application/json"
+        },
+        ...options
+    };
+
+    return new Promise((resolve, reject) => {
+        $.ajax(config).done(resolve).fail(async function(xhr) {
+            if (xhr.status === 401) {
+                try {
+                    await refreshToken();
+                    $.ajax(config).done(resolve).fail(reject);
+                } catch (err) {
+                    localStorage.removeItem('user_data');
+                }
+            } else {
+                reject(xhr);
+            }
+        });
+    });
+}
