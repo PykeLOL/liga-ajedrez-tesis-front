@@ -16,6 +16,8 @@ async function obtenerPermisosUsuario() {
     }
 }
 
+
+
 async function tienePermiso(nombrePermiso) {
     const permisos = await obtenerPermisosUsuario();
     return permisos.includes(nombrePermiso);

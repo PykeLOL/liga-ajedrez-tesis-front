@@ -1,0 +1,169 @@
+.card-convocatoria {
+    border: 1px solid var(--border-soft);
+    background-color: var(--bg-card);
+    transition: transform 0.2s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.card-convocatoria:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+    border-color: rgba(255, 255, 255, 0.2);
+}
+
+/* Cabecera de color según la categoría o importancia */
+.convocatoria-header {
+    padding: 1rem 1.25rem;
+    background: linear-gradient(to right, rgba(38, 37, 34, 0.9), rgba(38, 37, 34, 0.4));
+    border-bottom: 1px solid var(--border-soft);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+/* Indicador de Fases (Progress Step) */
+.phase-indicator {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 0.75rem;
+    color: var(--text-secondary);
+    margin-bottom: 1rem;
+}
+
+.phase-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background-color: #4a4845;
+}
+
+.phase-dot.active {
+    background-color: var(--chess-green);
+    box-shadow: 0 0 5px var(--chess-green);
+}
+
+.phase-line {
+    flex-grow: 1;
+    height: 1px;
+    background-color: #4a4845;
+}
+
+/* Roster / Lista de Jugadores (Dentro de la tarjeta o modal) */
+.roster-preview {
+    background-color: rgba(0,0,0,0.2);
+    border-radius: 6px;
+    padding: 10px;
+    border: 1px solid var(--border-soft);
+}
+
+.roster-avatar {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    border: 1px solid var(--border-soft);
+    margin-right: -8px; /* Efecto apilado */
+    object-fit: cover;
+}
+/* TABLA DE MÉRITO (Ranking) */
+.merit-table {
+    font-size: 0.85rem;
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0 4px; /* Espacio entre filas */
+}
+
+.merit-table td {
+    padding: 6px 10px;
+    background-color: rgba(255, 255, 255, 0.03);
+    border: none;
+}
+
+.merit-table tr:first-child td:first-child { border-top-left-radius: 4px; border-bottom-left-radius: 4px; }
+.merit-table tr:first-child td:last-child { border-top-right-radius: 4px; border-bottom-right-radius: 4px; }
+
+/* Filas de Clasificados (Fondo Verde Suave) */
+.row-qualified td {
+    background-color: rgba(129, 182, 76, 0.15) !important;
+    border-top: 1px solid rgba(129, 182, 76, 0.3);
+    border-bottom: 1px solid rgba(129, 182, 76, 0.3);
+    color: #fff;
+}
+.row-qualified td:first-child { border-left: 3px solid var(--chess-green); }
+
+/* Filas Eliminados/No clasificados */
+.row-eliminated td {
+    opacity: 0.6;
+}
+
+/* Badge de posición */
+.rank-badge {
+    width: 24px;
+    height: 24px;
+    background-color: #3d3b38;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    font-size: 0.75rem;
+}
+
+.row-qualified .rank-badge {
+    background-color: var(--chess-green);
+    color: white;
+}
+
+/* --- SOLUCIÓN DE CONTRASTE (NUEVO) --- */
+.convocatoria-details-box {
+    background-color: rgba(0, 0, 0, 0.3) !important; /* Fondo negro translúcido */
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 0.5rem;
+    padding: 1rem;
+    color: #e0e0e0; /* Gris muy claro para lectura fácil */
+}
+
+/* Títulos y textos dentro de la caja oscura */
+.convocatoria-details-box h6 {
+    color: var(--chess-green); /* Títulos en verde */
+}
+
+.convocatoria-details-box small {
+    color: #b0b0b0; /* Subtítulos gris medio */
+}
+
+/* Ajuste de la Tabla para el nuevo fondo */
+.merit-table td {
+    background-color: rgba(255, 255, 255, 0.02); /* Casi transparente */
+    color: #fff;
+}
+
+/* Filas de Clasificados (Fondo Verde Suave) */
+.row-qualified td {
+    background-color: rgba(129, 182, 76, 0.15) !important;
+    border-top: 1px solid rgba(129, 182, 76, 0.3);
+    border-bottom: 1px solid rgba(129, 182, 76, 0.3);
+}
+
+.row-eliminated td {
+    opacity: 0.7; /* Un poco más visibles que antes */
+}
+
+/* Badge de posición */
+.rank-badge {
+    width: 24px;
+    height: 24px;
+    background-color: #4a4845;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    font-size: 0.75rem;
+    color: #fff;
+}
+
+.row-qualified .rank-badge {
+    background-color: var(--chess-green);
+}

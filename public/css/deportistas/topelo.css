@@ -1,0 +1,141 @@
+/* public/css/modulos/ranking.css */
+
+/* Contenedor de la tabla */
+.ranking-container {
+    background-color: var(--bg-card);
+    border-radius: 0.5rem;
+    overflow: hidden; /* Para que los bordes redondeados funcionen en la tabla */
+    border: 1px solid var(--border-soft);
+}
+
+/* Tabla General */
+.table-ranking {
+    width: 100%;
+    border-collapse: collapse;
+    color: white;
+}
+
+.table-ranking thead {
+    background-color: rgba(0, 0, 0, 0.2);
+    border-bottom: 2px solid var(--border-soft);
+}
+
+.table-ranking th {
+    padding: 1rem;
+    text-align: left;
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    color: #bababa;
+    font-weight: 700;
+}
+
+.table-ranking td {
+    padding: 1rem;
+    border-bottom: 1px solid var(--border-soft);
+    vertical-align: middle;
+}
+
+/* Filas interactivas */
+.ranking-row {
+    transition: background-color 0.2s;
+    cursor: pointer;
+}
+
+.ranking-row:hover {
+    background-color: rgba(255, 255, 255, 0.05);
+}
+
+/* Columna de Posición (#) */
+.rank-pos {
+    font-weight: bold;
+    font-size: 1.1rem;
+    color: #bababa;
+    width: 50px;
+    text-align: center;
+}
+
+/* Colores para Top 3 */
+.rank-1 .rank-pos { color: #FFD700; text-shadow: 0 0 10px rgba(255, 215, 0, 0.3); font-size: 1.4rem; } /* Oro */
+.rank-2 .rank-pos { color: #C0C0C0; text-shadow: 0 0 10px rgba(192, 192, 192, 0.3); font-size: 1.3rem; } /* Plata */
+.rank-3 .rank-pos { color: #CD7F32; text-shadow: 0 0 10px rgba(205, 127, 50, 0.3); font-size: 1.2rem; } /* Bronce */
+
+/* Perfil en la tabla */
+.player-cell {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.player-avatar {
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid var(--border-soft);
+}
+
+.player-info {
+    display: flex;
+    flex-direction: column;
+}
+
+.player-name {
+    font-weight: bold;
+    color: white;
+    font-size: 1rem;
+}
+
+.player-title {
+    font-size: 0.75rem;
+    background-color: #b02a2a; /* Rojo vino para títulos */
+    color: white;
+    padding: 1px 6px;
+    border-radius: 4px;
+    margin-right: 5px;
+    font-weight: bold;
+}
+
+.player-club {
+    font-size: 0.8rem;
+    color: var(--chess-green);
+}
+
+/* ELO Destacado */
+.elo-main {
+    font-weight: 800;
+    font-size: 1.1rem;
+    color: white;
+}
+
+/* Paginación Custom Dark */
+.pagination .page-item .page-link {
+    background-color: var(--bg-card);
+    border-color: var(--border-soft);
+    color: #bababa;
+}
+
+.pagination .page-item.active .page-link {
+    background-color: var(--chess-green);
+    border-color: var(--chess-green);
+    color: white;
+}
+
+.pagination .page-item.disabled .page-link {
+    background-color: rgba(255,255,255,0.05);
+    color: #555;
+}
+
+.search-input {
+    background-color: var(--bg-card);
+    border: 1px solid var(--border-soft);
+    color: white;
+    padding: 0.7rem 1rem;
+    border-radius: 2rem; /* Redondo */
+    width: 300px;
+}
+.search-input:focus {
+    background-color: #3d3b38;
+    border-color: var(--chess-green);
+    color: white;
+    outline: none;
+}

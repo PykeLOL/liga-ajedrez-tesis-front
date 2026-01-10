@@ -1,0 +1,120 @@
+/* public/css/modulos/clubes.css */
+
+/* Contenedor de la cuadrícula */
+.clubs-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 1.5rem;
+}
+
+/* Tarjeta del Club */
+.club-card {
+    background-color: var(--bg-card); /* #262421 */
+    border: 1px solid var(--border-soft);
+    border-radius: 0.5rem;
+    overflow: hidden;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+.club-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0,0,0,0.4);
+    border-color: var(--chess-green);
+}
+
+/* Encabezado con Logo */
+.club-header {
+    background: linear-gradient(to bottom, rgba(48, 46, 43, 0.8), var(--bg-card)), 
+                url('/img/pattern-chess.png'); /* Fondo sutil opcional */
+    background-size: cover;
+    padding: 2rem 1rem;
+    text-align: center;
+    position: relative;
+    border-bottom: 1px solid var(--border-soft);
+}
+
+.club-logo {
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+    border-radius: 50%;
+    border: 3px solid var(--chess-green);
+    background-color: #fff; /* Para logos con fondo transparente */
+    padding: 5px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.5);
+}
+
+/* Cuerpo de la tarjeta */
+.club-body {
+    padding: 1.5rem;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.club-title {
+    color: #fff;
+    font-weight: 700;
+    font-size: 1.25rem;
+    margin-bottom: 0.5rem;
+    text-align: center;
+}
+
+.club-president {
+    color: var(--chess-green);
+    font-size: 0.9rem;
+    text-align: center;
+    margin-bottom: 1rem;
+    font-weight: 600;
+}
+
+.club-info-item {
+    display: flex;
+    align-items: start;
+    gap: 10px;
+    margin-bottom: 0.8rem;
+    font-size: 0.9rem;
+    color: #ccc;
+}
+
+.club-info-item i {
+    color: var(--chess-green);
+    margin-top: 3px;
+}
+
+.club-desc {
+    font-size: 0.85rem;
+    color: #999;
+    margin-top: 1rem;
+    display: -webkit-box;
+    -webkit-line-clamp: 3; /* Limita a 3 líneas */
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    font-style: italic;
+}
+
+/* Footer con Botón */
+.club-footer {
+    padding: 1rem 1.5rem;
+    border-top: 1px solid var(--border-soft);
+    background-color: rgba(0,0,0,0.2);
+}
+
+/* Estilo para subir archivos (File Input Custom) */
+.file-upload-box {
+    border: 2px dashed var(--border-soft);
+    border-radius: 8px;
+    padding: 20px;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.3s;
+    background-color: rgba(255,255,255,0.02);
+}
+
+.file-upload-box:hover {
+    border-color: var(--chess-green);
+    background-color: rgba(129, 182, 76, 0.05);
+}
