@@ -1,0 +1,100 @@
+/* public/css/modulos/palmares.css */
+
+/* Reutilizamos base de tarjetas */
+.palmares-card {
+    background-color: var(--bg-card);
+    border: 1px solid var(--border-soft);
+    border-radius: 0.5rem;
+    overflow: hidden;
+}
+
+/* Tabla de Medallería */
+.table-medals {
+    width: 100%;
+    border-collapse: separate; /* Permite espaciado si quisiéramos */
+    border-spacing: 0;
+    color: white;
+}
+
+.table-medals thead th {
+    background-color: rgba(0,0,0,0.2);
+    padding: 1rem;
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    color: #bababa;
+    font-weight: 700;
+    border-bottom: 2px solid var(--border-soft);
+    text-align: center;
+}
+
+.table-medals tbody tr {
+    transition: background-color 0.2s;
+    cursor: pointer;
+}
+
+.table-medals tbody tr:hover {
+    background-color: rgba(255, 255, 255, 0.05);
+}
+
+.table-medals td {
+    padding: 1rem;
+    border-bottom: 1px solid var(--border-soft);
+    vertical-align: middle;
+    text-align: center;
+}
+
+/* Alineación a la izquierda solo para el nombre */
+.table-medals td.text-start {
+    text-align: left;
+}
+
+/* Íconos de Medallas */
+.medal-icon {
+    font-size: 1.2rem;
+    margin-right: 5px;
+    filter: drop-shadow(0 0 5px rgba(255,255,255,0.2));
+}
+
+.gold { color: #FFD700; }
+.silver { color: #C0C0C0; }
+.bronze { color: #CD7F32; }
+
+/* Contadores de medallas */
+.medal-count {
+    font-weight: 700;
+    font-size: 1.1rem;
+    display: inline-block;
+    min-width: 30px;
+}
+
+.count-gold { color: white; text-shadow: 0 0 10px rgba(255, 215, 0, 0.4); font-size: 1.2rem; }
+.count-silver { color: #e0e0e0; }
+.count-bronze { color: #d0d0d0; }
+
+/* Posición (#) */
+.rank-badge {
+    display: inline-block;
+    width: 30px;
+    height: 30px;
+    line-height: 30px;
+    border-radius: 50%;
+    background-color: #3d3b38;
+    color: #bababa;
+    font-weight: bold;
+    font-size: 0.9rem;
+}
+
+/* Top 3 resaltado */
+.top-1 .rank-badge { background-color: #FFD700; color: #000; box-shadow: 0 0 10px #FFD700; }
+.top-2 .rank-badge { background-color: #C0C0C0; color: #000; }
+.top-3 .rank-badge { background-color: #CD7F32; color: #000; }
+
+/* Avatar pequeño */
+.mini-avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-right: 12px;
+    border: 1px solid var(--border-soft);
+}

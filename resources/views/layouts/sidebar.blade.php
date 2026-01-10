@@ -1,56 +1,85 @@
-<!-- Sidebar -->
-<div id="sidebar" class="bg-dark text-white vh-100 position-fixed top-0 start-0 d-flex flex-column shadow" style="width: 220px;">
-    <div class="p-3 border-bottom border-secondary">
-        <h5 class="mb-0 fw-bold text-center">.</h5>
+<div class="border-end bg-dark-chess" id="sidebar-wrapper">
+   <div class="sidebar-heading border-bottom border-secondary">
+        <a href="{{ route('home') }}" class="text-decoration-none d-flex align-items-center justify-content-center gap-3">
+            <img src="{{ asset('img/logo.png') }}" alt="Logo" class="sidebar-logo">
+            <span class="fs-5 fw-bold text-white text-uppercase ls-1" style="line-height: 1;">Liga del Meta</span>
+        </a>
     </div>
-
-    <ul class="nav flex-column mt-3">
-        <li class="nav-item">
-            <a href="{{ route('admin.usuarios') }}"
-               class="nav-link text-white px-3 py-2 d-flex align-items-center gap-2 {{ request()->routeIs('admin.usuarios') ? 'active' : '' }}">
-                <i data-lucide="user-round-cog" class="me-2"></i> <span>Usuarios</span>
-            </a>
-        </li>
-        <li class="nav-item">
-            <a href="{{ route('admin.roles') }}"
-               class="nav-link text-white px-3 py-2 d-flex align-items-center gap-2 {{ request()->routeIs('admin.roles') ? 'active' : '' }}">
-                <i data-lucide="pyramid" class="me-2"></i> <span>Roles</span>
-            </a>
-        </li>
-        <li class="nav-item">
-            <a href="{{ route('admin.permisos') }}"
-               class="nav-link text-white px-3 py-2 d-flex align-items-center gap-2 {{ request()->routeIs('admin.permisos') ? 'active' : '' }}">
-                <i data-lucide="lock-keyhole" class="me-2"></i> <span>Permisos</span>
-            </a>
-        </li>
-        <li class="nav-item">
-            <a href="{{ route('admin.modulos') }}"
-               class="nav-link text-white px-3 py-2 d-flex align-items-center gap-2 {{ request()->routeIs('admin.modulos') ? 'active' : '' }}">
-                <i data-lucide="container" class="me-2"></i> <span>Modulos</span>
-            </a>
-        </li>
-    </ul>
-
-    <div class="mt-auto text-center p-3 small text-muted border-top border-secondary">
-        © {{ date('Y') }} Panel Admin
+    <div class="list-group list-group-flush my-3">
+        <a href="{{ route('home') }}" class="list-group-item list-group-item-action {{ request()->routeIs('home') ? 'active' : '' }}">
+            <span><i class="bi bi-house-door-fill"></i>Inicio</span>
+        </a>
+        @php
+            $eventosActive = request()->routeIs('eventos.*');
+            $entrenoActive = request()->routeIs('entrenamientos.*');
+            $deportistasActive = request()->routeIs('deportistas.*');
+        @endphp
+        <a href="#submenuEventos" 
+           class="list-group-item list-group-item-action {{ $eventosActive ? 'active' : '' }}" 
+           data-bs-toggle="collapse"
+           aria-expanded="{{ $eventosActive ? 'true' : 'false' }}">
+            <span><i class="bi bi-calendar-event-fill"></i>Eventos</span>
+            <i class="bi bi-chevron-down small-icon"></i>
+        </a>
+        <div class="collapse {{ $eventosActive ? 'show' : '' }}" id="submenuEventos">
+            <div class="bg-dark-subtle ps-2"> 
+                <a href="{{ route('eventos.torneos') }}" class="list-group-item list-group-item-action py-2 {{ request()->routeIs('eventos.torneos') ? 'text-chess-green' : '' }}">
+                    <i class="bi bi-trophy-fill"></i> Torneos
+                </a>
+                <a href="{{ route('eventos.reuniones') }}" class="list-group-item list-group-item-action py-2 {{ request()->routeIs('eventos.reuniones') ? 'text-chess-green' : '' }}">
+                    <i class="bi bi-people-fill"></i> Reuniones
+                </a>
+                <a href="{{ route('eventos.convocatorias') }}" class="list-group-item list-group-item-action py-2 {{ request()->routeIs('eventos.convocatorias') ? 'text-chess-green' : '' }}">
+                    <i class="bi bi-megaphone-fill"></i> Convocatorias
+                </a>
+            </div>
+        </div>
+        <a href="#submenuEntreno" 
+           class="list-group-item list-group-item-action {{ $entrenoActive ? 'active' : '' }}" 
+           data-bs-toggle="collapse"
+           aria-expanded="{{ $entrenoActive ? 'true' : 'false' }}">
+            <span><i class="bi bi-mortarboard-fill"></i>Entrenamiento</span>
+            <i class="bi bi-chevron-down small-icon"></i>
+        </a>
+        <div class="collapse {{ $entrenoActive ? 'show' : '' }}" id="submenuEntreno">
+            <div class="bg-dark-subtle ps-2">
+                <a href="{{ route('entrenamientos.horarios') }}" class="list-group-item list-group-item-action py-2 {{ request()->routeIs('entrenamientos.horarios') ? 'text-chess-green' : '' }}">
+                    <i class="bi bi-clock-fill"></i> Horarios
+                </a>
+                <a href="{{ route('entrenamientos.foro') }}" class="list-group-item list-group-item-action py-2 {{ request()->routeIs('entrenamientos.foro') ? 'text-chess-green' : '' }}">
+                    <i class="bi bi-chat-dots-fill"></i> Foro
+                </a>
+            </div>
+        </div>
+        <a href="#submenuDeportistas" 
+           class="list-group-item list-group-item-action {{ $deportistasActive ? 'active' : '' }}" 
+           data-bs-toggle="collapse"
+           aria-expanded="{{ $deportistasActive ? 'true' : 'false' }}">
+            <span><i class="bi bi-person-lines-fill"></i>Deportistas</span>
+            <i class="bi bi-chevron-down small-icon"></i>
+        </a>
+        <div class="collapse {{ $deportistasActive ? 'show' : '' }}" id="submenuDeportistas">
+            <div class="bg-dark-subtle ps-2">
+                <a href="{{ route('deportistas.mielo') }}" class="list-group-item list-group-item-action py-2 {{ request()->routeIs('deportistas.mielo') ? 'text-chess-green' : '' }}">
+                    <i class="bi bi-bar-chart-line-fill"></i> Mi ELO
+                </a>
+                <a href="{{ route('deportistas.topelo') }}" class="list-group-item list-group-item-action py-2 {{ request()->routeIs('deportistas.topelo') ? 'text-chess-green' : '' }}">
+                    <i class="bi bi-graph-up-arrow"></i> Ranking Elo
+                </a>
+                <a href="{{ route('deportistas.palmares') }}" class="list-group-item list-group-item-action py-2 {{ request()->routeIs('deportistas.palmares') ? 'text-chess-green' : '' }}">
+                    <i class="bi bi-award-fill"></i> Palmarés
+                </a>
+            </div>
+        </div>
+        <a href="{{ route('clubes.index') }}" class="list-group-item list-group-item-action {{ request()->routeIs('clubes.index') ? 'active' : '' }}">
+            <span><i class="bi bi-shield-shaded"></i>Clubes</span>
+        </a>
+        @if(auth()->check() && auth()->user()->role_id === 1) 
+            <div class="mt-auto border-top border-secondary p-3">
+                <a href="{{ route('admin.index') }}" class="btn btn-chess-secondary w-100 btn-sm">
+                    <i class="bi bi-speedometer2"></i> Ir al Panel Admin
+                </a>
+            </div>
+        @endif
     </div>
-</div>
-
-<!-- Iconos Bootstrap -->
-<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
-
-<style>
-    /* Sidebar activo */
-    #sidebar .nav-link:hover,
-    #sidebar .nav-link.active {
-        background-color: #0d6efd;
-        color: #fff !important;
-        border-radius: 0.375rem;
-    }
-
-    /* Ajustar margen del contenido principal */
-    .content-wrapper {
-        margin-left: 220px;
-        padding: 20px;
-    }
-</style>
+</div> 

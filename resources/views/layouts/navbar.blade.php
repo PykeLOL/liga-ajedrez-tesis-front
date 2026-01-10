@@ -1,85 +1,52 @@
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark px-3"
-     style="padding-left: 240px; z-index: 1030;">
-    <a class="navbar-brand fw-bold" href="{{ route('home') }}">
-        <i data-lucide="crown" class="me-2"></i> <span>Liga de Ajedrez del Meta</span>
-    </a>
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark-chess py-3 px-4 border-bottom border-secondary shadow-sm sticky-top" style="z-index: 1020;">
+    <div class="container-fluid">
+        
+    <div class="d-flex align-items-center">
+        <button
+            id="menu-toggle"
+            type="button"
+            class="btn btn-link p-0 border-0 text-white me-3"
+            aria-label="Abrir/cerrar menú"
+            aria-controls="sidebar-wrapper">
+            <i class="bi bi-list fs-3"></i>
+        </button>
 
-    <div class="mx-auto"></div>
-
-    <div class="d-flex align-items-center text-white">
-        <a href="{{ route('perfil') }}" id="userName"
-           class="me-3 fw-semibold text-decoration-none text-white">
-            Usuario
-        </a>
-        <button id="logoutBtn" class="btn btn-outline-light btn-sm">Cerrar Sesión</button>
+        <h2 class="fs-5 m-0 fw-bold text-white">
+         @yield('header_title', 'Liga de Ajedrez')
+        </h2>
     </div>
-</nav>
 
-<script>
-    document.addEventListener('DOMContentLoaded', function() {
-        const logoutBtn = document.getElementById('logoutBtn');
-        const userNameEl = document.getElementById('userName');
-        const userData = localStorage.getItem('user_data');
-        if (userData) {
-            try {
-                const user = JSON.parse(userData);
-                userNameEl.textContent = user.nombre || 'Usuario';
-            } catch (error) {
-                console.error('Error al leer user_data:', error);
-                userNameEl.textContent = 'Usuario';
-            }
 
-            // Acción normal de logout
-            logoutBtn.addEventListener('click', async () => {
-                const result = await Swal.fire({
-                    title: '¿Cerrar sesión?',
-                    text: 'Tu sesión actual se cerrará.',
-                    icon: 'warning',
-                    showCancelButton: true,
-                    confirmButtonText: 'Sí, salir',
-                    cancelButtonText: 'Cancelar',
-                });
-                if (result.isConfirmed) {
-                    localStorage.clear();
-                    $.ajax({
-                        url: "{{ env('API_URL') }}/logout",
-                        type: "POST",
-                        xhrFields: { withCredentials: true }, // envía cookies
-                        success: function(resp) {
-                            localStorage.clear();
-                            Swal.fire({
-                                icon: 'success',
-                                title: 'Sesión cerrada',
-                                timer: 1000,
-                                showConfirmButton: false
-                            }).then(() => {
-                                window.location.href = '/login';
-                            });
-                        },
-                        error: function(xhr) {
-                            Swal.fire({
-                                icon: 'error',
-                                title: 'Error',
-                                text: 'No se pudo cerrar la sesión. Intenta de nuevo.'
-                            });
-                        }
-                    });
-                }
-            });
+        <div class="ms-auto d-flex align-items-center gap-3">
+            @guest
+                <a href="{{ route('login') }}" class="btn btn-chess px-4 py-2">
+                    <i class="bi bi-box-arrow-in-right"></i> Ingresar
+                </a>
 
-        } else {
-            userNameEl.textContent = 'Invitado';
-            userNameEl.removeAttribute('href');
-            userNameEl.style.pointerEvents = 'none';
-            userNameEl.style.opacity = '0.6';
+                <a href="{{ route('registrarse') }}" class="btn btn-chess-secondary px-4 py-2">
+                    <i class="bi bi-person-plus-fill"></i> Registrarse
+                </a>
+            @else
+                <div class="dropdown">
+                    <a href="#" class="d-flex align-items-center text-white text-decoration-none dropdown-toggle" id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
+                        <img src="https://ui-avatars.com/api/?name={{ Auth::user()->name }}&background=81b64c&color=fff" alt="User" width="32" height="32" class="rounded-circle me-2">
+                        <span class="fw-semibold d-none d-sm-inline">{{ Auth::user()->name }}</span>
+                    </a>
+                    <ul class="dropdown-menu dropdown-menu-dark dropdown-menu-end shadow" aria-labelledby="dropdownUser1">
+                        <li><a class="dropdown-item" href="#">Mi Perfil</a></li>
+                        <li><hr class="dropdown-divider"></li>
+                        <li>
+                            <form action="{{ route('logout') }}" method="POST">
+                                @csrf
+                                <button type="submit" class="dropdown-item text-danger">
+                                    <i class="bi bi-box-arrow-right me-2"></i>Cerrar Sesión
+                                </button>
+                            </form>
+                        </li>
+                    </ul>
+                </div>
+            @endguest
+        </div>
 
-            logoutBtn.textContent = 'Iniciar Sesión';
-            logoutBtn.classList.remove('btn-outline-light');
-            logoutBtn.classList.add('btn-success');
-
-            logoutBtn.addEventListener('click', () => {
-                window.location.href = loginUrl;
-            });
-        }
-    });
-</script>
+    </div>
+</nav> 

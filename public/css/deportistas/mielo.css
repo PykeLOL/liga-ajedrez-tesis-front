@@ -1,0 +1,71 @@
+.elo-card {
+    background-color: var(--bg-card);
+    border: 1px solid var(--border-soft);
+    border-radius: 0.5rem;
+    position: relative;
+    overflow: hidden;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.elo-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0,0,0,0.4);
+    border-color: var(--chess-green);
+}
+
+.elo-icon-bg {
+    position: absolute;
+    top: 0;
+    right: 0;
+    padding: 1rem;
+    opacity: 0.15;
+    font-size: 4rem;
+    line-height: 1;
+    pointer-events: none;
+    color: white;
+}
+
+/* Barra de progreso oscura */
+.progress-dark {
+    background-color: #3d3b38;
+    height: 4px;
+    border-radius: 2px;
+}
+
+/* Perfil */
+.profile-img-container {
+    position: relative;
+    display: inline-block;
+    margin-bottom: 1rem;
+}
+
+.profile-img {
+    width: 120px; 
+    height: 120px; 
+    object-fit: cover;
+    border-radius: 50%;
+    border: 3px solid var(--chess-green);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.5);
+}
+
+.badge-title {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    font-size: 0.8rem;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.5);
+}
+
+/* Gráfico */
+.chart-container {
+    position: relative;
+    height: 400px;
+    width: 100%;
+}
+
+/* Botones de filtro del gráfico */
+.btn-check:checked + .btn-outline-secondary {
+    background-color: var(--chess-green);
+    border-color: var(--chess-green);
+    color: white;
+}
