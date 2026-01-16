@@ -321,3 +321,91 @@ input:-webkit-autofill:active{
     -webkit-box-shadow: 0 0 0 30px #3d3b38 inset !important;
     -webkit-text-fill-color: white !important;
 }
+
+
+/* Capa oscura para que el texto blanco resalte sobre la imagen */
+.bg-overlay {
+    background: linear-gradient(90deg, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0.6) 100%);
+    z-index: 0;
+}
+
+/* Colores de texto específicos */
+.text-chess-green {
+    color: var(--chess-green) !important;
+}
+
+/* --- TARJETAS SOBRE NOSOTROS --- */
+.border-chess {
+    border: 1px solid rgba(255, 255, 255, 0.1) !important;
+    background-color: var(--chess-bg-dark) !important; /* Usa tu variable global */
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.hover-effect:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(129, 182, 76, 0.15); /* Sombra verde suave */
+    border-color: var(--chess-green) !important;
+}
+
+.icon-box {
+    width: 80px;
+    height: 80px;
+    background-color: rgba(255, 255, 255, 0.05);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+
+    /* Hero Section Background */
+    .hero-section {
+        background-image: url('https://images.unsplash.com/photo-1586165368502-1bad197a6461?q=80&w=2658&auto=format&fit=crop');
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+        min-height: 500px;
+        display: flex;
+        align-items: center;
+    }
+    .bg-overlay {
+        background: linear-gradient(90deg, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0.6) 100%);
+        z-index: 0;
+    }
+    
+    /* Botón 3D Verde */
+    .btn-profundidad {
+        background-color: #81b64c !important;
+        color: white !important;
+        border: none !important;
+        border-radius: 10px;
+        box-shadow: 0 6px 0 #5e8535, 0 10px 10px rgba(0,0,0,0.2) !important;
+        transition: all 0.2s ease;
+        transform: translateY(0);
+    }
+    .btn-profundidad:hover {
+        background-color: #95bb4a !important;
+        transform: translateY(-4px);
+        box-shadow: 0 10px 0 #5e8535, 0 20px 25px rgba(0,0,0,0.3) !important;
+    }
+    .btn-profundidad:active {
+        transform: translateY(4px);
+        box-shadow: 0 2px 0 #5e8535, 0 5px 5px rgba(0,0,0,0.2) !important;
+    }
+
+    /* List Group (Top ELO) Hover Fix */
+    .list-group-item-action { transition: all 0.2s ease; }
+    .list-group-item-action:hover {
+        background-color: #383531 !important;
+        transform: translateX(5px);
+        border-color: rgba(255, 255, 255, 0.1) !important;
+    }
+    
+    /* Clubes Hover */
+    .club-card { transition: transform 0.2s ease, border-color 0.2s ease; }
+    .club-card:hover {
+        transform: translateY(-5px);
+        border-color: #81b64c !important;
+        background-color: #2a2a2a !important;
+    }
+

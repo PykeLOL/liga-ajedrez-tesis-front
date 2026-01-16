@@ -3,7 +3,7 @@
 @section('title', 'Módulos')
 
 @section('styles')
-    <link rel="stylesheet" href="{{ asset('css/admin/roles.css') }}"> 
+    <link rel="stylesheet" href="{{ asset('css/admin/app.css') }}"> 
 @endsection
 
 @section('content') {{-- <-- Esta línea es clave --}}

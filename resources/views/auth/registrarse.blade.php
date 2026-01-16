@@ -1,69 +1,98 @@
-@extends('layouts.auth')
-
+@extends('layouts.auth') 
 @section('title', 'Registrarse')
 
-@section('content')
-<div class="container text-center">
-    <h1 class="fw-bold mb-4" style="cursor: pointer;">
-        <a href="{{ route('home') }}" class="text-decoration-none text-light">
-            Liga de Ajedrez del Meta
-        </a>
-    </h1>
-    <div class="d-flex justify-content-center">
-        <div class="login-card bg-white shadow rounded-4 p-4" style="max-width: 450px; width: 100%;">
-        <h3 class="text-center mb-4 fw-bold">Crear cuenta</h3>
-        <form id="registerForm" enctype="multipart/form-data">
-            <div class="row">
-                <div class="col-md-6 mb-3">
-                    <label for="nombre" class="form-label">Nombre</label>
-                    <input type="text" class="form-control required" id="nombre" name="nombre">
-                </div>
-                <div class="col-md-6 mb-3">
-                    <label for="apellido" class="form-label">Apellido</label>
-                    <input type="text" class="form-control required" id="apellido" name="apellido">
-                </div>
-            </div>
-            <div class="mb-3">
-                <label for="documento" class="form-label">Documento</label>
-                <input type="text" class="form-control required" id="documento" name="documento">
-            </div>
-            <div class="mb-3">
-                <label for="email" class="form-label">Correo electrónico</label>
-                <input type="email" class="form-control required" id="email" name="email">
-            </div>
-            <div class="mb-3">
-                <label for="telefono" class="form-label">Teléfono</label>
-                <input type="text" class="form-control required" id="telefono" name="telefono">
-            </div>
-            <div class="mb-3">
-                <label for="contraseña" class="form-label">Contraseña</label>
-                <input type="password" class="form-control required" id="contraseña" name="contraseña">
-            </div>
-            <div class="mb-3">
-                <label for="confirmar_contraseña" class="form-label">Confirmar Contraseña</label>
-                <input type="password" class="form-control required" id="confirmar_contraseña" name="confirmar_contraseña">
-            </div>
-            <div class="mb-3">
-                <label for="imagen" class="form-label">Foto de perfil (opcional)</label>
-                <input type="file" class="form-control" id="imagen" name="imagen" accept="image/*">
-                <div class="mt-3 text-center">
-                    <img id="previewImagen" src="#" alt="Vista previa" class="img-thumbnail d-none" width="120" style="border-radius: 50%;">
-                    <p id="previewTexto" class="text-muted small mt-2 d-none">Vista previa de tu foto</p>
-                </div>
-            </div>
+@section('styles')
+    <link rel="stylesheet" href="{{ asset('css/auth/registrarse.css') }}">
+@endsection
 
-            <button type="submit" class="btn btn-success w-100">Registrarse</button>
-            <div class="text-center mt-3">
-                <a href="{{ route('login') }}">¿Ya tienes cuenta? Inicia sesión</a>
+@section('content')
+<div class="auth-wrapper">
+    
+    {{-- LADO IZQUIERDO: FORMULARIO --}}
+    <div class="auth-form-side shadow-lg">
+        <div class="form-content-wrapper">
+            
+            <a href="{{ route('home') }}" class="text-decoration-none d-block mb-3">
+                <img src="{{ asset('img/logo.png') }}" alt="Logo" class="auth-logo">
+            </a>
+            
+            <h2 class="fw-bold text-white mb-1">Crear cuenta</h2>
+            <p class="text-muted mb-4 small">Únete a la comunidad de ajedrez más grande del Meta.</p>
+
+            {{-- TU FORMULARIO ORIGINAL (Con tus IDs y Names exactos) --}}
+            <form id="registerForm" enctype="multipart/form-data">
+                <input type="hidden" value="1" id="tipo_identificacion_id" name="tipo_identificacion_id">
+                
+                <div class="row g-2">
+                    <div class="col-md-6 mb-3 text-start">
+                        <label for="nombre" class="form-label">Nombre</label>
+                        <input type="text" class="form-control required" id="nombre" name="nombre">
+                    </div>
+                    <div class="col-md-6 mb-3 text-start">
+                        <label for="apellido" class="form-label">Apellido</label>
+                        <input type="text" class="form-control required" id="apellido" name="apellido">
+                    </div>
+                </div>
+
+                <div class="mb-3 text-start">
+                    <label for="numero_identificacion" class="form-label">Documento</label>
+                    <input type="text" class="form-control required" id="numero_identificacion" name="numero_identificacion">
+                </div>
+
+                <div class="mb-3 text-start">
+                    <label for="email" class="form-label">Correo electrónico</label>
+                    <input type="email" class="form-control required" id="email" name="email">
+                </div>
+
+                <div class="mb-3 text-start">
+                    {{-- Corregido: ID 'telefono' en lugar de 'celular' --}}
+                    <label for="telefono" class="form-label">Teléfono</label>
+                    <input type="text" class="form-control required" id="telefono" name="telefono">
+                </div>
+
+                <div class="mb-3 text-start">
+                    {{-- Corregido: ID 'contraseña' en lugar de 'password' --}}
+                    <label for="contraseña" class="form-label">Contraseña</label>
+                    <input type="password" class="form-control required" id="contraseña" name="contraseña">
+                </div>
+
+                <div class="mb-3 text-start">
+                    {{-- Agregado: Confirmar contraseña --}}
+                    <label for="confirmar_contraseña" class="form-label">Confirmar Contraseña</label>
+                    <input type="password" class="form-control required" id="confirmar_contraseña" name="confirmar_contraseña">
+                </div>
+
+                <div class="mb-4 text-start">
+                    <label for="imagen" class="form-label">Foto de perfil (opcional)</label>
+                    <input type="file" class="form-control" id="imagen" name="imagen" accept="image/*">
+                    
+                    {{-- Preview de imagen original --}}
+                    <div class="mt-3 text-center">
+                        <img id="previewImagen" src="#" alt="Vista previa" class="d-none" style="width: 100px; height: 100px; object-fit: cover; border-radius: 50%; border: 2px solid #81b64c; margin: 0 auto;">
+                        <p id="previewTexto" class="text-muted small mt-2 d-none">Vista previa de tu foto</p>
+                    </div>
+                </div>
+
+                <button type="submit" class="btn btn-primary w-100 mb-3">Registrarse</button>
+            </form>
+
+            <div class="text-center w-100 text-muted small pb-4">
+                ¿Ya tienes cuenta? <a href="{{ route('login') }}" class="text-decoration-none fw-bold" style="color: #81b64c;">Inicia sesión</a>
             </div>
-        </form>
+        </div>
+    </div>
+    
+    {{-- LADO DERECHO: IMAGEN --}}
+    <div class="auth-image-side">
+        <div class="position-absolute bottom-0 end-0 p-5 text-white text-end z-1">
+            <h3 class="fw-bold">Compite con los mejores</h3>
+            <p class="opacity-75">Torneos, rankings y comunidad en un solo lugar.</p>
         </div>
     </div>
 </div>
-@endsection
-
+@endsection 
 @push('scripts')
-<script>
+<script> 
 $(document).ready(function() {
     $('#registerForm').on('submit', function(e) {
         e.preventDefault();
@@ -157,4 +186,4 @@ $(document).ready(function() {
     });
 });
 </script>
-@endpush
+@endpush 

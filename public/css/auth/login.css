@@ -1,0 +1,88 @@
+/* public/css/auth/login.css */
+
+/* Contenedor Principal que ocupa toda la pantalla */
+.auth-wrapper {
+    min-height: 100vh;
+    display: flex;
+    background-color: var(--bg-main, #302e2b); /* Usa variable o color por defecto */
+    overflow: hidden;
+}
+
+/* LADO IZQUIERDO: El Formulario */
+.auth-form-side {
+    width: 100%;
+    max-width: 500px; /* Ancho fijo elegante */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 3rem;
+    background-color: var(--bg-sidebar, #262522);
+    position: relative;
+    z-index: 2;
+    border-right: 1px solid rgba(255,255,255,0.1);
+}
+
+/* LADO DERECHO: La Imagen */
+.auth-image-side {
+    flex-grow: 1;
+    /* Imagen de ajedrez de alta calidad */
+    background-image: url('https://images.unsplash.com/photo-1586165368502-1bad197a6461?q=80&w=2600&auto=format&fit=crop'); 
+    background-size: cover;
+    background-position: center;
+    position: relative;
+}
+
+/* Capa oscura sobre la imagen para que el texto resalte */
+.auth-image-side::before {
+    content: "";
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: linear-gradient(to right, #262522, rgba(48, 46, 43, 0.4));
+}
+
+/* Textos y Logo */
+.auth-logo { width: 60px; margin-bottom: 1.5rem; filter: invert(1); }
+h1 { color: white; font-weight: 800; letter-spacing: -0.5px; }
+p { color: #bababa; }
+
+/* REGLAS PARA EL FORMULARIO (Sin romper la lógica) */
+/* Los inputs mantienen su funcionamiento pero se ven mejor */
+.form-control {
+    background-color: #3d3b38;
+    border: 1px solid rgba(255,255,255,0.1);
+    color: white;
+    padding: 0.8rem 1rem;
+    font-size: 1rem;
+}
+
+.form-control:focus {
+    background-color: #454340;
+    border-color: #81b64c; /* Verde Chess */
+    color: white;
+    box-shadow: 0 0 0 0.25rem rgba(129, 182, 76, 0.25);
+}
+
+.form-label {
+    color: #bababa; 
+    font-weight: 600; 
+    margin-bottom: 0.5rem;
+}
+
+/* Botón personalizado */
+.btn-primary {
+    background-color: #81b64c;
+    border: none;
+    padding: 0.8rem;
+    font-weight: 700;
+    transition: transform 0.2s;
+}
+.btn-primary:hover {
+    background-color: #719f41;
+    transform: translateY(-2px);
+}
+
+/* Responsivo: En celular ocultamos la imagen */
+@media (max-width: 768px) {
+    .auth-image-side { display: none; }
+    .auth-form-side { max-width: 100%; padding: 1.5rem; }
+}
