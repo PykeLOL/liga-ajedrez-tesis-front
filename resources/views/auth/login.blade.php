@@ -1,31 +1,51 @@
 @extends('layouts.auth')
+@section('title', 'Iniciar Sesión')
 
-@section('title', 'Login')
+@section('styles')
+    <link rel="stylesheet" href="{{ asset('css/auth/login.css') }}">
+@endsection
 
 @section('content')
-<div class="text-center">
-    <h1 class="fw-bold mb-4" style="cursor: pointer;">
-        <a href="{{ route('home') }}" class="text-decoration-none text-light">
-            Liga de Ajedrez del Meta
-        </a>
-    </h1>
+<div class="auth-wrapper">
+    
+    {{-- LADO IZQUIERDO: FORMULARIO --}}
+    <div class="auth-form-side shadow-lg">
+        <div class="d-flex flex-column align-items-start w-100">
+            
+            <a href="{{ route('home') }}" class="text-decoration-none mb-4">
+                <img src="{{ asset('img/logo.png') }}" alt="Logo" class="auth-logo">
+            </a>
+            
+            <h1 class="mb-1 text-white fw-bold">¡Bienvenido!</h1>
+            <p class="mb-4 text-muted">Ingresa tus credenciales para continuar.</p>
 
-    <div class="login-card bg-white shadow rounded-4 p-4 mx-auto">
-        <h3 class="text-center mb-4 fw-bold text-dark">Iniciar Sesión</h3>
-        <form id="loginForm">
-            <div class="mb-3 text-start">
-                <label for="email" class="form-label">Correo electrónico</label>
-                <input type="email" class="form-control" id="email" required placeholder="Ej. usuario@correo.com">
-            </div>
-            <div class="mb-3 text-start">
-                <label for="password" class="form-label">Contraseña</label>
-                <input type="password" class="form-control" id="password" required placeholder="••••••••">
-            </div>
+            {{-- TU FORMULARIO ORIGINAL (Con clases de estilo w-100) --}}
+            <form id="loginForm" class="w-100">
+                <div class="mb-3 text-start">
+                    <label for="email" class="form-label">Correo electrónico</label>
+                    <input type="email" class="form-control" id="email" required placeholder="Ej. usuario@correo.com">
+                </div>
+                <div class="mb-3 text-start">
+                    <label for="password" class="form-label">Contraseña</label>
+                    <input type="password" class="form-control" id="password" required placeholder="••••••••">
+                </div>
 
-            <button type="submit" class="btn btn-primary w-100">Ingresar</button>
-        </form>
-        <div class="text-center mt-3">
-            <a href="{{ route('registrarse') }}">¿No tienes cuenta? Regístrate</a>
+                <button type="submit" class="btn btn-primary w-100">Ingresar</button>
+            </form>
+
+            <div class="text-center w-100 mt-4">
+                <a href="{{ route('registrarse') }}" class="text-decoration-none" style="color: #81b64c;">
+                    ¿No tienes cuenta? <span class="fw-bold">Regístrate gratis</span>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    {{-- LADO DERECHO: IMAGEN --}}
+    <div class="auth-image-side">
+        <div class="position-absolute bottom-0 end-0 p-5 text-white text-end z-1">
+            <h2 class="display-6 fw-bold">"El ajedrez es la vida en miniatura."</h2>
+            <p class="opacity-75 fs-5">- Gary Kasparov</p>
         </div>
     </div>
 </div>

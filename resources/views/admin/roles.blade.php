@@ -1,7 +1,7 @@
 @extends('layouts.admin.app')
 @section('title', 'Roles')
 @section('styles')
-    <link rel="stylesheet" href="{{ asset('css/admin/roles.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/admin/app.css') }}">
 @endsection
 @section('content')
 <div class="d-flex justify-content-between align-items-center mb-4 border-bottom pb-2">

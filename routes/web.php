@@ -10,6 +10,7 @@ use App\Http\Controllers\EventosController;
 use App\Http\Controllers\EntrenamientoController;
 use App\Http\Controllers\DeportistasController;
 use App\Http\Controllers\ClubesController;
+use App\Http\Controllers\NoticiasController;
 
 // --- Autenticación ---
 Route::get('/login', [LoginController::class, 'index'])->name('login');
@@ -18,6 +19,7 @@ Route::get('/registrarse', [LoginController::class, 'registarse'])->name('regist
 // --- Página Principal y Perfil ---
 Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('/perfil', [HomeController::class, 'perfil'])->name('perfil');
+Route::get('/welcome', [HomeController::class, 'welcome'])->name('welcome');
 
 // --- MÓDULO: EVENTOS ---
 Route::prefix('eventos')->name('eventos.')->group(function () {
@@ -45,6 +47,9 @@ Route::prefix('deportistas')->name('deportistas.')->group(function () {
 
 // --- MÓDULO: CLUBES ---
 Route::get('/clubes', [ClubesController::class, 'index'])->name('clubes.index');
+
+// --- MÓDULO: Noticias ---
+Route::get('/noticias', [NoticiasController::class, 'index'])->name('noticias.index');
 
 
 // --- ADMINISTRACIÓN (Protegida) ---

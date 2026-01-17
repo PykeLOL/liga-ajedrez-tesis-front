@@ -2,3 +2,444 @@
     text-align: center !important;
     vertical-align: middle !important;
 }
+/* public/css/admin/app.css */
+
+/* =========================================
+   VARIABLES: PALETA CHESS.COM DARK
+   ========================================= */
+:root {
+    --chess-bg-dark: #262421;      /* Fondo principal tarjetas/modales */
+    --chess-bg-input: #1e1e1e;     /* Fondo inputs/selects */
+    --chess-green: #81b64c;        /* Color Principal (Acción/Éxito) */
+    --chess-green-hover: #95bb4a;  /* Hover del verde */
+    --chess-cyan: #3dc0d1;         /* Color Info/Permisos */
+    --chess-red: #c23616;          /* Color Peligro/Eliminar */
+    --text-muted: #bababa;         /* Texto secundario */
+    --border-color: rgba(255, 255, 255, 0.1); 
+}
+
+/* Configuración Base */
+body {
+    background-color: var(--bg-body);
+    color: var(--text-main);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
+    overflow-x: hidden; /* Evitar scroll horizontal */
+}
+
+/* =========================================
+   DISEÑO DEL SIDEBAR
+   ========================================= */
+.sidebar-chess {
+    background-color: var(--bg-sidebar);
+    width: var(--sidebar-width);
+    height: 100vh;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1040;
+    border-right: 1px solid var(--border-color);
+    display: flex;
+    flex-direction: column;
+    padding-top: 0; /* El logo dará el espacio */
+}
+
+/* Header del Sidebar (Logo) */
+.sidebar-header {
+    height: 70px; /* Altura fija para alinear luego con Navbar */
+    display: flex;
+    align-items: center;
+    padding: 0 1.5rem;
+    border-bottom: 1px solid var(--border-color);
+}
+
+/* Asegurar que el logo del sidebar no tenga subrayado y sea verde */
+.sidebar-brand {
+    font-weight: 800;
+    color: var(--chess-green); /* Color verde */
+    font-size: 1.1rem;
+    letter-spacing: 0.5px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    text-decoration: none; /* Quitar subrayado */
+}
+
+.sidebar-brand:hover {
+    color: var(--chess-green-hover);
+}
+
+/* Enlaces del Menú */
+.nav-chess {
+    list-style: none;
+    padding: 1rem 0.8rem;
+    margin: 0;
+    width: 100%;
+}
+
+.nav-item-chess {
+    margin-bottom: 4px;
+    /* Mantenemos tu lógica de display:none inline en el HTML */
+}
+
+.nav-link-chess {
+    display: flex;
+    align-items: center;
+    padding: 0.8rem 1rem;
+    color: var(--text-muted);
+    text-decoration: none;
+    border-radius: 6px;
+    transition: all 0.2s ease;
+    font-weight: 600;
+    font-size: 0.95rem;
+}
+
+/* Efecto Hover (Gris suave) */
+.nav-link-chess:hover {
+    background-color: var(--bg-hover);
+    color: var(--text-main);
+    transform: translateX(4px); /* Pequeño desplazamiento a la derecha */
+}
+
+/* Estado Activo (Verde Chess) */
+.nav-link-chess.active {
+    background-color: var(--chess-green);
+    color: #ffffff;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.2);
+}
+
+.nav-link-chess i {
+    width: 20px;
+    margin-right: 12px;
+    stroke-width: 2.5px; /* Iconos un poco más gruesos */
+}
+
+/* Footer del Sidebar */
+.sidebar-footer {
+    margin-top: auto;
+    padding: 1.5rem;
+    border-top: 1px solid var(--border-color);
+    text-align: center;
+    font-size: 0.8rem;
+    color: var(--text-muted);
+}
+/* ... (MANTÉN TODO LO QUE YA TENÍAS ARRIBA) ... */
+
+/* =========================================
+   NAVBAR & HEADER (NUEVO)
+   ========================================= */
+.navbar-chess {
+    height: 70px;
+    background-color: var(--chess-bg-input); 
+    border-bottom: 1px solid var(--border-color);
+    position: fixed;
+    top: 0;
+    right: 0;
+    width: calc(100% - 215px);
+    z-index: 1030;
+    transition: width 0.3s ease;
+}
+
+.btn-icon-chess {
+    background: transparent;
+    border: none;
+    color: var(--text-muted); /* Esta variable sí existe en app.css */
+    padding: 8px;
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.2s;
+    text-decoration: none;
+}
+
+.btn-icon-chess:hover {
+    background-color: rgba(255, 255, 255, 0.05); /* Ajuste manual para el hover */
+    color: var(--chess-green);
+}
+
+.avatar-circle {
+    width: 36px;
+    height: 36px;
+    background-color: var(--chess-bg-input); /* CAMBIO: Usamos la variable de inputs */
+    color: var(--chess-green);
+    border: 1px solid var(--border-color);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+}
+
+.icon-sm { width: 16px; height: 16px; }
+
+/* Estilos de SweetAlert Dark Mode (Opcional, para que combine) */
+div:where(.swal2-container) div:where(.swal2-popup) {
+    background: #262421 !important;
+    color: #fff !important;
+}
+
+.user-profile-link:hover .avatar-circle {
+    background-color: var(--chess-green);
+    color: white;
+    border-color: var(--chess-green);
+}
+
+/* Dropdown Menu Items */
+.dropdown-item {
+    color: var(--text-muted);
+    font-size: 0.9rem;
+    transition: all 0.2s;
+}
+.dropdown-item:hover {
+    background-color: var(--bg-hover);
+    color: white;
+}
+.dropdown-item.text-danger:hover {
+    background-color: rgba(220, 53, 69, 0.15); /* Rojo suave al hover */
+    color: #ff6b6b !important;
+}
+
+.icon-sm {
+    width: 16px; 
+    height: 16px;
+}
+
+/* =========================================
+   CLASE PARA COLAPSAR SIDEBAR (Lógica Futura)
+   ========================================= */
+/* Cuando el body tenga la clase 'sidebar-collapsed' */
+body.sidebar-collapsed .sidebar-chess {
+    transform: translateX(-100%); /* Ocultar sidebar */
+}
+body.sidebar-collapsed .navbar-chess {
+    width: 100%; /* Navbar ocupa todo el ancho */
+}
+body.sidebar-collapsed .content-wrapper {
+    margin-left: 0 !important; /* Contenido ocupa todo */
+}
+
+/* ==========================================================================
+   SISTEMA DE DISEÑO GLOBAL "DARK CHESS" - APP.CSS
+   ========================================================================== */
+/* =========================================
+   0. CORRECCIÓN DE LAYOUT (BODY Y NAVBAR)
+   ========================================= */
+body {
+    padding-top: 80px !important; /* Espacio para que el navbar no tape contenido */
+    background-color: #1b1a19; /* Fondo de la página */
+    color: #ffffff;
+}
+
+
+/* =========================================
+   1. UTILIDADES Y TEXTOS GLOBALES
+   ========================================= */
+.title-principal, h1, h2, h3 { color: #ffffff !important; }
+.title-principal i, h1 i, h2 i, h3 i { color: var(--chess-green) !important; }
+
+/* Sobrescribir clases Bootstrap */
+.text-primary { color: var(--chess-green) !important; }
+/* Esta es la línea que hacía transparente al navbar, pero la necesitamos para los modales */
+.bg-white { background-color: transparent !important; } 
+.bg-light { background-color: var(--chess-bg-input) !important; }
+.text-dark { color: #ffffff !important; } 
+.border-primary { border-color: var(--chess-green) !important; }
+
+/* Tarjetas (Cards) Generales */
+.card {
+    background-color: var(--chess-bg-dark) !important;
+    border: 1px solid var(--border-color) !important;
+    color: white !important;
+}
+.card-header {
+    background-color: transparent !important;
+    border-bottom: 1px solid var(--border-color) !important;
+}
+
+/* =========================================
+   2. ESTILOS ESPECÍFICOS DE PERFIL
+   ========================================= */
+.card h4, .card h5, .card h6, .card label, .form-label {
+    color: var(--chess-green) !important;
+    font-weight: 600;
+}
+.card p, .card span, .card div { color: #ffffff !important; }
+.profile-image, .img-thumbnail, .rounded-circle {
+    border-color: var(--chess-green) !important;
+    background-color: var(--chess-bg-input) !important;
+}
+
+/* =========================================
+   3. BOTONES (ESTANDARIZACIÓN)
+   ========================================= */
+.btnNuevo, .btn-success {
+    background-color: var(--chess-green) !important;
+    border: none !important;
+    color: white !important;
+    box-shadow: 0 4px 0 rgba(0,0,0,0.2);
+}
+.btnNuevo:hover, .btn-success:hover {
+    background-color: var(--chess-green-hover) !important;
+    transform: translateY(-2px);
+}
+.btnEditar, .btn-warning {
+    background-color: var(--chess-green) !important;
+    border: 1px solid var(--chess-green) !important;
+    color: white !important;
+}
+.btnEditar:hover, .btn-warning:hover {
+    background-color: var(--chess-green-hover) !important;
+    color: white !important;
+    transform: translateY(-2px);
+}
+.btnEliminar, .btn-danger {
+    background-color: #1e1e1e !important;
+    border: 1px solid var(--chess-red) !important;
+    color: var(--chess-red) !important;
+}
+.btnEliminar:hover, .btn-danger:hover {
+    background-color: var(--chess-red) !important;
+    color: white !important;
+}
+.btnPermisos, .btn-info {
+    background-color: rgba(61, 192, 209, 0.1) !important;
+    border: 1px solid var(--chess-cyan) !important;
+    color: var(--chess-cyan) !important;
+}
+.btnPermisos:hover, .btn-info:hover {
+    background-color: var(--chess-cyan) !important;
+    color: #1e1e1e !important;
+}
+
+/* =========================================
+   4. TABLAS
+   ========================================= */
+table.dataTable, .table {
+    background-color: var(--chess-bg-dark) !important;
+    color: var(--text-muted) !important;
+}
+table thead th, .table thead th, .table-dark th {
+    background-color: rgba(0, 0, 0, 0.3) !important;
+    color: var(--chess-green) !important;
+    border-bottom: 2px solid var(--border-color) !important;
+    text-transform: uppercase;
+    font-weight: 700;
+}
+table tbody td, .table tbody td {
+    background-color: var(--chess-bg-dark) !important;
+    color: var(--text-muted) !important;
+    border-bottom: 1px solid var(--border-color);
+}
+table tbody tr:hover td {
+    background-color: #383531 !important;
+    color: white !important;
+}
+
+/* Correcciones Tablas Modales y Cards */
+.modal-body table, .card table, .table-responsive table {
+    background-color: transparent !important;
+    --bs-table-bg: transparent !important;
+}
+.table-secondary, .table-secondary > th, .table-secondary > td {
+    background-color: rgba(0, 0, 0, 0.3) !important;
+    color: var(--chess-green) !important;
+    border-color: var(--border-color) !important;
+    --bs-table-bg: transparent !important;
+}
+
+/* =========================================
+   5. PAGINACIÓN
+   ========================================= */
+.page-item.active .page-link {
+    background-color: var(--chess-green) !important;
+    border-color: var(--chess-green) !important;
+    color: white !important;
+}
+.page-link {
+    background-color: transparent !important;
+    border-color: var(--border-color) !important;
+    color: var(--text-muted) !important;
+}
+.page-link:hover {
+    background-color: #383531 !important;
+    color: white !important;
+    border-color: var(--chess-green) !important;
+}
+
+/* =========================================
+   6. MODALES Y FORMULARIOS
+   ========================================= */
+.modal-content {
+    background-color: var(--chess-bg-dark) !important;
+    border: 1px solid var(--border-color);
+    color: white !important;
+}
+.modal-header {
+    background-color: rgba(0,0,0,0.2) !important;
+    border-bottom: 1px solid var(--border-color);
+}
+.modal-title { color: var(--chess-green) !important; }
+.btn-close { filter: invert(1) grayscale(100%) brightness(200%); }
+.modal-footer {
+    border-top: 1px solid var(--border-color);
+    background-color: var(--chess-bg-dark) !important;
+}
+
+.form-control, .form-select {
+    background-color: var(--chess-bg-input) !important;
+    border: 1px solid var(--border-color) !important;
+    color: white !important;
+}
+.form-control:focus, .form-select:focus {
+    background-color: black !important;
+    border-color: var(--chess-green) !important;
+    color: white !important;
+    box-shadow: none !important;
+}
+input[type="text"]:disabled, input[type="text"][readonly] {
+    background-color: #151515 !important;
+    color: #999 !important;
+}
+
+/* =========================================
+   7. SELECT2 (NUCLEAR OVERRIDE)
+   ========================================= */
+.select2-container--bootstrap-5 .select2-selection,
+.select2-container--default .select2-selection--single {
+    background-color: var(--chess-bg-input) !important;
+    border: 1px solid var(--border-color) !important;
+    color: #ffffff !important;
+}
+.select2-container--bootstrap-5 .select2-selection__rendered { color: #ffffff !important; }
+.select2-dropdown {
+    background-color: var(--chess-bg-dark) !important;
+    color: var(--text-muted) !important;
+}
+.select2-container--bootstrap-5 .select2-results__option--highlighted[aria-selected] {
+    background-color: var(--chess-green) !important;
+    color: white !important;
+}
+.select2-container--bootstrap-5 .select2-search__field {
+    background-color: #151515 !important;
+    color: white !important;
+    border: 1px solid var(--border-color) !important;
+}
+
+/* =========================================
+   8. SWEETALERT2 (MODO OSCURO FORZADO)
+   ========================================= */
+div:where(.swal2-container) div:where(.swal2-popup) {
+    background: var(--chess-bg-dark) !important;
+    color: #fff !important;
+    border: 1px solid var(--border-color);
+}
+div:where(.swal2-container) button.swal2-confirm {
+    background-color: var(--chess-green) !important;
+    box-shadow: none !important;
+}
+div:where(.swal2-container) button.swal2-cancel {
+    background-color: #1e1e1e !important;
+    color: #fff !important;
+    border: 1px solid var(--border-color);
+}

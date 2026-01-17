@@ -74,6 +74,9 @@
         <a href="{{ route('clubes.index') }}" class="list-group-item list-group-item-action {{ request()->routeIs('clubes.index') ? 'active' : '' }}">
             <span><i class="bi bi-shield-shaded"></i>Clubes</span>
         </a>
+        <a href="{{ route('noticias.index') }}" class="list-group-item list-group-item-action {{ request()->routeIs('noticias.index') ? 'active' : '' }}">
+            <span><i class="bi bi-newspaper"></i> Noticias</span>
+        </a>
         @if(auth()->check() && auth()->user()->role_id === 1) 
             <div class="mt-auto border-top border-secondary p-3">
                 <a href="{{ route('admin.index') }}" class="btn btn-chess-secondary w-100 btn-sm">

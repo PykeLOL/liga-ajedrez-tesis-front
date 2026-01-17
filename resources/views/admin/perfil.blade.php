@@ -2,7 +2,7 @@
 @section('title', 'Perfil')
 
 @section('styles')
-<link rel="stylesheet" href="{{ asset('css/admin/perfil.css') }}">
+<link rel="stylesheet" href="{{ asset('css/admin/app.css') }}">
 @endsection
 
 @section('content')
