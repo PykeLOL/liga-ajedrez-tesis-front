@@ -4,15 +4,15 @@
     <meta charset="UTF-8">
     <title>@yield('title', 'Panel Administrativo')</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
- 
+
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.datatables.net/1.13.7/css/dataTables.bootstrap5.min.css">
     <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
     <link href="https://cdn.jsdelivr.net/npm/select2-bootstrap-5-theme@1.3.0/dist/select2-bootstrap-5-theme.min.css" rel="stylesheet" />
-    
+
     {{-- NUESTRO CSS MAESTRO --}}
     <link rel="stylesheet" href="{{ asset('css/admin/app.css') }}">
-    
+
     @yield('styles')
 </head>
 <body>
@@ -23,7 +23,7 @@
     <div class="content-wrapper" style="margin-left: 240px; padding: 20px;">
         @yield('content')
     </div>
- 
+
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
@@ -39,6 +39,7 @@
 
         // 2. Variables Globales
         let apiUrl = "{{ env('API_URL') }}";
+        let apiUrlBase = apiUrl.replace('/api', '');
         let loginUrl = "{{ route('login') }}";
         let dataTablesLangUrl = "{{ asset('js/datatables/es-ES.json') }}"
         let homeUrl = "{{ route('home') }}";
@@ -49,12 +50,12 @@
             const sidebar = document.getElementById('sidebar');
             const navbar = document.querySelector('.navbar-chess');
             const mainContent = document.getElementById('mainContent'); // Asegúrate que tu div content-wrapper tenga este ID
-            
+
             if (toggleBtn) {
                 toggleBtn.addEventListener('click', function(e) {
                     e.preventDefault(); // Evitar comportamientos raros
                     document.body.classList.toggle('sidebar-collapsed');
-                    
+
                     // Forzar actualización de estilos si es necesario
                     if (document.body.classList.contains('sidebar-collapsed')) {
                         // Cerrado
@@ -82,9 +83,9 @@
             }
         } catch(e) {}
     </script>
-    
+
     {{-- Tu App JS principal --}}
     <script src="{{ asset('js/app.js') }}"></script>
     @stack('scripts')
 </body>
-</html> 
+</html>

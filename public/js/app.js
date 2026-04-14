@@ -16,8 +16,6 @@ async function obtenerPermisosUsuario() {
     }
 }
 
-
-
 async function tienePermiso(nombrePermiso) {
     const permisos = await obtenerPermisosUsuario();
     return permisos.includes(nombrePermiso);
@@ -89,11 +87,13 @@ function datatableAjax(url, options = {}) {
 }
 
 function apiRequest(options) {
+    const isFormData = options.data instanceof FormData;
     const config = {
         type: options.type || 'GET',
         url: options.url,
-        contentType: options.contentType || 'application/json',
         data: options.data || null,
+        processData: !isFormData,
+        contentType: isFormData ? false : (options.contentType || 'application/json'),
         xhrFields: { withCredentials: true }, // envía cookies automáticamente
         headers: {
             "Accept": "application/json"
@@ -110,7 +110,7 @@ function apiRequest(options) {
                     $.ajax(config).done(resolve).fail(reject);
                 } catch (err) {
                     localStorage.removeItem('user_data');
-                    window.location.href = '/login';
+                    window.location.href = loginUrl;
                 }
             } else {
                 reject(xhr);
@@ -178,7 +178,9 @@ function validarCamposRequeridos(formSelector) {
         if (!valor) {
             valido = false;
             $(this).addClass('is-invalid');
-            $(this).after('<div class="invalid-feedback">Este campo es obligatorio</div>');
+            $(this).parent().append(
+                '<div class="invalid-feedback d-block">Este campo es obligatorio</div>'
+            );
         }
     });
 
@@ -212,7 +214,7 @@ function apiRequestNoLogin(options) {
                     $.ajax(config).done(resolve).fail(reject);
                 } catch (err) {
                     localStorage.removeItem('user_data');
-                    window.location.href = '/login';
+                    //window.location.href = loginUrl;
                 }
             } else {
                 reject(xhr);

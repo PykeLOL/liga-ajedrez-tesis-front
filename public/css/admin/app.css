@@ -15,7 +15,7 @@
     --chess-cyan: #3dc0d1;         /* Color Info/Permisos */
     --chess-red: #c23616;          /* Color Peligro/Eliminar */
     --text-muted: #bababa;         /* Texto secundario */
-    --border-color: rgba(255, 255, 255, 0.1); 
+    --border-color: rgba(255, 255, 255, 0.1);
 }
 
 /* Configuración Base */
@@ -129,7 +129,7 @@ body {
    ========================================= */
 .navbar-chess {
     height: 70px;
-    background-color: var(--chess-bg-input); 
+    background-color: var(--chess-bg-input);
     border-bottom: 1px solid var(--border-color);
     position: fixed;
     top: 0;
@@ -201,7 +201,7 @@ div:where(.swal2-container) div:where(.swal2-popup) {
 }
 
 .icon-sm {
-    width: 16px; 
+    width: 16px;
     height: 16px;
 }
 
@@ -241,9 +241,9 @@ body {
 /* Sobrescribir clases Bootstrap */
 .text-primary { color: var(--chess-green) !important; }
 /* Esta es la línea que hacía transparente al navbar, pero la necesitamos para los modales */
-.bg-white { background-color: transparent !important; } 
+.bg-white { background-color: transparent !important; }
 .bg-light { background-color: var(--chess-bg-input) !important; }
-.text-dark { color: #ffffff !important; } 
+.text-dark { color: #ffffff !important; }
 .border-primary { border-color: var(--chess-green) !important; }
 
 /* Tarjetas (Cards) Generales */
@@ -397,10 +397,6 @@ table tbody tr:hover td {
     color: white !important;
     box-shadow: none !important;
 }
-input[type="text"]:disabled, input[type="text"][readonly] {
-    background-color: #151515 !important;
-    color: #999 !important;
-}
 
 /* =========================================
    7. SELECT2 (NUCLEAR OVERRIDE)
@@ -443,3 +439,52 @@ div:where(.swal2-container) button.swal2-cancel {
     color: #fff !important;
     border: 1px solid var(--border-color);
 }
+
+.form-control:disabled,
+.form-select:disabled,
+.form-control[readonly] {
+    background-color: #2b2926 !important;
+    color: #8f8f8f !important;
+    border: 1px dashed rgba(255,255,255,0.12) !important;
+    cursor: not-allowed;
+    box-shadow: none !important;
+    opacity: 1;
+}
+
+.form-control:disabled:hover,
+.form-select:disabled:hover {
+    border-color: rgba(255,255,255,0.12) !important;
+}
+
+.form-control:not(:disabled):hover,
+.form-select:not(:disabled):hover {
+    border-color: rgba(129,182,76,0.5);
+}
+
+.select2-container--disabled .select2-selection {
+    background-color: #2b2926 !important;
+    border: 1px dashed rgba(255,255,255,0.12) !important;
+    color: #8f8f8f !important;
+    cursor: not-allowed;
+}
+
+.select2-container--disabled .select2-selection__choice {
+    background-color: #3a3a3a !important;
+    color: #8f8f8f !important;
+}
+
+.form-check-input:disabled {
+    background-color: #2b2926;
+    border-color: rgba(255,255,255,0.15);
+    cursor: not-allowed;
+}
+
+.form-check-input:disabled + .form-check-label {
+    color: #8f8f8f;
+    cursor: not-allowed;
+}
+
+.nav-link-chess {
+    gap: 10px;
+}
+

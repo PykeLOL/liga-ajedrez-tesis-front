@@ -315,8 +315,8 @@ a:hover{
     color: var(--text-secondary);
 }
 input:-webkit-autofill,
-input:-webkit-autofill:hover, 
-input:-webkit-autofill:focus, 
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
 input:-webkit-autofill:active{
     -webkit-box-shadow: 0 0 0 30px #3d3b38 inset !important;
     -webkit-text-fill-color: white !important;
@@ -372,7 +372,7 @@ input:-webkit-autofill:active{
         background: linear-gradient(90deg, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0.6) 100%);
         z-index: 0;
     }
-    
+
     /* Botón 3D Verde */
     .btn-profundidad {
         background-color: #81b64c !important;
@@ -400,7 +400,7 @@ input:-webkit-autofill:active{
         transform: translateX(5px);
         border-color: rgba(255, 255, 255, 0.1) !important;
     }
-    
+
     /* Clubes Hover */
     .club-card { transition: transform 0.2s ease, border-color 0.2s ease; }
     .club-card:hover {

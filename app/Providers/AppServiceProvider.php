@@ -2,6 +2,8 @@
 
 namespace App\Providers;
 
+use Illuminate\Support\Facades\View;
+use Illuminate\Support\Facades\Http;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -23,6 +25,17 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //
+        View::composer('*', function ($view) {
+            try {
+                $res = Http::get(env('API_URL') . '/select/tipos-evento');
+                if ($res->successful()) {
+                    $view->with('tiposEventosSidebar', collect($res->json()));
+                } else {
+                    $view->with('tiposEventosSidebar', collect());
+                }
+            } catch (\Throwable $e) {
+                $view->with('tiposEventosSidebar', collect());
+            }
+        });
     }
 }

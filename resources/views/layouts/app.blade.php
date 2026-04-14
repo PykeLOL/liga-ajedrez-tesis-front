@@ -15,7 +15,7 @@
 
   {{-- Custom Styles --}}
   <link rel="stylesheet" href="{{ asset('css/app.css') }}">
-  <link rel="stylesheet" href="{{ asset('css/web-style.css') }}">
+  {{-- <link rel="stylesheet" href="{{ asset('css/web-style.css') }}"> --}}
 
   @yield('styles')
 </head>
@@ -51,6 +51,8 @@
   {{-- Sidebar Toggle Script --}}
   <script>
     let apiUrl = "{{ env('API_URL') }}";
+    let apiUrlBase = apiUrl.replace('/api', '');
+    let dataTablesLangUrl = "{{ asset('js/datatables/es-ES.json') }}"
     document.addEventListener('DOMContentLoaded', function () {
       const wrapper = document.getElementById('wrapper');
       const toggleButton = document.getElementById('menu-toggle');
@@ -63,7 +65,7 @@
   </script>
 
   <script src="{{ asset('js/app.js') }}"></script>
-  
+
   {{-- Lógica Global de Alertas (Feedback Visual) --}}
   @if (session('success'))
       <script>
@@ -99,4 +101,4 @@
 
   @stack('scripts')
 </body>
-</html> 
+</html>
