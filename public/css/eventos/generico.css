@@ -1,0 +1,76 @@
+/* public/css/modulos/reuniones.css */
+
+.card-meeting {
+    border: 1px solid var(--border-soft);
+    background-color: var(--bg-card);
+    transition: all 0.2s ease;
+    border-left: 4px solid transparent; /* El color se define abajo */
+}
+
+.card-meeting:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.2) !important;
+}
+
+/* Tipos de Reunión (Colores de borde) */
+.meeting-type-liga {
+    border-left-color: var(--chess-green);
+}
+
+.meeting-type-club {
+    border-left-color: #3498db; /* Azul para clubes */
+}
+
+/* Avatar del organizador */
+.organizer-avatar {
+    width: 45px;
+    height: 45px;
+    object-fit: cover;
+    border: 2px solid var(--bg-main);
+}
+
+/* Estado de asistencia */
+.attendance-badge {
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 20px;
+    padding: 5px 12px;
+    font-size: 0.85rem;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+}
+
+/* Botón flotante para móviles (opcional, si quisieras agregar reunión) */
+.btn-floating-add {
+    position: fixed;
+    bottom: 2rem;
+    right: 2rem;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+    z-index: 100;
+}
+
+/* NUEVA CLASE PARA LA CAJA DE DETALLES (Reemplaza el bg-dark-subtle) */
+.meeting-details-box {
+    background-color: rgba(0, 0, 0, 0.25) !important; /* Fondo oscuro translúcido */
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    border-radius: 0.5rem;
+    padding: 1rem;
+    color: var(--text-secondary); /* Gris claro para lectura cómoda */
+}
+
+/* Para asegurar que los iconos y títulos resalten */
+.meeting-details-box strong,
+.meeting-details-box i {
+    color: var(--text-primary); /* Blanco puro */
+}
+
+.meeting-details-box hr {
+    border-color: rgba(255, 255, 255, 0.1);
+}

@@ -35,4 +35,24 @@ class AdminController extends Controller
     {
         return view('admin.modulos');
     }
+
+    public function getEventos()
+    {
+        return view('admin.eventos');
+    }
+
+    public function getTorneos()
+    {
+        return view('admin.torneos');
+    }
+
+    public function getClubes()
+    {
+        return view('admin.clubes');
+    }
+
+    public function getDeportistas()
+    {
+        return view('admin.deportistas');
+    }
 }

@@ -7,19 +7,14 @@
 
 @section('content')
 <div class="auth-wrapper">
-    
-    {{-- LADO IZQUIERDO: FORMULARIO --}}
     <div class="auth-form-side shadow-lg">
         <div class="d-flex flex-column align-items-start w-100">
-            
             <a href="{{ route('home') }}" class="text-decoration-none mb-4">
                 <img src="{{ asset('img/logo.png') }}" alt="Logo" class="auth-logo">
             </a>
-            
             <h1 class="mb-1 text-white fw-bold">¡Bienvenido!</h1>
             <p class="mb-4 text-muted">Ingresa tus credenciales para continuar.</p>
 
-            {{-- TU FORMULARIO ORIGINAL (Con clases de estilo w-100) --}}
             <form id="loginForm" class="w-100">
                 <div class="mb-3 text-start">
                     <label for="email" class="form-label">Correo electrónico</label>
@@ -41,7 +36,6 @@
         </div>
     </div>
 
-    {{-- LADO DERECHO: IMAGEN --}}
     <div class="auth-image-side">
         <div class="position-absolute bottom-0 end-0 p-5 text-white text-end z-1">
             <h2 class="display-6 fw-bold">"El ajedrez es la vida en miniatura."</h2>

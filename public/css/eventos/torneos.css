@@ -1,12 +1,14 @@
-/* public/css/modulos/torneos.css */
+/* ================================
+   TORNEOS – LAYOUT PRINCIPAL
+================================ */
 
 /* --- 1. Tarjeta Principal --- */
 .card-tournament {
-    height: 100%; /* Obliga a la tarjeta a llenar la altura de la columna */
+    height: 100%;
     border: 1px solid var(--border-soft);
     background-color: var(--bg-card);
     transition: transform 0.2s ease, box-shadow 0.2s ease;
-    overflow: hidden; /* Importante para bordes redondeados */
+    overflow: hidden;
 }
 
 .card-tournament:hover {
@@ -15,18 +17,18 @@
     border-color: var(--chess-green);
 }
 
-/* Contenedor Flex que estira todos los hijos al 100% de altura */
+/* Contenedor Flex */
 .card-tournament-inner {
     display: flex;
-    height: 100%; 
-    align-items: stretch; /* CLAVE: Esto iguala las alturas */
+    height: 100%;
+    align-items: stretch;
 }
 
-/* --- 2. Columna Fecha (Izquierda) --- */
+/* --- 2. Columna Fecha --- */
 .ticket-date {
-    width: 100px;        
-    min-width: 100px;    /* Ancho fijo intocable */
-    flex-shrink: 0;      /* Prohibido encogerse */
+    width: 100px;
+    min-width: 100px;
+    flex-shrink: 0;
     border-right: 1px solid var(--border-soft);
     background-color: rgba(255, 255, 255, 0.03);
     display: flex;
@@ -35,36 +37,34 @@
     align-items: center;
 }
 
-/* --- 3. Columna Imagen (Centro - Restaurada) --- */
+/* --- 3. Imagen --- */
 .tournament-img-wrapper {
-    width: 160px;        /* Ancho fijo para uniformidad */
+    width: 160px;
     min-width: 160px;
     flex-shrink: 0;
     position: relative;
-    border-right: 1px solid var(--border-soft); /* Separador sutil */
+    border-right: 1px solid var(--border-soft);
 }
 
 .tournament-img-wrapper img {
     width: 100%;
     height: 100%;
-    object-fit: cover;   /* LA MAGIA: Recorta para llenar sin deformar */
-    object-position: center;
-    position: absolute;  /* Asegura que llene el contenedor padre relative */
-    top: 0;
-    left: 0;
+    object-fit: cover;
+    position: absolute;
+    inset: 0;
 }
 
-/* --- 4. Columna Información (Derecha) --- */
+/* --- 4. Información --- */
 .tournament-body {
-    flex-grow: 1; /* Ocupa todo el espacio restante */
+    flex-grow: 1;
     padding: 1rem;
     display: flex;
     flex-direction: column;
-    justify-content: space-between; /* Empuja el botón al fondo */
-    min-width: 0; /* Truco CSS para que el truncado de texto funcione en Flex */
+    justify-content: space-between;
+    min-width: 0;
 }
 
-/* Utilidades para cortar texto largo */
+/* Truncado */
 .text-limit-1 {
     white-space: nowrap;
     overflow: hidden;
@@ -73,19 +73,187 @@
 
 /* Badges */
 .badge-inscripcion-open {
-    background-color: rgba(129, 182, 76, 0.15);
+    background-color: rgba(129,182,76,0.15);
     color: #81b64c;
-    border: 1px solid rgba(129, 182, 76, 0.3);
-}
-.badge-inscripcion-soon {
-    background-color: rgba(255, 255, 255, 0.05);
-    color: #bababa;
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(129,182,76,0.3);
 }
 
-/* Responsive: En móviles ocultamos la imagen para dar espacio al texto */
-@media (max-width: 576px) {
-    .tournament-img-wrapper {
-        display: none; 
-    }
+.badge-inscripcion-soon {
+    background-color: rgba(255,255,255,0.05);
+    color: #bababa;
+    border: 1px solid rgba(255,255,255,0.1);
 }
+
+/* Responsive */
+@media (max-width: 576px) {
+    .tournament-img-wrapper { display: none; }
+}
+
+
+/* ================================
+   MODAL TORNEO
+================================ */
+
+.bg-dark-card {
+    background: linear-gradient(145deg, #1b1f27, #13161c);
+}
+
+.bg-gradient-dark {
+    background: linear-gradient(to top, rgba(0,0,0,.9), rgba(0,0,0,.4), transparent);
+}
+
+#modalImagen {
+    object-fit: cover;
+    object-position: center;
+}
+
+#modalBadges .badge {
+    background-color: rgba(255,255,255,0.05);
+    border: 1px solid rgba(255,255,255,0.15);
+    color: #ddd;
+}
+
+#modalDescripcion {
+    color: #b9b9b9;
+    line-height: 1.6;
+}
+
+#modalCupos {
+    color: #81b64c;
+    font-weight: 600;
+}
+
+#modalTorneo .btn-chess {
+    background: linear-gradient(145deg, #81b64c, #6da33a);
+    border: none;
+}
+
+#modalTorneo .btn-outline-secondary {
+    border-color: rgba(255,255,255,.2);
+    color: #ddd;
+}
+
+#modalTorneo .btn-outline-secondary:hover {
+    background: rgba(255,255,255,.05);
+}
+
+.modal-dialog-scrollable .modal-body {
+    scrollbar-width: thin;
+    scrollbar-color: #81b64c transparent;
+}
+
+.modal-dialog-scrollable .modal-body::-webkit-scrollbar {
+    width: 6px;
+}
+
+.modal-dialog-scrollable .modal-body::-webkit-scrollbar-thumb {
+    background: #81b64c;
+    border-radius: 4px;
+}
+
+/* Animación */
+.fade-in {
+    animation: fadeIn .4s ease-in-out both;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(6px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* ---------- GALERÍA MINIATURAS ---------- */
+
+.media-thumb {
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+    border-radius: 12px;
+    background: #111;
+}
+
+.media-thumb img,
+.media-thumb video {
+    width: 100%;
+    height: 180px;
+    object-fit: cover;
+    transition: transform .3s ease;
+}
+
+.media-thumb:hover img,
+.media-thumb:hover video {
+    transform: scale(1.05);
+}
+
+.media-thumb .media-type {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    background: rgba(0,0,0,.7);
+    border-radius: 50%;
+    padding: 6px;
+    color: #fff;
+    font-size: .8rem;
+}
+
+/* ---------- MODAL MEDIA ---------- */
+
+#mediaViewer img,
+#mediaViewer video,
+#mediaViewer iframe {
+    max-height: 75vh;
+    max-width: 100%;
+    border-radius: 12px;
+}
+
+.media-nav {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(0,0,0,.6);
+    border: none;
+    color: #fff;
+    font-size: 2rem;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    z-index: 10;
+}
+
+.media-nav.prev { left: 10px; }
+.media-nav.next { right: 10px; }
+
+.media-nav:hover {
+    background: rgba(0,0,0,.9);
+}
+
+.youtube-thumb {
+    position: relative;
+    width: 100%;
+    height: 180px;
+    overflow: hidden;
+    border-radius: 12px;
+    background: #000;
+}
+
+.youtube-thumb iframe {
+    width: 100%;
+    height: 100%;
+    pointer-events: none; /* 🔥 evita reproducción */
+}
+
+.youtube-overlay {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 3.5rem;
+    color: white;
+    background: rgba(0,0,0,.35);
+    transition: background .2s ease;
+}
+
+.youtube-thumb:hover .youtube-overlay {
+    background: rgba(0,0,0,.55);
+}
+

@@ -21,25 +21,56 @@ class EventosController extends Controller
     {
         return view('eventos.convocatorias.index');
     }
-    public function index($id)
+
+    public function index($slug)
     {
-        //dd("entro");
-        $response = Http::get('http://127.0.0.1:8000/api/eventos/tipo-eventos');
-        if ($response->successful()) {
-            $tipoEventos = collect($response->json());
-            $torneoId = $tipoEventos->firstWhere('nombre', 'Torneo')['id'] ?? null;
-            $reunionId = $tipoEventos->firstWhere('nombre', 'Reunion')['id'] ?? null;
-            $convocatoriaId = $tipoEventos->firstWhere('nombre', 'Convocatoria')['id'] ?? null;
+        $tipoResponse = Http::get(env('API_URL') . '/select/tipos-evento');
+
+        if (!$tipoResponse->successful()) return redirect()->route('home');
+
+        $tipos = collect($tipoResponse->json());
+        $tipo = $tipos->firstWhere('slug', $slug);
+
+        if (!$tipo) return redirect()->route('home');
+
+        if ($tipo['slug'] === 'torneo') {
+            return view('eventos.torneos.index', [
+                'tipoEventoId' => $tipo['id'],
+                'tipoEventoNombre' => $tipo['nombre'],
+                'tipoEventoSlug' => $tipo['slug']
+            ]);
         }
-        //$response = Http::get('http://127.0.0.1:8000/api/eventos');
-        if($id == $torneoId){
-             return view('eventos.torneos.index');
-        }else if($id==$reunionId){
-            return view('eventos.reuniones.index');
-        }else if($id==$convocatoriaId){
-            return view('eventos.convocatorias.index');
-        }else {
-            return view('eventos.convocatorias.index');
+
+        return view('eventos.generico.index', [
+            'tipoEventoId' => $tipo['id'],
+            'tipoEventoNombre' => $tipo['nombre'],
+            'tipoEventoSlug' => $tipo['slug']
+        ]);
+    }
+
+    public function show($slug, $id)
+    {
+        $tipoResponse = Http::get(env('API_URL') . '/select/tipos-evento');
+
+        if (!$tipoResponse->successful()) return redirect()->route('home');
+
+        $tipos = collect($tipoResponse->json());
+        $tipo = $tipos->firstWhere('slug', $slug);
+
+        if (!$tipo) return redirect()->route('home');
+
+        if ($tipo['slug'] === 'torneo') {
+            return view('eventos.torneos.show', [
+                'eventoId' => $id,
+                'tipoEventoId' => $tipo['id'],
+                'tipoEventoNombre' => $tipo['nombre'],
+            ]);
         }
+
+        return view('eventos.generico.show', [
+            'eventoId' => $id,
+            'tipoEventoId' => $tipo['id'],
+            'tipoEventoNombre' => $tipo['nombre'],
+        ]);
     }
 }
