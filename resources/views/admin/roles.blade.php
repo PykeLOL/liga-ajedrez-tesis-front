@@ -13,7 +13,7 @@
 
 <div class="table-responsive shadow rounded">
     <button class="btnNuevo btn btn-success mb-3 d-none shadow-sm fw-semibold px-3 py-2 d-flex align-items-center gap-2">
-        <i data-lucide="user-round-plus" class="icono-boton"></i>
+        <i data-lucide="plus-circle" class="icono-boton"></i>
         <span>Agregar Rol</span>
     </button>
 

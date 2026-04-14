@@ -6,7 +6,7 @@ $(document).ready(function () {
 
     initModulosTable();
     bindEvents();
-    validarPermisos(modulo, acciones); 
+    validarPermisos(modulo, acciones);
 
     function initModulosTable() {
         if ($.fn.DataTable.isDataTable('#modulosTable')) {
@@ -63,11 +63,9 @@ $(document).ready(function () {
             $('#moduloModal').modal('show');
         });
 
-
         $('#btnGuardar').on('click', function () {
             guardarModulo();
         });
-
 
         $('#modulosTable').on('click', '.btnEditar', function () {
             const id = $(this).data('id');
@@ -75,19 +73,16 @@ $(document).ready(function () {
             editarModulo(id);
         });
 
-
         $('#modulosTable').on('click', '.btnEliminar', function () {
             const id = $(this).data('id');
             eliminarModulo(id);
         });
-
 
         $('#logoutBtn').on('click', function () {
             sessionStorage.removeItem('token');
             window.location.href = loginUrl;
         });
     }
-
 
     $(document).on('input change', '.required', function() {
         if ($(this).val()?.trim()) {

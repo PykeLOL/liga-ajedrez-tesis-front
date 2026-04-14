@@ -1,0 +1,25 @@
+.cursor-pointer {
+    cursor: pointer;
+}
+
+.cursor-pointer:hover {
+    transform: scale(1.05);
+    transition: transform .15s ease;
+}
+
+h6.text-uppercase {
+    letter-spacing: 1px;
+    font-size: 0.75rem;
+    border-bottom: 1px solid rgba(255,255,255,0.08);
+    padding-bottom: 6px;
+}
+
+h6.text-uppercase {
+    color: #ffffff !important;
+    letter-spacing: 1px;
+    font-size: 0.75rem;
+    font-weight: 700;
+    border-left: 3px solid var(--chess-green);
+    padding-left: 8px;
+    margin-bottom: 15px;
+}

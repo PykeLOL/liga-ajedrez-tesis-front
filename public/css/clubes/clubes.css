@@ -1,120 +1,94 @@
-/* public/css/modulos/clubes.css */
-
-/* Contenedor de la cuadrícula */
 .clubs-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-    gap: 1.5rem;
+    gap: 1.6rem;
 }
 
-/* Tarjeta del Club */
 .club-card {
-    background-color: var(--bg-card); /* #262421 */
-    border: 1px solid var(--border-soft);
-    border-radius: 0.5rem;
+    background: linear-gradient(180deg, #262421, #1f1e1b);
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 12px;
     overflow: hidden;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
     display: flex;
     flex-direction: column;
-    height: 100%;
+    transition: transform .3s ease, box-shadow .3s ease, border-color .3s ease;
 }
 
 .club-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 10px 20px rgba(0,0,0,0.4);
-    border-color: var(--chess-green);
+    transform: translateY(-6px);
+    border-color: #81b64c;
+    box-shadow: 0 14px 28px rgba(0,0,0,.45);
 }
 
-/* Encabezado con Logo */
 .club-header {
-    background: linear-gradient(to bottom, rgba(48, 46, 43, 0.8), var(--bg-card)), 
-                url('/img/pattern-chess.png'); /* Fondo sutil opcional */
-    background-size: cover;
+    background:
+        radial-gradient(circle at top, rgba(129,182,76,.15), transparent 60%),
+        linear-gradient(to bottom, #302e2b, #262421);
     padding: 2rem 1rem;
     text-align: center;
-    position: relative;
-    border-bottom: 1px solid var(--border-soft);
+    border-bottom: 1px solid rgba(255,255,255,0.08);
 }
 
 .club-logo {
-    width: 100px;
-    height: 100px;
-    object-fit: cover;
+    width: 96px;
+    height: 96px;
     border-radius: 50%;
-    border: 3px solid var(--chess-green);
-    background-color: #fff; /* Para logos con fondo transparente */
+    object-fit: cover;
+    background: #fff;
     padding: 5px;
-    box-shadow: 0 5px 15px rgba(0,0,0,0.5);
+    border: 3px solid #81b64c;
+    box-shadow: 0 8px 18px rgba(0,0,0,.55);
 }
 
-/* Cuerpo de la tarjeta */
 .club-body {
-    padding: 1.5rem;
+    padding: 1.4rem;
     flex-grow: 1;
-    display: flex;
-    flex-direction: column;
 }
 
 .club-title {
-    color: #fff;
-    font-weight: 700;
     font-size: 1.25rem;
-    margin-bottom: 0.5rem;
+    font-weight: 700;
     text-align: center;
+    margin-bottom: .3rem;
+}
+
+.club-title a {
+    color: #fff;
+    text-decoration: none;
+}
+
+.club-title a:hover {
+    color: #81b64c;
 }
 
 .club-president {
-    color: var(--chess-green);
-    font-size: 0.9rem;
     text-align: center;
-    margin-bottom: 1rem;
+    font-size: .9rem;
     font-weight: 600;
+    color: #81b64c;
+    margin-bottom: 1rem;
 }
 
 .club-info-item {
     display: flex;
-    align-items: start;
     gap: 10px;
-    margin-bottom: 0.8rem;
-    font-size: 0.9rem;
-    color: #ccc;
+    align-items: flex-start;
+    font-size: .9rem;
+    color: #cfcfcf;
+    margin-bottom: .7rem;
 }
 
 .club-info-item i {
-    color: var(--chess-green);
+    color: #81b64c;
     margin-top: 3px;
 }
 
-.club-desc {
-    font-size: 0.85rem;
-    color: #999;
-    margin-top: 1rem;
-    display: -webkit-box;
-    -webkit-line-clamp: 3; /* Limita a 3 líneas */
-    -webkit-box-orient: vertical;
-    overflow: hidden;
-    font-style: italic;
-}
-
-/* Footer con Botón */
 .club-footer {
-    padding: 1rem 1.5rem;
-    border-top: 1px solid var(--border-soft);
-    background-color: rgba(0,0,0,0.2);
+    padding: 1rem 1.4rem;
+    border-top: 1px solid rgba(255,255,255,0.08);
+    background: rgba(0,0,0,.25);
 }
 
-/* Estilo para subir archivos (File Input Custom) */
-.file-upload-box {
-    border: 2px dashed var(--border-soft);
-    border-radius: 8px;
-    padding: 20px;
-    text-align: center;
-    cursor: pointer;
-    transition: all 0.3s;
-    background-color: rgba(255,255,255,0.02);
-}
-
-.file-upload-box:hover {
-    border-color: var(--chess-green);
-    background-color: rgba(129, 182, 76, 0.05);
+.text-chess-green {
+    color: #81b64c !important;
 }

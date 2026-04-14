@@ -1,0 +1,323 @@
+#clubDetalle {
+    background:
+        radial-gradient(circle at top left, rgba(129,182,76,.12), transparent 60%);
+    border-radius: 12px;
+    padding-bottom: 3rem;
+}
+
+/* ---------- HEADER ---------- */
+
+#clubNombre {
+    font-size: 2rem;
+    letter-spacing: .5px;
+}
+
+#clubUbicacion {
+    font-size: .95rem;
+    opacity: .85;
+}
+
+.text-chess-green {
+    color: #81b64c !important;
+}
+
+/* ---------- FILA PRINCIPAL ---------- */
+
+.club-summary {
+    display: flex;
+    align-items: center;
+    gap: 2.2rem;
+    flex-wrap: wrap;
+}
+
+/* ---------- PRESIDENTE ---------- */
+
+.presidente-box {
+    width: 160px;
+    text-align: center;
+    flex-shrink: 0;
+}
+
+#presidenteFoto {
+    width: 90px;
+    height: 90px;
+    object-fit: cover;
+    border-radius: 50%;
+    border: 3px solid #81b64c;
+    box-shadow: 0 0 0 4px rgba(129,182,76,.18);
+}
+
+#clubPresidente {
+    font-size: 1rem;
+    letter-spacing: .3px;
+    margin-top: .4rem;
+}
+
+.presidente-badge {
+    font-size: .7rem;
+    letter-spacing: .6px;
+    text-transform: uppercase;
+    color: #81b64c;
+    opacity: .85;
+}
+
+/* ---------- INFO CLUB ---------- */
+
+.club-info {
+    display: flex;
+    flex-direction: column;
+    gap: .6rem;
+    min-width: 260px;
+}
+
+.info-line {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: .95rem;
+}
+
+.info-line i {
+    color: #81b64c;
+    font-size: 1.05rem;
+}
+
+/* ---------- GALERÍA ---------- */
+
+.club-galeria {
+    display: flex;
+    gap: 6px;
+    margin-left: -10px;
+    flex-wrap: nowrap;
+}
+
+.media-thumb {
+    width: 110px;
+    height: 110px;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+    border-radius: 12px;
+    background: #111;
+    flex-shrink: 0;
+}
+
+.media-thumb img,
+.media-thumb video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform .3s ease;
+}
+
+.media-thumb:hover img,
+.media-thumb:hover video {
+    transform: scale(1.06);
+}
+
+.media-thumb .media-type {
+    position: absolute;
+    top: 6px;
+    right: 6px;
+    background: rgba(0,0,0,.7);
+    border-radius: 50%;
+    padding: 4px;
+    color: #fff;
+    font-size: .75rem;
+}
+
+/* ---------- YOUTUBE ---------- */
+
+.youtube-thumb {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    border-radius: 12px;
+    background: #000;
+}
+
+.youtube-thumb iframe {
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+}
+
+.youtube-overlay {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2.8rem;
+    color: white;
+    background: rgba(0,0,0,.35);
+    transition: background .2s ease;
+}
+
+.youtube-thumb:hover .youtube-overlay {
+    background: rgba(0,0,0,.55);
+}
+
+/* ---------- MAPA ---------- */
+
+.map-container {
+    width: 100%;
+    height: 160px;
+    background: #1b1b1b;
+    border-radius: 10px;
+    box-shadow: inset 0 0 0 1px rgba(255,255,255,.06);
+    overflow: hidden;
+}
+
+.map-container iframe {
+    width: 100%;
+    height: 100%;
+    border: 0;
+}
+
+/* ---------- DEPORTISTAS ---------- */
+
+#clubDeportistas {
+    margin-top: 1.5rem;
+}
+
+#clubDeportistas .card {
+    background: linear-gradient(180deg, #232622, #1b1e1b);
+    border: 1px solid rgba(255,255,255,0.07);
+    border-radius: 16px;
+    padding: 1.3rem 1rem 1.5rem;
+    text-align: center;
+    position: relative;
+    transition: transform .25s ease, box-shadow .25s ease;
+}
+
+#clubDeportistas .card::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 3px;
+    width: 100%;
+    background: linear-gradient(to right, transparent, #81b64c, transparent);
+    opacity: .9;
+}
+
+#clubDeportistas .card:hover {
+    transform: translateY(-6px);
+    box-shadow:
+        0 14px 30px rgba(0,0,0,.5),
+        inset 0 1px 0 rgba(255,255,255,.05);
+}
+
+#clubDeportistas img {
+    width: 72px;
+    height: 72px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin: 0 auto .7rem;
+    border: 2px solid rgba(129,182,76,.8);
+    box-shadow: 0 0 0 4px rgba(129,182,76,.15);
+}
+
+#clubDeportistas h6 {
+    font-size: .95rem;
+    font-weight: 600;
+    margin-bottom: .4rem;
+    letter-spacing: .3px;
+}
+
+#clubDeportistas .elo {
+    font-size: .78rem;
+    color: #bfbfbf;
+    line-height: 1.4;
+}
+
+#clubDeportistas .fide {
+    margin-top: .5rem;
+    font-size: .75rem;
+}
+
+#clubDeportistas .fide a {
+    color: #81b64c;
+    font-weight: 500;
+}
+
+#clubDeportistas .fide a:hover {
+    text-decoration: underline;
+}
+
+/* ---------- MODAL MEDIA ---------- */
+
+.media-viewer {
+    padding: 3rem;
+    text-align: center;
+}
+
+.media-viewer img,
+.media-viewer video,
+.media-viewer iframe {
+    max-height: 75vh;
+    max-width: 100%;
+    border-radius: 14px;
+}
+
+.media-desc {
+    text-align: center;
+    font-size: .85rem;
+    color: #aaa;
+    padding-bottom: 1rem;
+}
+
+.media-arrow {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(0,0,0,.55);
+    border: none;
+    color: #fff;
+    font-size: 2rem;
+    width: 52px;
+    height: 52px;
+    border-radius: 50%;
+    z-index: 10;
+}
+
+.media-arrow.left { left: 20px; }
+.media-arrow.right { right: 20px; }
+
+.media-arrow:hover {
+    background: rgba(0,0,0,.85);
+}
+
+/* ---------- RESPONSIVE ---------- */
+
+@media (max-width: 768px) {
+
+    .club-summary {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 1.6rem;
+    }
+
+    .presidente-box {
+        width: 100%;
+        text-align: center;
+    }
+
+    .club-info {
+        align-items: center;
+        text-align: center;
+    }
+
+    .club-galeria {
+        justify-content: center;
+        margin-left: 0;
+        flex-wrap: wrap;
+    }
+
+    .media-thumb {
+        width: 95px;
+        height: 95px;
+    }
+}

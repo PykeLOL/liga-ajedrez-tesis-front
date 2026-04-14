@@ -211,7 +211,7 @@ $(document).ready(function () {
                 $tipoIdentificacionSelect.trigger('change.select2');
             } else {
                 $tipoIdentificacionSelect.select2({
-                    placeholder: 'Seleccione un rol',
+                    placeholder: 'Seleccione un tipo de identificacion',
                     allowClear: true,
                     width: 'resolve',
                     dropdownParent: $('#usuarioModal')
