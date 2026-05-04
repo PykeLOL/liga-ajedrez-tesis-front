@@ -58,7 +58,7 @@ $(document).ready(function() {
                 return;
             }
             const rol = resp.user.rol;
-            if (rol && rol.toLowerCase() !== 'Deportista') {
+            if (rol && rol.toLowerCase() !== 'deportista') {
                 setTimeout(() => {
                     window.location.href = "{{ route('admin.index') }}";
                 }, 300);
@@ -103,7 +103,7 @@ $('#loginForm').on('submit', function(e) {
                     localStorage.setItem('permisos', JSON.stringify(response.permisos));
                     const rol = response.user.rol;
 
-                    if (rol && rol.toLowerCase() !== 'Deportista') {
+                    if (rol && rol.toLowerCase() !== 'deportista') {
                         setTimeout(() => {
                             window.location.href = "{{ route('admin.index') }}";
                         }, 300);

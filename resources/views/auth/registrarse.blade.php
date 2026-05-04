@@ -1,4 +1,4 @@
-@extends('layouts.auth') 
+@extends('layouts.auth')
 @section('title', 'Registrarse')
 
 @section('styles')
@@ -7,22 +7,19 @@
 
 @section('content')
 <div class="auth-wrapper">
-    
     {{-- LADO IZQUIERDO: FORMULARIO --}}
     <div class="auth-form-side shadow-lg">
         <div class="form-content-wrapper">
-            
+
             <a href="{{ route('home') }}" class="text-decoration-none d-block mb-3">
                 <img src="{{ asset('img/logo.png') }}" alt="Logo" class="auth-logo">
             </a>
-            
+
             <h2 class="fw-bold text-white mb-1">Crear cuenta</h2>
             <p class="text-muted mb-4 small">Únete a la comunidad de ajedrez más grande del Meta.</p>
 
             {{-- TU FORMULARIO ORIGINAL (Con tus IDs y Names exactos) --}}
             <form id="registerForm" enctype="multipart/form-data">
-                <input type="hidden" value="1" id="tipo_identificacion_id" name="tipo_identificacion_id">
-                
                 <div class="row g-2">
                     <div class="col-md-6 mb-3 text-start">
                         <label for="nombre" class="form-label">Nombre</label>
@@ -32,6 +29,11 @@
                         <label for="apellido" class="form-label">Apellido</label>
                         <input type="text" class="form-control required" id="apellido" name="apellido">
                     </div>
+                </div>
+
+                <div class="mb-3">
+                    <label for="tipo_identificacion_id" class="form-label">Tipo Identificacion</label>
+                    <select id="tipo_identificacion_id" name="tipo_identificacion_id" class="form-select required" required style="width:100%"></select>
                 </div>
 
                 <div class="mb-3 text-start">
@@ -65,7 +67,7 @@
                 <div class="mb-4 text-start">
                     <label for="imagen" class="form-label">Foto de perfil (opcional)</label>
                     <input type="file" class="form-control" id="imagen" name="imagen" accept="image/*">
-                    
+
                     {{-- Preview de imagen original --}}
                     <div class="mt-3 text-center">
                         <img id="previewImagen" src="#" alt="Vista previa" class="d-none" style="width: 100px; height: 100px; object-fit: cover; border-radius: 50%; border: 2px solid #81b64c; margin: 0 auto;">
@@ -81,7 +83,7 @@
             </div>
         </div>
     </div>
-    
+
     {{-- LADO DERECHO: IMAGEN --}}
     <div class="auth-image-side">
         <div class="position-absolute bottom-0 end-0 p-5 text-white text-end z-1">
@@ -90,10 +92,11 @@
         </div>
     </div>
 </div>
-@endsection 
+@endsection
 @push('scripts')
-<script> 
+<script>
 $(document).ready(function() {
+    loadTiposIdentificacion();
     $('#registerForm').on('submit', function(e) {
         e.preventDefault();
 
@@ -126,6 +129,20 @@ $(document).ready(function() {
                     showConfirmButton: false,
                     timer: 2000
                 }).then(() => {
+                    localStorage.clear();
+                    $.ajax({
+                        url: "{{ env('API_URL') }}/logout",
+                        type: "POST",
+                        xhrFields: { withCredentials: true }, // envía cookies
+                        success: function(resp) {
+                            localStorage.clear();
+                            window.location.href = '{{ route('login') }}';
+                        },
+                        error: function(xhr) {
+                            localStorage.clear();
+                            window.location.href = '{{ route('login') }}';
+                        }
+                    });
                     window.location.href = "{{ route('login') }}";
                 });
             },
@@ -184,6 +201,31 @@ $(document).ready(function() {
             texto.addClass('d-none');
         }
     });
+
+    function loadTiposIdentificacion() {
+        apiRequest({
+            url: `{{ env('API_URL') }}/select/tipos-identificacion`,
+            type: 'GET'
+        })
+        .then(tiposIdentificacion => {
+            const $tipoIdentificacionSelect = $('#tipo_identificacion_id');
+            $tipoIdentificacionSelect.empty().append('<option value="">Seleccione un tipo de identificacion</option>');
+            tiposIdentificacion.forEach(t => {
+                $tipoIdentificacionSelect.append(new Option(t.nombre, t.id, false, false));
+            });
+            if ($tipoIdentificacionSelect.hasClass('select2-hidden-accessible')) {
+                $tipoIdentificacionSelect.trigger('change.select2');
+            } else {
+                $tipoIdentificacionSelect.select2({
+                    placeholder: 'Seleccione un tipo de identificacion',
+                    allowClear: true,
+                    width: 'resolve',
+                    dropdownParent: $('#usuarioModal')
+                });
+            }
+        })
+        .catch(xhr => console.error('Error cargando tipos de identificacion:', xhr));
+    }
 });
 </script>
-@endpush 
+@endpush

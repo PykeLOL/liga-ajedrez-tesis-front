@@ -1,6 +1,6 @@
 <nav class="navbar-chess">
     <div class="container-fluid d-flex align-items-center justify-content-between h-100 px-3">
-        
+
         {{-- 1. BOTÓN HAMBURGUESA (Minimizar Sidebar) --}}
         <button id="sidebarToggle" class="btn-icon-chess">
             <i data-lucide="menu"></i>
@@ -18,12 +18,12 @@
 
             {{-- 3. DROPDOWN DE USUARIO --}}
             <div class="dropdown">
-                <a href="#" class="user-profile-link d-flex align-items-center gap-2 text-decoration-none dropdown-toggle" 
+                <a href="#" class="user-profile-link d-flex align-items-center gap-2 text-decoration-none dropdown-toggle"
                    id="userDropdown" data-bs-toggle="dropdown" aria-expanded="false">
-                    
+
                     {{-- Avatar Circular --}}
                     <div id="userAvatar" class="avatar-circle">U</div>
-                    
+
                     {{-- Nombre de Usuario (ID="userName" para tu script) --}}
                     <span id="userName" class="d-none d-sm-block fw-semibold text-white small">
                         Cargando...
@@ -31,17 +31,17 @@
                 </a>
 
                 {{-- Menú Desplegable --}}
-                <ul class="dropdown-menu dropdown-menu-dark dropdown-menu-end shadow-lg border-0 mt-2 p-2" 
+                <ul class="dropdown-menu dropdown-menu-dark dropdown-menu-end shadow-lg border-0 mt-2 p-2"
                     aria-labelledby="userDropdown" style="background-color: #262421; min-width: 200px;">
-                    
+
                     <li>
-                        <a class="dropdown-item rounded-2 py-2 d-flex align-items-center gap-2" href="/admin/perfil">
+                        <a class="dropdown-item rounded-2 py-2 d-flex align-items-center gap-2" href="{{ route('admin.perfil') }}">
                             <i data-lucide="user" class="icon-sm"></i> Mi Perfil
                         </a>
                     </li>
-                    
+
                     <li><hr class="dropdown-divider border-secondary opacity-25"></li>
-                    
+
                     <li>
                         {{-- Botón Cerrar Sesión (ID="logoutBtn" para tu script) --}}
                         <button id="logoutBtn" class="dropdown-item rounded-2 py-2 d-flex align-items-center gap-2 text-danger">
@@ -64,7 +64,7 @@ window.addEventListener('DOMContentLoaded', event => {
             event.preventDefault();
             // Alternar clase en el body
             document.body.classList.toggle('sb-sidenav-toggled');
-            
+
             // Guardar estado en localStorage (opcional, para recordar si estaba abierto/cerrado)
             localStorage.setItem('sb|sidebar-toggle', document.body.classList.contains('sb-sidenav-toggled'));
         });
@@ -74,16 +74,16 @@ window.addEventListener('DOMContentLoaded', event => {
         const logoutBtn = document.getElementById('logoutBtn');
         const userNameEl = document.getElementById('userName');
         const userAvatarEl = document.getElementById('userAvatar'); // Referencia al avatar
-        
+
         const userData = localStorage.getItem('user_data');
-        
+
         if (userData) {
             try {
                 const user = JSON.parse(userData);
-                
+
                 // Actualizar Nombre
                 userNameEl.textContent = user.nombre || 'Usuario';
-                
+
                 // Actualizar Avatar (Extra visual)
                 if(user.nombre) {
                     userAvatarEl.textContent = user.nombre.charAt(0).toUpperCase();
@@ -118,7 +118,7 @@ window.addEventListener('DOMContentLoaded', event => {
                 confirmButtonColor: '#d33',
                 cancelButtonColor: '#3085d6'
             });
-            
+
             if (result.isConfirmed) {
                 localStorage.clear();
                 $.ajax({
@@ -151,4 +151,4 @@ window.addEventListener('DOMContentLoaded', event => {
             }
         });
     });
-</script> 
+</script>

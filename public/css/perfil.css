@@ -1,0 +1,219 @@
+/* =========================================
+   PERFIL PORTAL - ESTILO CHESS DARK
+   ========================================= */
+
+:root {
+    --chess-bg-dark: #262421;
+    --chess-bg-input: #1e1e1e;
+    --chess-green: #81b64c;
+    --chess-green-hover: #95bb4a;
+    --chess-cyan: #3dc0d1;
+    --chess-red: #c23616;
+    --text-muted: #bababa;
+    --border-color: rgba(255, 255, 255, 0.1);
+}
+
+/* =========================================
+   BODY
+   ========================================= */
+
+body {
+    background-color: #1b1a19;
+    color: #ffffff;
+}
+
+/* =========================================
+   TITULOS
+   ========================================= */
+
+.title-principal {
+    color: #ffffff !important;
+}
+
+.title-principal i {
+    color: var(--chess-green) !important;
+}
+
+/* =========================================
+   CARD PERFIL
+   ========================================= */
+
+.card {
+    background-color: var(--chess-bg-dark) !important;
+    border: 1px solid var(--border-color) !important;
+    color: white !important;
+}
+
+.card h4,
+.card h5,
+.card h6,
+.card label,
+.form-label {
+    color: var(--chess-green) !important;
+    font-weight: 600;
+}
+
+.card span,
+.card div,
+.card p {
+    color: white !important;
+}
+
+/* =========================================
+   AVATAR
+   ========================================= */
+
+.rounded-circle {
+    border-color: var(--chess-green) !important;
+    background-color: var(--chess-bg-input) !important;
+}
+
+/* =========================================
+   BOTONES
+   ========================================= */
+
+.btnEditar,
+.btn-success {
+    background-color: var(--chess-green) !important;
+    border: 1px solid var(--chess-green) !important;
+    color: white !important;
+    transition: all 0.2s ease;
+}
+
+.btnEditar:hover,
+.btn-success:hover {
+    background-color: var(--chess-green-hover) !important;
+    border-color: var(--chess-green-hover) !important;
+    color: white !important;
+    transform: translateY(-2px);
+}
+
+.btn-outline-secondary {
+    border-color: rgba(255,255,255,0.2) !important;
+    color: white !important;
+    transition: all 0.2s ease;
+}
+
+.btn-outline-secondary:hover {
+    background-color: #3b3935 !important;
+    color: white !important;
+    border-color: #4c4a46 !important;
+}
+
+/* =========================================
+   MODALES
+   ========================================= */
+
+.modal-content {
+    background-color: var(--chess-bg-dark) !important;
+    border: 1px solid var(--border-color);
+    color: white !important;
+    border-radius: 18px !important;
+}
+
+.modal-header {
+    border-bottom: 1px solid var(--border-color) !important;
+}
+
+.modal-footer {
+    border-top: 1px solid var(--border-color) !important;
+    background-color: var(--chess-bg-dark) !important;
+}
+
+.modal-title {
+    color: white !important;
+    font-weight: 700;
+}
+
+.btn-close {
+    filter: invert(1) grayscale(100%) brightness(200%);
+}
+
+/* =========================================
+   INPUTS
+   ========================================= */
+
+.form-control,
+.form-select {
+    background-color: var(--chess-bg-input) !important;
+    border: 1px solid var(--border-color) !important;
+    color: white !important;
+    border-radius: 10px !important;
+}
+
+.form-control:focus,
+.form-select:focus {
+    background-color: #151515 !important;
+    border-color: var(--chess-green) !important;
+    color: white !important;
+    box-shadow: 0 0 0 0.15rem rgba(129, 182, 76, 0.25) !important;
+}
+
+/* =========================================
+   INPUT FILE
+   ========================================= */
+
+input[type="file"]::file-selector-button {
+    background-color: var(--chess-green);
+    color: white;
+    border: none;
+    padding: 6px 12px;
+    margin-right: 10px;
+    border-radius: 8px;
+    transition: 0.2s ease;
+}
+
+input[type="file"]::file-selector-button:hover {
+    background-color: var(--chess-green-hover);
+}
+
+/* =========================================
+   SWEETALERT DARK
+   ========================================= */
+
+div:where(.swal2-container) div:where(.swal2-popup) {
+    background: var(--chess-bg-dark) !important;
+    color: #fff !important;
+    border: 1px solid var(--border-color);
+}
+
+div:where(.swal2-container) button.swal2-confirm {
+    background-color: var(--chess-green) !important;
+    box-shadow: none !important;
+}
+
+div:where(.swal2-container) button.swal2-cancel {
+    background-color: #1e1e1e !important;
+    color: #fff !important;
+    border: 1px solid var(--border-color);
+}
+
+/* =========================================
+   INVALID FEEDBACK
+   ========================================= */
+
+.invalid-feedback {
+    color: #ff7b7b !important;
+}
+
+/* =========================================
+   RESPONSIVE
+   ========================================= */
+
+@media (max-width: 768px) {
+
+    #userAvatar {
+        width: 110px !important;
+        height: 110px !important;
+    }
+
+    .card {
+        padding: 1.5rem !important;
+    }
+
+    .btnEditar,
+    .btn-outline-secondary,
+    .btn-success {
+        width: 100%;
+    }
+}

@@ -26,7 +26,7 @@ $(document).ready(function () {
                 $('#userNombre').text(`${usuario.nombre} ${usuario.apellido ?? ''}`.trim());
                 $('#userEmail').text(usuario.email);
                 $('#userTelefono').text(usuario.telefono || 'No registrado');
-                $('#userDocumento').text(usuario.documento);
+                $('#userDocumento').text(usuario.numero_identificacion || 'No registrado');
                 $('#userRol').text(usuario.rol?.nombre ?? 'Sin rol');
             })
             .catch(err => {
@@ -157,10 +157,11 @@ $(document).ready(function () {
         const modal = new bootstrap.Modal('#modalEditarPerfil');
         modal.show();
 
+        console.log('Usuario actual:', usuarioActual);
         $('#previewAvatar').attr('src', avatarActual);
         $('#nombre').val(usuarioActual.nombre);
         $('#apellido').val(usuarioActual.apellido ?? '');
-        $('#documento').val(usuarioActual.documento);
+        $('#documento').val(usuarioActual.numero_identificacion);
         $('#email').val(usuarioActual.email);
         $('#telefono').val(usuarioActual.telefono ?? '');
 
