@@ -53,14 +53,9 @@
 
         <div class="collapse {{ $entrenoActive ? 'show' : '' }}" id="submenuEntreno">
             <div class="bg-dark-subtle ps-2">
-                <a href="{{ route('entrenamientos.horarios') }}"
-                   class="list-group-item list-group-item-action py-2 {{ request()->routeIs('entrenamientos.horarios') ? 'text-chess-green' : '' }}">
-                    <i class="bi bi-clock-fill"></i> Horarios
-                </a>
-
-                <a href="{{ route('entrenamientos.foro') }}"
-                   class="list-group-item list-group-item-action py-2 {{ request()->routeIs('entrenamientos.foro') ? 'text-chess-green' : '' }}">
-                    <i class="bi bi-chat-dots-fill"></i> Foro
+                <a href="{{ route('entrenamientos.index') }}"
+                   class="list-group-item list-group-item-action py-2 {{ request()->routeIs('entrenamientos') ? 'text-chess-green' : '' }}">
+                    <i class="bi bi-calendar2-week-fill"></i> Mis Entrenamientos
                 </a>
             </div>
         </div>

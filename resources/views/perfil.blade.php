@@ -165,10 +165,11 @@
                             Nombre
                         </label>
 
-                        <input type="text"
+                        <input disabled
+                               type="text"
                                name="nombre"
                                id="nombre"
-                               class="form-control required">
+                               class="form-control-disabled">
                     </div>
 
                     {{-- APELLIDO --}}
@@ -178,10 +179,11 @@
                             Apellido
                         </label>
 
-                        <input type="text"
+                        <input disabled
+                               type="text"
                                name="apellido"
                                id="apellido"
-                               class="form-control required">
+                               class="form-control-disabled">
                     </div>
 
                     {{-- DOCUMENTO --}}
@@ -191,10 +193,11 @@
                             No. Documento
                         </label>
 
-                        <input type="text"
+                        <input disabled
+                               type="text"
                                name="documento"
                                id="documento"
-                               class="form-control required">
+                               class="form-control-disabled">
                     </div>
 
                     {{-- TELÉFONO --}}

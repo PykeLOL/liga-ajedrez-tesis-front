@@ -7,37 +7,61 @@
 @endsection
 
 @section('content')
-<div class="container py-4">
-    <h1 class="mb-4">Entrenamientos</h1>
+<div class="container-fluid p-0">
 
-    <!-- Botón Google -->
-    <div class="mb-3">
-        <a href="{{ env('API_URL') . '/entrenamientos/google/authorize' }}" class="btn btn-primary">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <div>
+            <h2 class="text-white fw-bold mb-1">
+                <i class="bi bi-calendar2-week-fill text-chess-green me-2"></i>
+                Entrenamientos
+            </h2>
+            <p class="text-muted mb-0">
+                Consulta tus entrenamientos y sincronízalos con Google Calendar.
+            </p>
+        </div>
+
+        <a href="{{ env('API_URL') . '/home/entrenamientos/google/authorize' }}"
+           class="btn btn-chess">
+            <i class="bi bi-google me-2"></i>
             Conectar Google Calendar
         </a>
     </div>
 
-    <!-- TABLA (SIEMPRE VISIBLE) -->
-    <table id="entrenamientosTable" class="table table-striped table-bordered w-100">
-        <thead></thead>
-        <tbody></tbody>
-    </table>
+    <div class="card card-training mb-4">
+        <div class="card-header-training">
+            <i class="bi bi-list-check me-2"></i>
+            Próximos entrenamientos
+        </div>
 
-    <!-- CALENDARIO GOOGLE -->
-    <div id="googleCalendarContainer" class="card shadow rounded-4 mt-4 d-none">
         <div class="card-body">
-            <h4 class="mb-3">Calendario de Entrenamientos</h4>
+            <table id="entrenamientosTable"
+                   class="table table-striped table-bordered w-100">
+            </table>
+        </div>
+    </div>
+
+    <div id="googleCalendarContainer"
+         class="card card-training d-none">
+
+        <div class="card-header-training">
+            <i class="bi bi-calendar-event me-2"></i>
+            Calendario
+        </div>
+
+        <div class="card-body p-0">
 
             <iframe
                 id="googleCalendarFrame"
-                style="border:0"
                 width="100%"
-                height="650"
+                height="700"
                 frameborder="0"
                 scrolling="no">
             </iframe>
+
         </div>
+
     </div>
+
 </div>
 @endsection
 

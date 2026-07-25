@@ -87,7 +87,7 @@
             {{-- TARJETA DE TEMA --}}
             <div class="card forum-card border-0 shadow-sm p-3">
                 <div class="d-flex align-items-center">
-                    
+
                     {{-- Columna 1: Avatar y Votos --}}
                     <div class="d-flex flex-column align-items-center me-4 text-center" style="min-width: 60px;">
                         <img src="{{ $tema['avatar'] }}" class="rounded-circle mb-2 border border-secondary" width="45" height="45">
@@ -104,11 +104,11 @@
                             @endif
                             <small class="text-muted ms-auto d-md-none">{{ $tema['fecha'] }}</small>
                         </div>
-                        
+
                         <a href="#" class="text-white text-decoration-none h5 fw-bold mb-1 d-block topic-link">
                             {{ $tema['titulo'] }}
                         </a>
-                        
+
                         <p class="text-muted small mb-0">
                             Publicado por <span class="text-chess-green">{{ $tema['autor'] }}</span> • {{ $tema['fecha'] }}
                         </p>

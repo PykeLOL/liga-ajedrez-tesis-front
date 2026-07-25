@@ -6,8 +6,32 @@ $(document).ready(function () {
     const hoyLocal = hoy.toLocaleDateString('en-CA');
 
     initEventosTable();
+    loadFiltroTiposEvento();
     bindEvents();
     validarPermisos(modulo, acciones);
+
+    function loadFiltroTiposEvento() {
+        apiRequest({
+            url: `${apiUrl}/select/tipos-evento`,
+            type: 'GET'
+        })
+        .then(tiposEvento => {
+            const $select = $('#filtroTipoEvento');
+            $select.empty().append('<option value="">Todos</option>');
+            tiposEvento.forEach(tipo => {
+                if (tipo.nombre === 'Torneo') return;
+                $select.append(new Option(tipo.nombre, tipo.id));
+            });
+
+            if ($select.hasClass('select2-hidden-accessible')) {
+                $select.select2('destroy');
+            }
+
+            $select.select2({
+                width: '100%'
+            });
+        });
+    }
 
     function initEventosTable() {
         if ($.fn.DataTable.isDataTable('#eventosTable')) {
@@ -27,6 +51,7 @@ $(document).ready(function () {
             },
             columns: [
                 { data: 'id' },
+                { data: 'tipo_evento_id', visible: false, searchable: true },
                 {
                     data: 'imagen_principal',
                     className: 'text-center',
@@ -243,6 +268,12 @@ $(document).ready(function () {
 
         $('#fecha_inicio').on('change', function () {
             actualizarEstadoFechas();
+        });
+
+        $('#filtroTipoEvento').on('change', function () {
+            const valor = $(this).val();
+            const tabla = $('#eventosTable').DataTable();
+            tabla.column(1).search(valor).draw();
         });
     }
 

@@ -2,7 +2,6 @@ $(document).ready(function () {
     const acciones = ['ver', 'crear', 'editar', 'eliminar'];
     const modulo = "permisos";
 
-    const tipoAccionApiUrl = `${apiUrl}/tipo-accion`;
     const modulosApiUrl = `${apiUrl}/modulos`;
 
     initPermisosTable();
@@ -203,7 +202,7 @@ $(document).ready(function () {
 
      function cargarTipoAcciones(selectedId = null) {
         apiRequest({
-            url: `${apiUrl}/tipo-accion/select`,
+            url: `${apiUrl}/select/tipos-accion`,
             type: 'GET'
         })
         .then(tiposAccion => {
@@ -231,7 +230,7 @@ $(document).ready(function () {
 
     function cargarModulos(selectedId = null) {
         apiRequest({
-            url: `${apiUrl}/modulos/select`,
+            url: `${apiUrl}/select/modulos`,
             type: 'GET'
         })
         .then(modulos => {

@@ -13,19 +13,35 @@
         Lista de Eventos
     </h2>
 </div>
-    <div class="mb-3">
-        <button class="btnNuevo btn d-none shadow-sm fw-bold px-4 py-2 d-flex align-items-center gap-2 rounded-2 text-white"
-                style="background-color: #81b64c; border:none;">
-            <i data-lucide="plus-circle" style="width: 18px;"></i>
-            <span>Agregar Evento</span>
-        </button>
+
+<div class="d-flex justify-content-between align-items-center mb-3">
+
+    <button class="btnNuevo btn d-none shadow-sm fw-bold px-4 py-2 d-flex align-items-center gap-2 rounded-2 text-white"
+            style="background:#81b64c;border:none;">
+        <i data-lucide="plus-circle" style="width:18px;"></i>
+        <span>Agregar Evento</span>
+    </button>
+
+    <div class="filtro-evento d-flex align-items-center gap-3">
+        <label class="mb-0">
+            <i data-lucide="filter" class="me-1" style="width:15px"></i>
+            Tipo de evento
+        </label>
+
+        <select id="filtroTipoEvento">
+            <option value="">Todos</option>
+        </select>
     </div>
+
+</div>
+
 <div class="card border-0 shadow-lg" style="background-color: transparent;">
     <div class="table-responsive rounded-2">
         <table id="eventosTable" class="table align-middle mb-0 w-100">
             <thead class="text-center" style="background-color: rgba(0,0,0,0.3); color: #81b64c;">
                 <tr>
                     <th style="width: 50px;">ID</th>
+                    <th style="display:none;"></th> <!-- tipo_evento_id -->
                     <th>Imagen Principal</th>
                     <th>Nombre</th>
                     <th>Descripción</th>

@@ -9,22 +9,22 @@
      ========================================================= --}}
 <div class="p-5 mb-5 rounded-3 text-white position-relative shadow-lg overflow-hidden hero-section">
     <div class="position-absolute top-0 start-0 w-100 h-100 bg-overlay"></div>
-    
+
     <div class="position-relative z-1 py-5 px-3 text-center text-md-start">
         <h1 class="display-3 fw-bold text-chess-green mb-3">Liga de Ajedrez del Meta</h1>
         <p class="col-md-8 fs-4 text-light opacity-90 mb-4">
             Estrategia, disciplina y excelencia. <br>
             La casa de los grandes maestros de nuestra región.
         </p>
-        
+
         <div class="d-flex flex-wrap gap-3 justify-content-center justify-content-md-start mt-4">
             {{-- Botón 3D Calendario --}}
-            <a href="{{ url('/eventos/torneos') }}" class="btn btn-lg px-5 fw-bold d-flex align-items-center justify-content-center text-white btn-profundidad">
+            <a href="{{ url('/eventos/torneo') }}" class="btn btn-lg px-5 fw-bold d-flex align-items-center justify-content-center text-white btn-profundidad">
                 <i class="bi bi-calendar-check me-2"></i> Ver Calendario de torneo
             </a>
-            
+
             {{-- Botón Sobre Nosotros --}}
-            <a href="{{ url('/welcome') }}" class="btn btn-outline-light btn-lg px-5 fw-bold d-flex align-items-center justify-content-center">
+            <a href="{{ route('nosotros') }}" class="btn btn-outline-light btn-lg px-5 fw-bold d-flex align-items-center justify-content-center">
                 <i class="bi bi-info-circle me-2"></i> Sobre Nosotros
             </a>
         </div>
@@ -41,13 +41,13 @@
 
     {{-- A. Noticia Principal (Grande) --}}
     <div class="col-lg-7">
-        <div class="card h-100 border-0 shadow-sm card-hover text-white overflow-hidden position-relative" 
+        <div class="card h-100 border-0 shadow-sm card-hover text-white overflow-hidden position-relative"
              style="background-color: #262421; border: 1px solid rgba(255,255,255,0.1);">
-            
+
             <div class="img-wrapper overflow-hidden position-relative">
-                <img src="https://images.unsplash.com/photo-1529699211952-734e80c4d42b?auto=format&fit=crop&w=800&q=80" 
-                     class="card-img-top w-100" 
-                     style="height: 280px; object-fit: cover; transition: transform 0.3s ease;" 
+                <img src="https://images.unsplash.com/photo-1529699211952-734e80c4d42b?auto=format&fit=crop&w=800&q=80"
+                     class="card-img-top w-100"
+                     style="height: 280px; object-fit: cover; transition: transform 0.3s ease;"
                      alt="Torneo">
                 <span class="badge bg-danger position-absolute top-0 start-0 m-3 shadow">TORNEO OFICIAL</span>
             </div>
@@ -71,13 +71,13 @@
     {{-- B. Noticias Secundarias (Lista Horizontal) --}}
     <div class="col-lg-5">
         <div class="d-flex flex-column gap-3 h-100">
-            
+
             {{-- Noticia Pequeña 1 --}}
-            <div class="card border-0 shadow-sm card-hover text-white overflow-hidden position-relative" 
+            <div class="card border-0 shadow-sm card-hover text-white overflow-hidden position-relative"
                  style="background-color: #262421; border: 1px solid rgba(255,255,255,0.1);">
                 <div class="row g-0 align-items-center">
                     <div class="col-4">
-                        <img src="https://images.unsplash.com/photo-1586165368502-1bad197a6461?auto=format&fit=crop&w=300&q=80" 
+                        <img src="https://images.unsplash.com/photo-1586165368502-1bad197a6461?auto=format&fit=crop&w=300&q=80"
                              class="img-fluid h-100 w-100" style="object-fit: cover; min-height: 110px;" alt="Ranking">
                     </div>
                     <div class="col-8">
@@ -93,11 +93,11 @@
             </div>
 
             {{-- Noticia Pequeña 2 --}}
-            <div class="card border-0 shadow-sm card-hover text-white overflow-hidden position-relative" 
+            <div class="card border-0 shadow-sm card-hover text-white overflow-hidden position-relative"
                  style="background-color: #262421; border: 1px solid rgba(255,255,255,0.1);">
                 <div class="row g-0 align-items-center">
                     <div class="col-4">
-                        <img src="https://images.unsplash.com/photo-1560174038-da43ac74f01b?auto=format&fit=crop&w=300&q=80" 
+                        <img src="https://images.unsplash.com/photo-1560174038-da43ac74f01b?auto=format&fit=crop&w=300&q=80"
                              class="img-fluid h-100 w-100" style="object-fit: cover; min-height: 110px;" alt="Clubes">
                     </div>
                     <div class="col-8">
@@ -113,11 +113,11 @@
             </div>
 
             {{-- Noticia Pequeña 3 --}}
-            <div class="card border-0 shadow-sm card-hover text-white overflow-hidden position-relative" 
+            <div class="card border-0 shadow-sm card-hover text-white overflow-hidden position-relative"
                  style="background-color: #262421; border: 1px solid rgba(255,255,255,0.1);">
                 <div class="row g-0 align-items-center">
                     <div class="col-4">
-                        <img src="https://plus.unsplash.com/premium_photo-1673814660307-a7201b6357dd?q=80&w=300&auto=format&fit=crop" 
+                        <img src="https://plus.unsplash.com/premium_photo-1673814660307-a7201b6357dd?q=80&w=300&auto=format&fit=crop"
                              class="img-fluid h-100 w-100" style="object-fit: cover; min-height: 110px;" alt="Capacitación">
                     </div>
                     <div class="col-8">
@@ -140,7 +140,7 @@
      3. FILA DOBLE: RANKING ELO + CLUBES
      ========================================================= --}}
 <div class="row g-4 mb-5">
-    
+
     {{-- A. TOP 5 ELO (Mitad Izquierda) --}}
     <div class="col-lg-6">
         <div class="card bg-dark-card text-white border-0 shadow-sm h-100" style="background-color: #262421; border: 1px solid rgba(255,255,255,0.1);">
@@ -213,13 +213,13 @@
                 <h5 class="mb-0 fw-bold"><i class="bi bi-shield-shaded text-chess-green me-2"></i>Clubes Afiliados</h5>
                 <a href="{{ route('clubes.index') }}" class="btn btn-sm btn-outline-light px-3">Ver Todos</a>
             </div>
-            
+
             <div class="card-body">
                 <p class="text-muted mb-4">Conoce los clubes oficiales donde puedes entrenar y competir.</p>
-                
+
                 {{-- Grid de Clubes (2 columnas internas) --}}
                 <div class="row g-3">
-                    <div class="col-md-6"> 
+                    <div class="col-md-6">
                         <a href="{{ route('clubes.index') }}" class="text-decoration-none text-white">
                             <div class="p-3 border border-secondary rounded d-flex align-items-center bg-dark-subtle club-card cursor-pointer h-100" style="border-color: rgba(255,255,255,0.1) !important; background-color: #1e1e1e !important;">
                                 <div class="bg-white rounded-circle p-2 me-3 d-flex justify-content-center align-items-center shadow-sm" style="width: 50px; height: 50px;">
@@ -232,7 +232,7 @@
                             </div>
                         </a>
                     </div>
-                    
+
                     <div class="col-md-6">
                         <a href="{{ route('clubes.index') }}" class="text-decoration-none text-white">
                             <div class="p-3 border border-secondary rounded d-flex align-items-center bg-dark-subtle club-card cursor-pointer h-100" style="border-color: rgba(255,255,255,0.1) !important; background-color: #1e1e1e !important;">

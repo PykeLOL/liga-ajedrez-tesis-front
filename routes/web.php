@@ -16,7 +16,7 @@ Route::get('/registrarse', [LoginController::class, 'registarse'])->name('regist
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('/perfil', [HomeController::class, 'perfil'])->name('perfil');
-Route::get('/welcome', [HomeController::class, 'welcome'])->name('welcome');
+Route::get('/sobre-nosotros', [HomeController::class, 'welcome'])->name('nosotros');
 
 Route::prefix('eventos')->name('eventos.')->group(function () {
     Route::get('/{tipo}', [EventosController::class, 'index'])->name('tipo');
@@ -28,7 +28,6 @@ Route::prefix('eventos')->name('eventos.')->group(function () {
 
 Route::prefix('entrenamientos')->name('entrenamientos.')->group(function () {
     Route::get('/', [EntrenamientoController::class, 'index'])->name('index');
-    Route::get('/horarios', [EntrenamientoController::class, 'horarios'])->name('horarios');
     Route::get('/foro', [EntrenamientoController::class, 'foro'])->name('foro');
 });
 
@@ -56,4 +55,5 @@ Route::prefix('admin')->name('admin.')->group(function () {
     Route::get('/torneos', [AdminController::class, 'getTorneos'])->name('torneos');
     Route::get('/clubes', [AdminController::class, 'getClubes'])->name('clubes');
     Route::get('/deportistas', [AdminController::class, 'getDeportistas'])->name('deportistas');
+    Route::get('/entrenamientos', [AdminController::class, 'getEntrenamientos'])->name('entrenamientos');
 });

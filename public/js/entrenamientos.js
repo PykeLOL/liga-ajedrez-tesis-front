@@ -8,7 +8,7 @@ $(document).ready(function () {
 
         $('#entrenamientosTable').DataTable({
             ajax: function (data, callback) {
-                datatableAjaxNoLogin(`${apiUrl}/entrenamientos`)
+                datatableAjaxNoLogin(`${apiUrl}/home/entrenamientos/mis-entrenamientos`)
                     .then(response => callback({ data: response }))
                     .catch(() => callback({ data: [] }));
             },
@@ -22,7 +22,22 @@ $(document).ready(function () {
                     title: 'Horario',
                     render: row => `${row.hora_inicio} - ${row.hora_fin}`
                 },
-                { data: 'ubicacion', title: 'Ubicación' },
+                {
+                    data: null,
+                    render: function(data) {
+                        if (!data.url_mapa) {
+                            return data.ubicacion;
+                        }
+
+                        return `
+                            <a href="${data.url_mapa}" target="_blank" class="text-decoration-none text-white">
+                                <i data-lucide="map-pin" class="text-success me-1" style="width:16px;height:16px;"></i>
+                                ${data.ubicacion}
+                            </a>
+                        `;
+                    },
+                    title: 'Ubicación'
+                },
                 {
                     data: 'id',
                     title: 'Acciones',
@@ -41,7 +56,7 @@ $(document).ready(function () {
         const trainingId = $(this).data('id');
 
         $.ajax({
-            url: `${apiUrl}/entrenamientos/${trainingId}/google`,
+            url: `${apiUrl}/home/entrenamientos/${trainingId}/google`,
             type: 'POST',
             xhrFields: { withCredentials: true },
             success: resp => {
@@ -72,9 +87,13 @@ $(document).ready(function () {
 
     function loadGoogleCalendar() {
         const userData = localStorage.getItem('user_data');
+        console.log('userData');
+        console.log(userData);
         if (!userData) return;
 
         const user = JSON.parse(userData);
+        console.log('user');
+        console.log(user);
 
         if (!user.google_id) {
             $('#googleCalendarContainer').addClass('d-none');
@@ -96,6 +115,8 @@ $(document).ready(function () {
             xhrFields: { withCredentials: true },
             success: resp => {
                 if (resp?.user) {
+                    console.log('resp.user');
+                    console.log(resp.user);
                     localStorage.setItem('user_data', JSON.stringify(resp.user));
                 }
             }

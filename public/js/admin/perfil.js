@@ -22,12 +22,21 @@ $(document).ready(function () {
                     ? `${baseUrl}/storage/${usuario.imagen_path}`
                     : `${baseUrl}/storage/usuarios/default-user.png`;
 
-                $('#userAvatar').attr('src', avatarActual);
+                $('#perfilAvatar').attr('src', avatarActual);
                 $('#userNombre').text(`${usuario.nombre} ${usuario.apellido ?? ''}`.trim());
                 $('#userEmail').text(usuario.email);
                 $('#userTelefono').text(usuario.telefono || 'No registrado');
                 $('#userDocumento').text(usuario.numero_identificacion || 'No registrado');
                 $('#userRol').text(usuario.rol?.nombre ?? 'Sin rol');
+
+                localStorage.setItem('user_data', JSON.stringify({
+                    id: usuario.id,
+                    nombre: usuario.nombre,
+                    email: usuario.email,
+                    rol: usuario.rol?.nombre ?? '',
+                    imagen_path: usuario.imagen_path
+                }));
+
             })
             .catch(err => {
                 console.error('Error cargando perfil:', err);
@@ -223,7 +232,7 @@ $(document).ready(function () {
         };
 
         apiRequest({
-            url: `${apiUrl}/perfil`,
+            url: `${apiUrl}/perfil/admin`,
             type: 'PUT',
             data: JSON.stringify(data),
             contentType: 'application/json'

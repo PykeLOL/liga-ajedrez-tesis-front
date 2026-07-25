@@ -8,18 +8,18 @@
                 </div>
                 <p class="small">Promoviendo el ajedrez como herramienta pedagógica y deportiva en todo el departamento del Meta.</p>
                 <div class="d-flex gap-3 mt-3">
-                    <a href="#" class="text-secondary hover-white"><i class="bi bi-facebook fs-5"></i></a>
-                    <a href="#" class="text-secondary hover-white"><i class="bi bi-instagram fs-5"></i></a> 
+                    <a href="https://www.facebook.com/LigaAjedrezMeta" class="text-secondary hover-white"><i class="bi bi-facebook fs-5"></i></a>
+                    <a href="https://www.instagram.com/ligaajedrezmeta/" class="text-secondary hover-white"><i class="bi bi-instagram fs-5"></i></a>
                 </div>
             </div>
 
             <div class="col-lg-4 col-md-6">
                 <h6 class="text-white fw-bold mb-3">Enlaces Rápidos</h6>
                 <ul class="list-unstyled small">
-                    <li class="mb-2"><a href="{{ url('/eventos/torneos') }}" class="text-decoration-none text-secondary hover-green">Calendario de Torneos</a></li>
+                    <li class="mb-2"><a href="{{ url('/eventos/torneo') }}" class="text-decoration-none text-secondary hover-green">Calendario de Torneos</a></li>
                     <li class="mb-2"><a href="{{ url('/deportistas/topelo') }}" class="text-decoration-none text-secondary hover-green">Ranking ELO</a></li>
                     <li class="mb-2"><a href="{{ url('/clubes') }}" class="text-decoration-none text-secondary hover-green">Clubes Afiliados</a></li>
-                    <li class="mb-2"><a href="{{ url('/eventos/reuniones') }}" class="text-decoration-none text-secondary hover-green">Reuniones</a></li>
+                    <li class="mb-2"><a href="{{ url('/eventos/reunion') }}" class="text-decoration-none text-secondary hover-green">Reuniones</a></li>
                 </ul>
             </div>
 
@@ -32,7 +32,7 @@
                 </ul>
             </div>
         </div>
-        
+
         <div class="border-top border-secondary mt-4 pt-4 text-center small">
             <p class="mb-0">&copy; 2026 Liga de Ajedrez del Meta.</p>
         </div>

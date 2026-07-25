@@ -1,0 +1,32 @@
+.select2-container--default .select2-selection--single .select2-selection__rendered {
+    white-space: nowrap !important;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+}
+
+.info-label{
+    display:block;
+    font-size:.78rem;
+    font-weight:600;
+    text-transform:uppercase;
+    letter-spacing:.05em;
+    color:#8bc34a;
+    margin-bottom:.35rem;
+}
+
+.info-value{
+    font-size:1rem;
+    font-weight:500;
+    color:#fff;
+    line-height:1.35;
+}
+
+.loading-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,.45);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 99999;
+}

@@ -54,9 +54,7 @@
     </div>
 </nav>
 
-{{-- TU SCRIPT ORIGINAL (Adaptado a la estructura nueva) --}}
 <script>
-    // Script para el Sidebar y Navbar
 window.addEventListener('DOMContentLoaded', event => {
     const sidebarToggle = document.body.querySelector('#sidebarToggle');
     if (sidebarToggle) {
@@ -84,9 +82,19 @@ window.addEventListener('DOMContentLoaded', event => {
                 // Actualizar Nombre
                 userNameEl.textContent = user.nombre || 'Usuario';
 
-                // Actualizar Avatar (Extra visual)
-                if(user.nombre) {
-                    userAvatarEl.textContent = user.nombre.charAt(0).toUpperCase();
+                // Actualizar Avatar
+                if (user.imagen_path) {
+                    userAvatarEl.innerHTML = `
+                        <img
+                            src="${apiUrlBase}/storage/${user.imagen_path}"
+                            alt="${user.nombre}"
+                            class="w-100 h-100 rounded-circle"
+                            style="object-fit: cover;"
+                        >
+                    `;
+                } else {
+                    userAvatarEl.textContent =
+                        (user.nombre || 'A').charAt(0).toUpperCase();
                 }
 
             } catch (error) {

@@ -8,12 +8,7 @@ class EntrenamientoController extends Controller
 {
     public function index()
     {
-        return view('entrenamientos.index'); 
-    }
-
-    public function horarios()
-    {
-        return view('entrenamientos.horarios.index');
+        return view('entrenamientos.index');
     }
 
     public function foro()

@@ -63,6 +63,13 @@
                 <span>Deportistas</span>
             </a>
         </li>
+        <li class="nav-item-chess">
+            <a href="{{ route('admin.entrenamientos') }}"
+               class="ver-entrenamientos nav-link-chess {{ request()->routeIs('admin.entrenamientos') ? 'active' : '' }}">
+                <i data-lucide="calendar-days"></i>
+                <span>Entrenamientos</span>
+            </a>
+        </li>
     </ul>
 
     <div class="sidebar-footer">

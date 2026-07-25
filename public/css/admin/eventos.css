@@ -63,3 +63,74 @@
 .badge-principal {
     text-shadow: 0 0 3px #000;
 }
+
+/*==========================
+    FILTRO TIPO EVENTO
+===========================*/
+
+.filtro-evento{
+    display:flex;
+    align-items:center;
+    gap:12px;
+}
+
+.filtro-evento label{
+    color:#81b64c;
+    font-size:.95rem;
+    font-weight:600;
+    margin:0;
+    white-space:nowrap;
+}
+
+.filtro-evento .select2-container{
+    width:280px!important;
+}
+
+.filtro-evento .select2-selection{
+    background:#302d2a!important;
+    border:1px solid rgba(129,182,76,.35)!important;
+    border-radius:10px!important;
+    height:44px!important;
+
+    display:flex!important;
+    align-items:center;
+    transition:.2s;
+}
+
+.filtro-evento .select2-selection:hover{
+    border-color:#81b64c!important;
+}
+
+.filtro-evento .select2-selection__rendered{
+    color:#fff!important;
+    line-height:42px!important;
+    padding-left:14px!important;
+    font-weight:500;
+}
+
+.filtro-evento .select2-selection__arrow{
+    height:42px!important;
+}
+
+.filtro-evento .select2-selection__placeholder{
+    color:#b9b9b9!important;
+}
+
+.select2-dropdown{
+    background:#302d2a!important;
+    border:1px solid rgba(129,182,76,.25)!important;
+}
+
+.select2-results__option{
+    color:#fff!important;
+    padding:10px 14px;
+}
+
+.select2-results__option--highlighted{
+    background:#81b64c!important;
+    color:#fff!important;
+}
+
+.select2-results__option--selected{
+    background:#3c3835!important;
+}

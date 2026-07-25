@@ -13,12 +13,10 @@ $(document).ready(function () {
             type: 'GET'
         })
         .then(usuario => {
-
             $('#perfilLoader').hide();
             $('#perfilContainer').show();
 
             usuarioActual = usuario;
-
             const baseUrl = apiUrl.replace('/api', '');
 
             avatarActual = usuario.imagen_path
@@ -26,29 +24,21 @@ $(document).ready(function () {
                 : `${baseUrl}/storage/usuarios/default-user.png`;
 
             $('#userAvatar').attr('src', avatarActual);
+            $('#userNombre').text(`${usuario.nombre} ${usuario.apellido ?? ''}`.trim());
+            $('#userEmail').text(usuario.email || 'No registrado');
+            $('#userTelefono').text(usuario.telefono || 'No registrado');
+            $('#userDocumento').text(usuario.numero_identificacion || 'No registrado');
+            $('#userRol').text(usuario.rol?.nombre ?? 'Sin rol');
 
-            $('#userNombre').text(
-                `${usuario.nombre} ${usuario.apellido ?? ''}`.trim()
-            );
-
-            $('#userEmail').text(
-                usuario.email || 'No registrado'
-            );
-
-            $('#userTelefono').text(
-                usuario.telefono || 'No registrado'
-            );
-
-            $('#userDocumento').text(
-                usuario.numero_identificacion || 'No registrado'
-            );
-
-            $('#userRol').text(
-                usuario.rol?.nombre ?? 'Sin rol'
-            );
+            localStorage.setItem('user_data', JSON.stringify({
+                id: usuario.id,
+                nombre: usuario.nombre,
+                email: usuario.email,
+                rol: usuario.rol?.nombre ?? '',
+                imagen_path: usuario.imagen_path
+            }));
 
             lucide.createIcons();
-
         })
         .catch(err => {
 
@@ -164,10 +154,7 @@ $(document).ready(function () {
         }
 
         const data = {
-            nombre: $('#nombre').val(),
-            apellido: $('#apellido').val(),
             email: $('#email').val(),
-            documento: $('#documento').val(),
             telefono: $('#telefono').val(),
             imagen_base64: imagenBase64,
         };

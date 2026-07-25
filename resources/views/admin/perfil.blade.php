@@ -23,7 +23,7 @@
         <div class="col-lg-4">
             <div class="card shadow-sm border-0 rounded-4 p-4 text-center h-100">
                 <div class="d-flex flex-column align-items-center">
-                    <img id="userAvatar" src="" alt="Avatar"
+                    <img id="perfilAvatar" src="" alt="Avatar"
                         class="rounded-circle shadow-sm mb-3"
                         style="width: 140px; height: 140px; object-fit: cover; border: 3px solid #0d6efd;">
                 </div>
