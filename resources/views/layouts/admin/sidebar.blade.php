@@ -45,7 +45,7 @@
         <li class="nav-item-chess">
             <a href="{{ route('admin.eventos') }}"
                class="ver-eventos nav-link-chess {{ request()->routeIs('admin.eventos') ? 'active' : '' }}">
-                <i data-lucide="calendar-clock"></i>
+                <i data-lucide="calendar-1"></i>
                 <span>Eventos</span>
             </a>
         </li>
@@ -61,6 +61,13 @@
                class="ver-deportistas nav-link-chess {{ request()->routeIs('admin.deportistas') ? 'active' : '' }}">
                 <i data-lucide="biceps-flexed"></i>
                 <span>Deportistas</span>
+            </a>
+        </li>
+        <li class="nav-item-chess">
+            <a href="{{ route('admin.planes-entrenamiento') }}"
+               class="ver-planes-entrenamiento nav-link-chess {{ request()->routeIs('admin.planes-entrenamiento') ? 'active' : '' }}">
+                <i data-lucide="calendars"></i>
+                <span>Planes de Entrenamiento</span>
             </a>
         </li>
         <li class="nav-item-chess">

@@ -56,6 +56,11 @@ class AdminController extends Controller
         return view('admin.deportistas');
     }
 
+    public function getPlanesEntrenamiento()
+    {
+        return view('admin.planes-entrenamiento');
+    }
+
     public function getEntrenamientos()
     {
         return view('admin.entrenamientos');

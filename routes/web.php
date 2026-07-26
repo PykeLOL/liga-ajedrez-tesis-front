@@ -32,9 +32,9 @@ Route::prefix('entrenamientos')->name('entrenamientos.')->group(function () {
 });
 
 Route::prefix('deportistas')->name('deportistas.')->group(function () {
+    Route::get('/mielo', [DeportistasController::class, 'mielo'])->name('mielo');
     Route::get('/topelo', [DeportistasController::class, 'topelo'])->name('topelo');
     Route::get('/palmares', [DeportistasController::class, 'palmares'])->name('palmares');
-    Route::get('/mielo', [DeportistasController::class, 'mielo'])->name('mielo');
 });
 
 Route::prefix('clubes')->name('clubes.')->group(function () {
@@ -47,13 +47,14 @@ Route::get('/noticias', [NoticiasController::class, 'index'])->name('noticias.in
 Route::prefix('admin')->name('admin.')->group(function () {
     Route::get('/', [AdminController::class, 'index'])->name('index');
     Route::get('/perfil', [AdminController::class, 'perfil'])->name('perfil');
-    Route::get('/usuarios', [AdminController::class, 'getUsuarios'])->name('usuarios');
     Route::get('/roles', [AdminController::class, 'getRoles'])->name('roles');
-    Route::get('/permisos', [AdminController::class, 'getPermisos'])->name('permisos');
+    Route::get('/clubes', [AdminController::class, 'getClubes'])->name('clubes');
     Route::get('/modulos', [AdminController::class, 'getModulos'])->name('modulos');
     Route::get('/eventos', [AdminController::class, 'getEventos'])->name('eventos');
     Route::get('/torneos', [AdminController::class, 'getTorneos'])->name('torneos');
-    Route::get('/clubes', [AdminController::class, 'getClubes'])->name('clubes');
+    Route::get('/usuarios', [AdminController::class, 'getUsuarios'])->name('usuarios');
+    Route::get('/permisos', [AdminController::class, 'getPermisos'])->name('permisos');
     Route::get('/deportistas', [AdminController::class, 'getDeportistas'])->name('deportistas');
     Route::get('/entrenamientos', [AdminController::class, 'getEntrenamientos'])->name('entrenamientos');
+    Route::get('/planes-entrenamiento', [AdminController::class, 'getPlanesEntrenamiento'])->name('planes-entrenamiento');
 });

@@ -87,13 +87,9 @@ $(document).ready(function () {
 
     function loadGoogleCalendar() {
         const userData = localStorage.getItem('user_data');
-        console.log('userData');
-        console.log(userData);
         if (!userData) return;
 
         const user = JSON.parse(userData);
-        console.log('user');
-        console.log(user);
 
         if (!user.google_id) {
             $('#googleCalendarContainer').addClass('d-none');
@@ -115,8 +111,6 @@ $(document).ready(function () {
             xhrFields: { withCredentials: true },
             success: resp => {
                 if (resp?.user) {
-                    console.log('resp.user');
-                    console.log(resp.user);
                     localStorage.setItem('user_data', JSON.stringify(resp.user));
                 }
             }

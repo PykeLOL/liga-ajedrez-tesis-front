@@ -52,6 +52,7 @@ function getSelectorPorAccion(accion) {
         editar: '.btnEditar',
         eliminar: '.btnEliminar',
         permisos: '.btnPermisos',
+        generar: '.btnGenerar',
     };
     return map[accion];
 }

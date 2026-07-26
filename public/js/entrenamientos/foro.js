@@ -1,8 +1,8 @@
 document.addEventListener('DOMContentLoaded', function() {
-    
+
     // Simulación de Publicar Tema
     const btnPublicar = document.getElementById('btnPublicar');
-    
+
     if(btnPublicar){
         btnPublicar.addEventListener('click', function() {
             // Cerramos el modal
@@ -22,7 +22,7 @@ document.addEventListener('DOMContentLoaded', function() {
             }).then(() => {
                 // Aquí harías el submit real del formulario o recargarías la página
                 // document.getElementById('formNuevoTema').submit();
-                location.reload(); 
+                location.reload();
             });
         });
     }
@@ -31,10 +31,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const cards = document.querySelectorAll('.forum-card');
     cards.forEach(card => {
         card.addEventListener('click', function(e) {
-            // Si no le dio click a un botón específico, redirigir
-            // Aquí pondrías la ruta al detalle del tema
-            // window.location.href = 'ruta/al/detalle';
-            console.log("Ir al detalle del tema...");
+
         });
     });
 });

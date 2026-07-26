@@ -1,87 +1,68 @@
 @extends('layouts.admin.app')
 @section('title', 'Gestión de Entrenamientos')
+
 @section('styles')
-<link rel="stylesheet" href="{{ asset('css/admin/entrenamientos.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/admin/entrenamientos.css') }}">
 @endsection
+
 @section('content')
 <div id="loadingOverlay" class="loading-overlay d-none">
     <div class="spinner-border text-light" role="status"></div>
 </div>
-<div class="d-flex justify-content-between align-items-center mb-4 border-bottom pb-3"
-	style="border-color:rgba(255,255,255,.1)!important;">
-	<h2 class="title-principal d-flex align-items-center m-0 text-white">
-		<i
-			data-lucide="calendar-days"
-			class="me-3 text-success"
-			style="width:32px;height:32px;">
-		</i>
-		Lista de Entrenamientos
-	</h2>
+
+<div class="d-flex justify-content-between align-items-center mb-4 border-bottom pb-2">
+    <h2 class="fw-bold d-flex align-items-center text-primary title-principal">
+        <i data-lucide="calendar-days" class="me-2 icono-titulo"></i>
+        Lista de Entrenamientos
+    </h2>
 </div>
-<div class="mb-3">
-	<button
-		class="btnNuevo btn d-none shadow-sm fw-bold px-4 py-2 d-flex align-items-center gap-2 rounded-2 text-white"
-		style="background:#81b64c;border:none;">
-	<i data-lucide="plus-circle" style="width:18px;"></i>
-	<span>Agregar Entrenamiento</span>
-	</button>
+
+<div class="table-responsive shadow rounded">
+    <button class="btnNuevo btn btn-success mb-3 d-none shadow-sm fw-semibold px-3 py-2 d-flex align-items-center gap-2">
+        <i data-lucide="calendar-plus" class="icono-boton"></i>
+        <span>Agregar Entrenamiento</span>
+    </button>
 </div>
+
 <div class="card border-0 shadow-lg" style="background:transparent">
 	<div class="table-responsive rounded-2">
-		<table
-			id="entrenamientosTable"
-			class="table align-middle mb-0 w-100">
-			<thead
-				class="text-center"
-				style="background:rgba(0,0,0,.3);color:#81b64c;">
-				<tr>
-					<th style="width:60px;">ID</th>
-					<th>Tipo</th>
-					<th>Club</th>
-					<th>Categoría</th>
-					<th>Género</th>
-					<th>Entrenador</th>
-					<th>Fecha</th>
-					<th>Horario</th>
-					<th>Ubicación</th>
-					<th>Deportistas</th>
-					<th style="width:120px;">Acciones</th>
-				</tr>
-			</thead>
-			<tbody></tbody>
-		</table>
-	</div>
+        <table id="entrenamientosTable" class="table align-middle mb-0 w-100">
+            <thead
+                class="text-center"
+                style="background:rgba(0,0,0,.3);color:#81b64c;">
+                <tr>
+                    <th style="width:60px;">ID</th>
+                    <th>Tipo</th>
+                    <th>Club</th>
+                    <th>Categoría</th>
+                    <th>Género</th>
+                    <th>Entrenador</th>
+                    <th>Fecha</th>
+                    <th>Horario</th>
+                    <th>Ubicación</th>
+                    <th>Deportistas</th>
+                    <th style="width:120px;">Acciones</th>
+                </tr>
+            </thead>
+        </table>
+    </div>
 </div>
-<div
-	class="modal fade"
-	id="entrenamientoModal"
-	tabindex="-1"
-	aria-hidden="true">
+<div class="modal fade" id="entrenamientoModal" tabindex="-1" aria-labelledby="entrenamientoModalLabel" aria-hidden="true" >
 	<div class="modal-dialog modal-xl modal-dialog-scrollable">
-		<div
-			class="modal-content entrenamiento-modal">
-			<div class="modal-header">
-				<h5
-					class="modal-title d-flex align-items-center gap-2">
-					<i
-						data-lucide="calendar-days"
-						class="text-success"
-						style="width:22px;">
-					</i>
-					<span id="entrenamientoModalLabel">
-					Nuevo Entrenamiento
-					</span>
-				</h5>
-				<button
-					class="btn-close btn-close-white"
-					data-bs-dismiss="modal">
-				</button>
-			</div>
+		<div class="modal-content entrenamiento-modal">
+            <div class="modal-header bg-primary text-white">
+                <h5 class="modal-title">
+                    <i data-lucide="calendar-days" class="text-success" style="width:22px;"></i>
+                    <span id="entrenamientoModalLabel">
+                        Nuevo Entrenamiento
+                    </span>
+                </h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+            </div>
+
 			<div class="modal-body">
 				<form id="entrenamientoForm">
-					<input
-						type="hidden"
-						id="entrenamientoId">
+					<input type="hidden" id="entrenamientoId">
 					<div class="card seccion-card mb-4">
 						<div class="card-body">
 							<h6 class="seccion-titulo">
@@ -138,10 +119,7 @@
                                         <label class="form-label">
                                             Plan de entrenamiento
                                         </label>
-                                        <select
-                                            id="plan_entrenamiento_id"
-                                            class="form-control">
-                                        </select>
+                                        <select id="plan_entrenamiento_id" class="form-control"></select>
                                     </div>
                                 </div>
                             </div>
@@ -343,19 +321,13 @@
 										<label class="form-label">
 										Tipo entrenamiento *
 										</label>
-										<select
-											id="tipo_entrenamiento_id"
-											class="form-control required">
-										</select>
+										<select id="tipo_entrenamiento_id" class="form-control required"></select>
 									</div>
 									<div class="col-md-6 mb-3">
 										<label class="form-label">
 										Evento relacionado
 										</label>
-										<select
-											id="evento_id"
-											class="form-control">
-										</select>
+										<select id="evento_id" class="form-control"></select>
 									</div>
 								</div>
 								<div class="row">
@@ -363,28 +335,19 @@
 										<label class="form-label">
 										Club *
 										</label>
-										<select
-											id="club_id"
-											class="form-control required">
-										</select>
+										<select id="club_id" class="form-control required"></select>
 									</div>
 									<div class="col-md-3 mb-3">
 										<label class="form-label">
 										Categoría *
 										</label>
-										<select
-											id="categoria_id"
-											class="form-control required">
-										</select>
+										<select id="categoria_id" class="form-control required"></select>
 									</div>
 									<div class="col-md-3 mb-3">
 										<label class="form-label">
 										Género *
 										</label>
-										<select
-											id="genero_id"
-											class="form-control required">
-										</select>
+										<select id="genero_id" class="form-control required"></select>
 									</div>
 								</div>
 								<div class="row">
@@ -392,10 +355,7 @@
 										<label class="form-label">
 										Entrenador *
 										</label>
-										<select
-											id="entrenador_id"
-											class="form-control required">
-										</select>
+										<select id="entrenador_id" class="form-control required"></select>
 									</div>
 									<div class="col-md-6 mb-3">
 										<label class="form-label">
@@ -579,10 +539,7 @@
                                     <label class="form-label">
                                         Club
                                     </label>
-                                    <select
-                                        id="clubFiltroDeportistas"
-                                        class="form-control">
-                                    </select>
+                                    <select id="clubFiltroDeportistas" class="form-control"></select>
                                 </div>
                             </div>
 
@@ -593,9 +550,7 @@
                                     <thead>
                                         <tr>
                                             <th style="width:40px;">
-                                                <input
-                                                    type="checkbox"
-                                                    id="checkTodosDeportistas">
+                                                <input type="checkbox" id="checkTodosDeportistas">
                                             </th>
                                             <th>Nombre</th>
                                             <th>Documento</th>
@@ -630,18 +585,15 @@
 					type="button"
 					class="btn btn-outline-secondary"
 					data-bs-dismiss="modal">
-				Cancelar
+				    Cancelar
 				</button>
 				<button
 					type="button"
 					id="btnGuardar"
 					class="btn text-white"
 					style="background:#81b64c;border:none;">
-				<i
-					data-lucide="save"
-					style="width:16px;">
-				</i>
-				Guardar
+				    <i data-lucide="save" style="width:16px;"></i>
+				    Guardar
 				</button>
 			</div>
 		</div>

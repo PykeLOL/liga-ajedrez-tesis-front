@@ -157,8 +157,6 @@
                 document.getElementById('userFullNamePortal').textContent = nombre + ' ' + apellido;
                 document.getElementById('userEmailPortal').textContent = email;
 
-                console.log(user);
-                console.log(imagen_path);
                 // Avatar
                 if(imagen_path) {
                     const avatarEl = document.getElementById('userAvatarPortal');

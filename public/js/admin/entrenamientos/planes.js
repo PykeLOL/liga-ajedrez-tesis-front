@@ -24,17 +24,13 @@ async function limpiarResumenPlan() {
     $('#planUbicacion').text('');
 
     $('#cantidadHorarios').text(0);
-
     $('#listaHorarios').empty();
 
     $('#contenedorMapa').addClass('d-none');
-
     $('#btnVerEvento').addClass('d-none').attr('href', '#');
 }
 
 async function cargarResumenPlan(planId) {
-    console.log("cargarResumenPlan");
-
     try {
         const plan = await apiRequest({
             url: `${apiUrl}/planes-entrenamiento/${planId}/resumen`,
@@ -112,7 +108,6 @@ function renderHorarios(horarios) {
 }
 
 async function seleccionarPlan(planId) {
-    console.log("entro seleccionarPlan");
     $('#plan_entrenamiento_id').val(planId);
 
     if (planId) {

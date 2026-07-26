@@ -166,7 +166,6 @@ $(document).ready(function () {
         const modal = new bootstrap.Modal('#modalEditarPerfil');
         modal.show();
 
-        console.log('Usuario actual:', usuarioActual);
         $('#previewAvatar').attr('src', avatarActual);
         $('#nombre').val(usuarioActual.nombre);
         $('#apellido').val(usuarioActual.apellido ?? '');

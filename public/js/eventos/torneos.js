@@ -432,7 +432,6 @@ function pintarDetalleTorneo(e) {
     orgs.empty();
 
     e.organizadores.forEach(o => {
-        console.log(o);
         orgs.append(`
             <span class="badge bg-secondary">
                 ${o.club}

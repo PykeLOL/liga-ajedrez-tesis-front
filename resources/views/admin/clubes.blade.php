@@ -7,19 +7,20 @@
 
 @section('content')
 
-<div class="d-flex justify-content-between align-items-center mb-4 border-bottom pb-3" style="border-color: rgba(255,255,255,0.1) !important;">
-    <h2 class="title-principal d-flex align-items-center m-0 text-white">
-        <i data-lucide="trophy" class="me-3 text-success" style="width: 32px; height: 32px;"></i>
+<div class="d-flex justify-content-between align-items-center mb-4 border-bottom pb-2">
+    <h2 class="fw-bold d-flex align-items-center text-primary title-principal">
+        <i data-lucide="handshake" class="me-2 icono-titulo"></i>
         Lista de Clubes
     </h2>
 </div>
-    <div class="mb-3">
-        <button class="btnNuevo btn d-none shadow-sm fw-bold px-4 py-2 d-flex align-items-center gap-2 rounded-2 text-white"
-                style="background-color: #81b64c; border:none;">
-            <i data-lucide="plus-circle" style="width: 18px;"></i>
-            <span>Agregar Club</span>
-        </button>
-    </div>
+
+<div class="table-responsive shadow rounded">
+    <button class="btnNuevo btn btn-success mb-3 d-none shadow-sm fw-semibold px-3 py-2 d-flex align-items-center gap-2">
+        <i data-lucide="plus-circle" class="icono-boton"></i>
+        <span>Agregar Club</span>
+    </button>
+</div>
+
 <div class="card border-0 shadow-lg" style="background-color: transparent;">
     <div class="table-responsive rounded-2">
         <table id="clubesTable" class="table align-middle mb-0 w-100">
