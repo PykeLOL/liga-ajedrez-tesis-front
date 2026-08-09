@@ -1,0 +1,140 @@
+.training-status{
+    align-self:flex-start;
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    padding:.45rem .95rem;
+    margin-bottom:1rem;
+    border-radius:999px;
+    font-size:.75rem;
+    font-weight:700;
+    letter-spacing:.4px;
+    text-transform:uppercase;
+}
+
+.training-status.pending{
+    background:#fb8c00;
+    color:#fff;
+}
+
+.training-status.synced{
+    background:#43a047;
+    color:#fff;
+}
+
+.training-title{
+    display:flex;
+    align-items:center;
+    gap:.7rem;
+    margin-bottom:1rem;
+    color:#fff;
+    font-size:1.25rem;
+    font-weight:700;
+}
+
+.training-title::before{
+    content:"♟";
+    width:36px;
+    height:36px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    border-radius:12px;
+    background:rgba(129,182,76,.12);
+    color:var(--chess-green);
+    font-size:1.2rem;
+    flex-shrink:0;
+}
+
+.training-hero{
+    display:flex;
+    align-items:center;
+    gap:1rem;
+    margin-bottom:1.2rem;
+}
+
+.training-avatar{
+    width:56px;
+    height:56px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    border-radius:14px;
+    background:rgba(129,182,76,.12);
+    color:var(--chess-green);
+    font-size:1.7rem;
+    flex-shrink:0;
+}
+
+.training-subtitle{
+    color:#a5a5a5;
+    margin-top:.3rem;
+}
+
+.training-chip-group{
+    display:flex;
+    flex-wrap:wrap;
+    gap:.45rem;
+    margin-bottom:1.2rem;
+}
+
+.training-chip{
+    padding:.35rem .75rem;
+    border-radius:999px;
+    background:#34312d;
+    color:#fff;
+    font-size:.75rem;
+}
+
+.training-info{
+    display:flex;
+    gap:.7rem;
+    align-items:flex-start;
+    padding:.55rem;
+    margin-bottom:.55rem;
+    background:var(--detail-card);
+    border:1px solid rgba(255,255,255,.05);
+    border-radius:12px;
+    transition:.18s;
+}
+
+.training-info:hover{
+    background:#373430;
+    transform:translateX(3px);
+}
+
+.training-info i{
+    width:30px;
+    height:30px;
+    font-size:.9rem;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    border-radius:10px;
+    background:rgba(129,182,76,.13);
+    color:var(--chess-green);
+    flex-shrink:0;
+}
+
+.training-info strong{
+    display:block;
+    margin-bottom:.2rem;
+    color:#9fa2a8;
+    font-size:.78rem;
+    text-transform:uppercase;
+    letter-spacing:.4px;
+}
+
+.training-info div:last-child{
+    color:#fff;
+    font-size:.92rem;
+    line-height:1.4;
+}
+
+.training-detail .btn{
+    margin-top:auto;
+    height:38px;
+    border-radius:10px;
+    font-size:.9rem;
+    font-weight:600;
+}

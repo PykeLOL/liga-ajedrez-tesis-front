@@ -224,17 +224,18 @@ function formatearFechaRango(i, f) {
 }
 
 function cargarDetalleTorneo() {
-    $.ajax({
+    apiRequest({
         url: `${apiUrl}/home/eventos/${eventoId}`,
-        type: 'GET',
-        dataType: 'json',
-        success: function (e) {
-            pintarDetalleTorneo(e);
-            renderMediaTorneo(e.media);
-        },
-        error: function () {
-            console.error('Error cargando detalle del torneo');
-        }
+        type: 'GET'
+    }).then(e => {
+
+        pintarDetalleTorneo(e);
+        renderMediaTorneo(e.media);
+
+    }).catch(() => {
+
+        console.error('Error cargando detalle del torneo');
+
     });
 }
 
@@ -398,13 +399,17 @@ function pintarDetalleTorneo(e) {
 
     const tbody = $('#tablaCategorias');
     tbody.empty();
-    e.categorias.forEach(c => {
+
+    e.categorias.forEach(c=>{
         tbody.append(`
             <tr>
-                <td>${c.categoria}</td>
+                <td>
+                    <div class="fw-semibold">${c.categoria}</div>
+                    <small class="text-muted">${c.genero} · ${c.ritmo}</small>
+                </td>
                 <td>${c.inscritos}</td>
                 <td>${c.cupos_disponibles ?? '—'}</td>
-                <td>${c.costo_inscripcion == 0 ? 'Gratis' : '$' + c.costo_inscripcion}</td>
+                <td>${c.costo_inscripcion==0?'Gratis':'$'+c.costo_inscripcion}</td>
             </tr>
         `);
     });
@@ -416,12 +421,11 @@ function pintarDetalleTorneo(e) {
         docs.html('<small class="text-muted">No hay documentos</small>');
     } else {
         e.documentos.forEach(d => {
-            const icono = getIconoDocumento(d.tipo);
             docs.append(`
                 <a href="${apiUrlBase}${d.url}"
-                target="_blank"
-                class="d-block mb-2 text-decoration-none text-white">
-                    <i class="bi ${icono} me-2"></i>
+                    target="_blank"
+                    class="d-block mb-2 text-decoration-none text-white">
+                    <i class="bi ${getIconoDocumento(d.tipo)} me-2"></i>
                     ${d.nombre}
                 </a>
             `);
@@ -438,6 +442,8 @@ function pintarDetalleTorneo(e) {
             </span>
         `);
     });
+
+    renderAccionesInscripcion(e);
 }
 
 function youtubeEmbedUrl(url) {

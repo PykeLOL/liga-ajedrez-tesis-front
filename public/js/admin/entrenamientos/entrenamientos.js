@@ -93,10 +93,19 @@ $(document).ready(function () {
                     render: function (data) {
                         return `
                             <div class="d-flex justify-content-center gap-2">
-                                <button class="btnEditar btn btn-warning btn-sm d-none d-flex align-items-center gap-1" data-id="${data.id}" title="Editar">
+                                <button class="btnAsistencia btn btn-info btn-sm d-none align-items-center gap-1"
+                                    data-id="${data.id}"
+                                    title="Gestionar asistencia">
+                                    <i data-lucide="clipboard-check" class="icono-tabla"></i>
+                                </button>
+                                <button class="btnEditar btn btn-warning btn-sm d-none d-flex align-items-center gap-1"
+                                    data-id="${data.id}"
+                                    title="Editar">
                                     <i data-lucide="pencil-line" class="icono-tabla"></i>
                                 </button>
-                                <button class="btnEliminar btn btn-danger btn-sm d-none d-flex align-items-center gap-1" data-id="${data.id}" title="Eliminar">
+                                <button class="btnEliminar btn btn-danger btn-sm d-none d-flex align-items-center gap-1"
+                                    data-id="${data.id}"
+                                    title="Eliminar">
                                     <i data-lucide="trash-2" class="icono-tabla"></i>
                                 </button>
                             </div>
@@ -202,6 +211,26 @@ $(document).ready(function () {
                 'checked',
                 total > 0 && total === seleccionados
             );
+        });
+
+        $('#entrenamientosTable').on('click', '.btnAsistencia', async function () {
+            const id = $(this).data('id');
+            await abrirModalAsistencias(id);
+        });
+
+        $('#btnGuardarAsistencias').on('click', guardarAsistencias);
+
+        $('#tablaAsistencias').on('change', '.check-puntual', function () {
+            if (!$(this).is(':checked')) {
+                return;
+            }
+
+            const fila = $(this).closest('tr');
+            fila.find('.estado-asistencia').val(2);
+            fila.find('.hora-llegada').val(horaInicioEntrenamiento);
+            if (!fila.find('.observaciones').val().trim()) {
+                fila.find('.observaciones').val('Llegó puntualmente.');
+            }
         });
     }
 

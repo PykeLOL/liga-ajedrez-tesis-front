@@ -68,9 +68,7 @@
                     <h5 class="fw-bold text-white">Inscripción</h5>
                     <p class="small text-muted" id="cuposTorneo"></p>
 
-                    <button class="btn btn-chess fw-bold w-100">
-                        Inscribirme
-                    </button>
+                    <div id="accionesInscripcion"></div>
                 </div>
             </div>
             <div class="card bg-dark-card">
@@ -111,6 +109,76 @@
         </div>
     </div>
 </div>
+
+<div class="card bg-dark-card">
+    <div class="card-header fw-bold text-white">
+        Organizadores
+    </div>
+    <div class="card-body d-flex gap-3 flex-wrap" id="organizadoresTorneo"></div>
+</div>
+
+<div class="modal fade" id="modalInscripcion" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content bg-dark border-secondary">
+
+            <div class="modal-header border-secondary">
+                <h5 class="modal-title text-white">
+                    <i class="bi bi-trophy-fill text-warning me-2"></i>
+                    Inscripción al torneo
+                </h5>
+                <button class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+            </div>
+
+            <div class="modal-body">
+
+                <div class="mb-3">
+                    <label class="form-label text-white">Categoría</label>
+                    <select id="categoriaInscripcion" class="form-select"></select>
+                </div>
+
+                <div id="infoCategoria" class="small text-muted mb-3"></div>
+
+                <div id="bloquePago" class="d-none">
+
+                    <div class="form-check mb-3">
+                        <input id="checkPagoEvento" class="form-check-input" type="checkbox" checked>
+                        <label class="form-check-label" for="checkPagoEvento">
+                            Pagar inscripción en el evento
+                        </label>
+                    </div>
+
+                    <div id="mensajePagoEvento" class="alert alert-warning py-2">
+                        Recuerda llegar al menos <strong>1 hora antes</strong> para realizar el pago de la inscripción.
+                    </div>
+
+                    <div id="bloqueComprobante" class="d-none">
+                        <label class="form-label text-white">Comprobante</label>
+                        <input id="comprobanteInscripcion"
+                               class="form-control"
+                               type="file"
+                               accept=".jpg,.jpeg,.png,.pdf">
+                        <small class="text-muted">Opcional.</small>
+                    </div>
+
+                </div>
+
+            </div>
+
+            <div class="modal-footer border-secondary">
+                <button class="btn btn-outline-secondary" data-bs-dismiss="modal">
+                    Cancelar
+                </button>
+
+                <button class="btn btn-chess" id="btnGuardarInscripcion">
+                    <i class="bi bi-check2-circle me-2"></i>
+                    Confirmar inscripción
+                </button>
+            </div>
+
+        </div>
+    </div>
+</div>
+
 @endsection
 
 @push('scripts')
@@ -119,4 +187,5 @@
     const tipoEventoId = {{ $tipoEventoId }};
 </script>
 <script src="{{ asset('js/eventos/torneos.js') }}"></script>
+<script src="{{ asset('js/eventos/inscripciones.js') }}"></script>
 @endpush

@@ -1,3 +1,8 @@
+:root{
+    --sidebar-width:240px;
+    --navbar-height:70px;
+}
+
 .table thead th {
     text-align: center !important;
     vertical-align: middle !important;
@@ -41,6 +46,7 @@ body {
     display: flex;
     flex-direction: column;
     padding-top: 0; /* El logo dará el espacio */
+    transition: transform .3s;
 }
 
 /* Header del Sidebar (Logo) */
@@ -127,16 +133,19 @@ body {
 /* =========================================
    NAVBAR & HEADER (NUEVO)
    ========================================= */
-.navbar-chess {
-    height: 70px;
-    background-color: var(--chess-bg-input);
-    border-bottom: 1px solid var(--border-color);
-    position: fixed;
-    top: 0;
-    right: 0;
-    width: calc(100% - 215px);
-    z-index: 1030;
-    transition: width 0.3s ease;
+.navbar-chess{
+    position:fixed;
+    top:0;
+    right:0;
+    width:calc(100% - 240px);
+    height:70px;
+    z-index:1050;
+}
+
+.content-wrapper{
+    margin-left:240px;
+    padding:20px;
+    transition:.3s;
 }
 
 .btn-icon-chess {
@@ -210,13 +219,13 @@ div:where(.swal2-container) div:where(.swal2-popup) {
    ========================================= */
 /* Cuando el body tenga la clase 'sidebar-collapsed' */
 body.sidebar-collapsed .sidebar-chess {
-    transform: translateX(-100%); /* Ocultar sidebar */
+    transform: translateX(-100%);
 }
 body.sidebar-collapsed .navbar-chess {
-    width: 100%; /* Navbar ocupa todo el ancho */
+    width: 100%;
 }
 body.sidebar-collapsed .content-wrapper {
-    margin-left: 0 !important; /* Contenido ocupa todo */
+    margin-left: 0;
 }
 
 /* ==========================================================================
@@ -488,3 +497,18 @@ div:where(.swal2-container) button.swal2-cancel {
     gap: 10px;
 }
 
+@media (max-width:991px){
+    .sidebar-chess{
+        transform:translateX(-100%);
+    }
+    body.sidebar-open .sidebar-chess{
+        transform:none;
+    }
+    .navbar-chess{
+        width:100%;
+        left:0;
+    }
+    .content-wrapper{
+        margin-left:0;
+    }
+}

@@ -170,7 +170,7 @@ $(document).ready(function () {
 
     function loadRoles(selectedId = null) {
         apiRequest({
-            url: `${apiUrl}/roles/select`,
+            url: `${apiUrl}/select/roles`,
             type: 'GET'
         })
         .then(roles => {

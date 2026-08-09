@@ -34,6 +34,7 @@
       </main>
 
       @include('layouts.footer')
+      @include('layouts.modals')
     </div>
   </div>
 
@@ -52,6 +53,7 @@
   <script>
     let apiUrl = "{{ env('API_URL') }}";
     let apiUrlBase = apiUrl.replace('/api', '');
+    let loginUrl = "{{ route('login') }}";
     let dataTablesLangUrl = "{{ asset('js/datatables/es-ES.json') }}"
     document.addEventListener('DOMContentLoaded', function () {
       const wrapper = document.getElementById('wrapper');
@@ -65,6 +67,8 @@
   </script>
 
   <script src="{{ asset('js/app.js') }}"></script>
+  <script src="{{ asset('js/navbar/navbar.js') }}"></script>
+  <script src="{{ asset('js/navbar/notificaciones.js') }}"></script>
 
   {{-- Lógica Global de Alertas (Feedback Visual) --}}
   @if (session('success'))

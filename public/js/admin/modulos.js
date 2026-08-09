@@ -77,11 +77,6 @@ $(document).ready(function () {
             const id = $(this).data('id');
             eliminarModulo(id);
         });
-
-        $('#logoutBtn').on('click', function () {
-            sessionStorage.removeItem('token');
-            window.location.href = loginUrl;
-        });
     }
 
     $(document).on('input change', '.required', function() {

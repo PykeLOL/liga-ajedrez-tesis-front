@@ -22,11 +22,10 @@ async function tienePermiso(nombrePermiso) {
 }
 
 function validarPermisosMenu(permisos) {
-    document.querySelectorAll('.nav-link').forEach(link => {
+    document.querySelectorAll('.nav-link-chess').forEach(link => {
         const tienePermiso = [...link.classList].some(clase => permisos.includes(clase));
-        if (tienePermiso) {
-            link.closest('li').style.display = '';
-        }
+        const item = link.closest('.nav-item-chess');
+        if (item && tienePermiso) item.style.display = '';
     });
 }
 
@@ -35,26 +34,29 @@ async function validarPermisos(modulo, acciones) {
     validarPermisosMenu(permisos);
     acciones.forEach(accion => {
         const nombrePermiso = `${accion}-${modulo}`;
-        const selectorBoton = getSelectorPorAccion(accion);
-        if (!selectorBoton) return;
-        if (permisos.includes(nombrePermiso)) {
-            $(selectorBoton).removeClass('d-none');
-        } else {
-            $(selectorBoton).addClass('d-none');
-        }
+        const selectores = getSelectorPorAccion(accion);
+        selectores.forEach(selector => {
+            if (permisos.includes(nombrePermiso)) {
+                $(selector).removeClass('d-none');
+            } else {
+                $(selector).addClass('d-none');
+            }
+        });
     });
 }
 
 function getSelectorPorAccion(accion) {
     const map = {
-        ver: '#btnVer',
-        crear: '.btnNuevo',
-        editar: '.btnEditar',
-        eliminar: '.btnEliminar',
-        permisos: '.btnPermisos',
-        generar: '.btnGenerar',
+        ver: ['.btnVer'],
+        crear: ['.btnNuevo'],
+        editar: ['.btnEditar', '.btnAsistencia', '.btnInscripciones'],
+        eliminar: ['.btnEliminar'],
+        permisos: ['.btnPermisos'],
+        generar: ['.btnGenerar'],
+        autorizar: ['.btnAutorizar'],
     };
-    return map[accion];
+
+    return map[accion] ?? [];
 }
 
 function datatableAjax(url, options = {}) {
@@ -106,6 +108,10 @@ function apiRequest(options) {
         .done(resolve)
         .fail(async function(xhr) {
             if (xhr.status === 401) {
+                if (!estaAutenticado()) {
+                    reject(xhr);
+                    return;
+                }
                 try {
                     await refreshToken();
                     $.ajax(config).done(resolve).fail(reject);
@@ -251,4 +257,33 @@ function datatableAjaxNoLogin(url, options = {}) {
             }
         });
     });
+}
+
+function estaAutenticado() {
+    return getUsuarioActual() !== null;
+}
+
+function getUsuarioActual() {
+    return JSON.parse(localStorage.getItem('user_data') || 'null');
+}
+
+function mostrarModalLogin() {
+    document.querySelectorAll('.modal.show').forEach(modal => {
+        bootstrap.Modal.getInstance(modal)?.hide();
+    });
+
+    const modal = bootstrap.Modal.getOrCreateInstance(
+        document.getElementById('modalLoginRequired')
+    );
+
+    modal.show();
+}
+
+function requiereAutenticacion() {
+    if (estaAutenticado()) {
+        return true;
+    }
+
+    mostrarModalLogin();
+    return false;
 }

@@ -64,13 +64,15 @@ class EventosController extends Controller
                 'eventoId' => $id,
                 'tipoEventoId' => $tipo['id'],
                 'tipoEventoNombre' => $tipo['nombre'],
+                'tipoEventoSlug' => $tipo['slug'],
             ]);
         }
 
-        return view('eventos.generico.show', [
+        return view('eventos.generico.index', [
             'eventoId' => $id,
             'tipoEventoId' => $tipo['id'],
             'tipoEventoNombre' => $tipo['nombre'],
+            'tipoEventoSlug' => $tipo['slug'],
         ]);
     }
 }

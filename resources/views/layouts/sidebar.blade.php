@@ -17,31 +17,61 @@
             $eventosActive     = request()->routeIs('eventos.*');
             $entrenoActive    = request()->routeIs('entrenamientos.*');
             $deportistasActive= request()->routeIs('deportistas.*');
+
+            $clubTraining = request()->routeIs('entrenamientos.index') && request()->has('club_id');
+
+             $eventosMenu = collect($tiposEventosSidebar)
+                ->reject(fn($t)=>in_array(strtolower($t['nombre']),['torneo','noticia']));
+
+            $torneo = collect($tiposEventosSidebar)
+                ->first(fn($t)=>strtolower($t['nombre'])==='torneo');
+
+            $noticia = collect($tiposEventosSidebar)
+                ->first(fn($t)=>strtolower($t['nombre'])==='noticia');
         @endphp
 
         <a href="#submenuEventos"
-           class="list-group-item list-group-item-action {{ $eventosActive ? 'active' : '' }}"
-           data-bs-toggle="collapse"
-           aria-expanded="{{ $eventosActive ? 'true' : 'false' }}">
-            <i class="bi bi-calendar-event-fill"></i> Eventos
-            <i class="bi bi-chevron-down small-icon"></i>
-        </a>
+            class="list-group-item list-group-item-action {{ $eventosActive ? 'active' : '' }}"
+            data-bs-toggle="collapse"
+            aria-expanded="{{ $eventosActive ? 'true' : 'false' }}">
+                <i class="bi bi-calendar-event-fill"></i>
+                Eventos
+                <i class="bi bi-chevron-down small-icon"></i>
+            </a>
 
-        <div class="collapse {{ $eventosActive ? 'show' : '' }}" id="submenuEventos">
-            <div class="bg-dark-subtle ps-2">
+            <div class="collapse {{ $eventosActive ? 'show' : '' }}" id="submenuEventos">
+                <div class="bg-dark-subtle ps-2">
 
-                @forelse($tiposEventosSidebar as $tipo)
-                    <a href="{{ route('eventos.tipo', $tipo['slug']) }}"
-                       class="list-group-item list-group-item-action py-2
-                       {{ request()->is('eventos/'.$tipo['slug']) ? 'text-chess-green' : '' }}">
-                        <i class="bi bi-calendar2-event-fill"></i> {{ $tipo['nombre'] }}
-                    </a>
-                @empty
-                    <div class="text-muted small p-2">No hay tipos de eventos</div>
-                @endforelse
+                    @forelse($eventosMenu as $tipo)
+                        <a href="{{ route('eventos.tipo',$tipo['slug']) }}"
+                        class="list-group-item list-group-item-action py-2 {{ request()->is('eventos/'.$tipo['slug']) ? 'text-chess-green' : '' }}">
+                            <i class="bi {{ $tipo['icono'] ?? 'bi-calendar2-event-fill' }}"></i>
+                            {{ $tipo['nombre'] }}
+                        </a>
+                    @empty
+                        <div class="text-muted small p-2">
+                            No hay tipos de eventos
+                        </div>
+                    @endforelse
 
+                </div>
             </div>
-        </div>
+
+            @if($torneo)
+            <a href="{{ route('eventos.tipo',$torneo['slug']) }}"
+            class="list-group-item list-group-item-action {{ request()->is('eventos/'.$torneo['slug']) ? 'active' : '' }}">
+                <i class="bi bi-trophy-fill"></i>
+                Torneos
+            </a>
+            @endif
+
+            @if($noticia)
+            <a href="{{ route('eventos.tipo',$noticia['slug']) }}"
+            class="list-group-item list-group-item-action {{ request()->is('eventos/'.$noticia['slug']) ? 'active' : '' }}">
+                <i class="bi bi-newspaper"></i>
+                Noticias
+            </a>
+            @endif
 
         <a href="#submenuEntreno"
            class="list-group-item list-group-item-action {{ $entrenoActive ? 'active' : '' }}"
@@ -54,8 +84,17 @@
         <div class="collapse {{ $entrenoActive ? 'show' : '' }}" id="submenuEntreno">
             <div class="bg-dark-subtle ps-2">
                 <a href="{{ route('entrenamientos.index') }}"
-                   class="list-group-item list-group-item-action py-2 {{ request()->routeIs('entrenamientos') ? 'text-chess-green' : '' }}">
-                    <i class="bi bi-calendar2-week-fill"></i> Mis Entrenamientos
+                class="list-group-item list-group-item-action py-2 {{ request()->routeIs('entrenamientos.index') && !$clubTraining ? 'text-chess-green' : '' }}">
+                    <i class="bi bi-calendar2-week-fill"></i>
+                    Mis Entrenamientos
+                </a>
+            </div>
+
+            <div class="bg-dark-subtle ps-2">
+                <a href="{{ route('entrenamientos.clubes') }}"
+                class="list-group-item list-group-item-action py-2 {{ request()->routeIs('entrenamientos.clubes') || $clubTraining ? 'text-chess-green' : '' }}">
+                    <i class="bi bi-shield-shaded"></i>
+                    Entrenamientos por Club
                 </a>
             </div>
         </div>
@@ -80,10 +119,25 @@
                     <i class="bi bi-graph-up-arrow"></i> Ranking Elo
                 </a>
 
-                <a href="{{ route('deportistas.palmares') }}"
-                   class="list-group-item list-group-item-action py-2 {{ request()->routeIs('deportistas.palmares') ? 'text-chess-green' : '' }}">
-                    <i class="bi bi-award-fill"></i> Palmarés
-                </a>
+                {{-- Deshabilitado temporalmente hasta que se implemente la funcionalidad --}}
+                {{-- <a href="javascript:void(0)"
+                    class="list-group-item list-group-item-action py-2 text-muted d-flex justify-content-between align-items-center disabled"
+                    title="Próximamente">
+                    <span>
+                        <i class="bi bi-award-fill"></i> Palmarés
+                    </span>
+                    <span class="badge bg-secondary">Próx.</span>
+                </a> --}}
+
+                {{-- Activo con datos de ejemplo --}}
+                {{-- <a href="{{ route('deportistas.palmares') }}"
+                    class="list-group-item list-group-item-action py-2 d-flex justify-content-between align-items-center {{ request()->routeIs('deportistas.palmares') ? 'text-chess-green' : '' }}">
+                    <span>
+                        <i class="bi bi-award-fill"></i> Palmarés
+                    </span>
+
+                    <span class="badge bg-secondary">Próx.</span>
+                </a> --}}
             </div>
         </div>
 
@@ -91,9 +145,13 @@
            class="list-group-item list-group-item-action {{ request()->routeIs('clubes.index') ? 'active' : '' }}">
             <i class="bi bi-shield-shaded"></i> Clubes
         </a>
-        <a href="{{ route('noticias.index') }}" class="list-group-item list-group-item-action {{ request()->routeIs('noticias.index') ? 'active' : '' }}">
-            <span><i class="bi bi-newspaper"></i> Noticias</span>
+        <a href="{{ route('foro.index') }}"
+           class="list-group-item list-group-item-action {{ request()->routeIs('foro.index') ? 'active' : '' }}">
+            <i class="bi bi-chat-left-text-fill"></i> Foro
         </a>
+        {{-- <a href="{{ route('noticias.index') }}" class="list-group-item list-group-item-action {{ request()->routeIs('noticias.index') ? 'active' : '' }}">
+            <span><i class="bi bi-newspaper"></i> Noticias</span>
+        </a> --}}
         @if(auth()->check() && auth()->user()->role_id === 1)
             <div class="mt-auto border-top border-secondary p-3">
                 <a href="{{ route('admin.index') }}" class="btn btn-chess-secondary w-100 btn-sm">

@@ -177,6 +177,11 @@ $(document).ready(function () {
                                 <button class="btnEditar btn btn-warning btn-sm d-none d-flex align-items-center gap-1" data-id="${data.id}" title="Editar">
                                     <i data-lucide="pencil-line" class="icono-tabla"></i>
                                 </button>
+
+                                <button class="btnInscripciones btn btn-info btn-sm d-none d-flex align-items-center gap-1" data-id="${data.id}" title="Gestionar inscripciones">
+                                    <i data-lucide="users" class="icono-tabla"></i>
+                                </button>
+
                                 <button class="btnEliminar btn btn-danger btn-sm d-none d-flex align-items-center gap-1" data-id="${data.id}" title="Eliminar">
                                     <i data-lucide="trash-2" class="icono-tabla"></i>
                                 </button>
@@ -224,6 +229,21 @@ $(document).ready(function () {
         $('#torneosTable').on('click', '.btnEliminar', function () {
             const id = $(this).data('id');
             eliminarTorneo(id);
+        });
+
+        $('#torneosTable').on('click','.btnInscripciones',function(){
+            abrirInscripciones($(this).data('id'));
+        });
+
+        $('#tablaInscripcionesActivas').on('click','.btnEditarInscripcion',function(){
+            editarInscripcion($(this).data('id'));
+        });
+
+        $('#btnGuardarInscripcion').on('click',guardarInscripcion);
+
+        $('#pagoCompleto').on('change',function(){
+            if(!inscripcionActual)return;
+            $('#valorPagado').val(this.checked?inscripcionActual.valor_categoria:'');
         });
 
         $('#torneosTable').on('click', '.imagen-torneo', function () {

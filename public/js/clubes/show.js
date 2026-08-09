@@ -302,11 +302,11 @@ function cargarInfoFide(fideId) {
         url: `${apiUrl}/home/chesstools/${fideId}`,
         type: 'GET',
         success: function (res) {
-            const ultimo = res.data[0] ?? {};
+            const eloActual = res.elo_actual ?? {};
             renderRadar(
-                ultimo.classical_rating ?? 0,
-                ultimo.rapid_rating ?? 0,
-                ultimo.blitz_rating ?? 0
+                eloActual.standard ?? 0,
+                eloActual.rapid ?? 0,
+                eloActual.blitz ?? 0
             );
             Swal.close();
         }

@@ -1,0 +1,43 @@
+#modalLoginRequired .modal-dialog{
+    max-width:540px;
+}
+
+#modalLoginRequired .modal-content{
+    background:#262421;
+    border-radius:16px;
+    overflow:hidden;
+}
+
+#modalLoginRequired .modal-header{
+    padding:1.1rem 1.5rem;
+}
+
+#modalLoginRequired .modal-body{
+    padding:2rem 2rem 3.25rem;
+}
+
+#modalLoginRequired .contenido{
+    max-width:420px;
+    margin:0 auto;
+}
+
+#modalLoginRequired .mensaje-login{
+    background:rgba(129,182,76,.12);
+    border:1px solid rgba(129,182,76,.35);
+    border-radius:.75rem;
+    padding:.8rem 1rem;
+    margin-bottom:1.5rem;
+}
+
+#modalLoginRequired .acciones{
+    display:grid;
+    gap:.75rem;
+}
+
+#modalLoginRequired .acciones .btn{
+    padding:.9rem 1rem;
+}
+
+#modalLoginRequired .acciones .btn:last-child{
+    margin-bottom:.75rem;
+}

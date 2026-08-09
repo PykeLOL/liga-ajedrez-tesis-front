@@ -11,8 +11,8 @@ class EntrenamientoController extends Controller
         return view('entrenamientos.index');
     }
 
-    public function foro()
+    public function clubes()
     {
-        return view('entrenamientos.foro.index');
+        return view('entrenamientos.clubes');
     }
 }

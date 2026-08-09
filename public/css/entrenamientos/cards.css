@@ -1,0 +1,30 @@
+.card-training{
+    background:var(--bg-card);
+    border:1px solid var(--border-soft);
+    border-radius:var(--training-radius);
+    overflow:hidden;
+    box-shadow:var(--training-shadow);
+}
+
+.card-header-training{
+    display:flex;
+    align-items:center;
+    gap:.6rem;
+    padding:1rem 1.4rem;
+    background:#2b2825;
+    border-bottom:1px solid var(--training-border);
+    color:#fff;
+    font-size:1rem;
+    font-weight:700;
+}
+
+.card-training>.card-body{
+    padding:1.25rem;
+}
+
+#btnGoogleCalendar,
+#btnSyncSelected{
+    height:42px;
+    border-radius:10px;
+    font-weight:600;
+}

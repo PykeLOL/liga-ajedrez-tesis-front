@@ -599,10 +599,58 @@
 		</div>
 	</div>
 </div>
+<div class="modal fade"
+     id="modalAsistencias"
+     tabindex="-1"
+     aria-hidden="true">
+    <div class="modal-dialog modal-xl modal-dialog-scrollable">
+        <div class="modal-content entrenamiento-modal">
+            <div class="modal-header">
+                <h5 class="modal-title text-success">
+                    Gestionar asistencia
+                </h5>
+                <button class="btn-close btn-close-white"
+                        data-bs-dismiss="modal">
+                </button>
+            </div>
+            <div class="modal-body">
+                <div id="infoEntrenamiento"></div>
+                <div class="table-responsive mt-3">
+                    <table class="table table-hover align-middle">
+                        <thead>
+                            <tr>
+                                <th>Deportista</th>
+                                <th>Documento</th>
+                                <th>Estado</th>
+                                <th class="text-center">Puntual</th>
+                                <th>Hora llegada</th>
+                                <th>Observaciones</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tablaAsistencias"></tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button
+                    class="btn btn-outline-secondary"
+                    data-bs-dismiss="modal">
+                    Cancelar
+                </button>
+                <button
+                    id="btnGuardarAsistencias"
+                    class="btn btn-success">
+                    Guardar cambios
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
 @endsection
 @push('scripts')
 <script src="{{ asset('js/admin/entrenamientos/selectores.js') }}"></script>
 <script src="{{ asset('js/admin/entrenamientos/planes.js') }}"></script>
 <script src="{{ asset('js/admin/entrenamientos/deportistas.js') }}"></script>
+<script src="{{ asset('js/admin/entrenamientos/asistencias.js') }}"></script>
 <script src="{{ asset('js/admin/entrenamientos/entrenamientos.js') }}"></script>
 @endpush

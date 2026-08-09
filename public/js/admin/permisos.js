@@ -104,12 +104,6 @@ $(document).ready(function () {
             eliminarPermiso(id);
         });
 
-        $('#logoutBtn').on('click', function () {
-            sessionStorage.removeItem('token');
-            window.location.href = loginUrl;
-        });
-
-
         $('#tipoAccionSelect').off('change').on('change', generarNombrePermiso);
         $('#moduloSelect').off('change').on('change', generarNombrePermiso);
     }

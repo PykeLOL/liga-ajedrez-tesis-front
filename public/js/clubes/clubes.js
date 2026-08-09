@@ -1,61 +1,11 @@
-let modalAfiliacion;
-let modalRegistroClub;
 let paginaActual = 1;
 const porPagina = 10;
 
 document.addEventListener('DOMContentLoaded', function () {
-
-    if (document.getElementById('modalAfiliacion')) {
-        modalAfiliacion = new bootstrap.Modal(
-            document.getElementById('modalAfiliacion')
-        );
-    }
-
-    if (document.getElementById('modalRegistroClub')) {
-        modalRegistroClub = new bootstrap.Modal(
-            document.getElementById('modalRegistroClub')
-        );
-    }
-
     if (document.getElementById('clubsGrid')) {
         cargarClubes();
     }
 });
-
-function abrirModalAfiliacion(idClub, nombreClub) {
-    document.getElementById('club_id_afiliacion').value = idClub;
-    document.getElementById('lblNombreClub').textContent = nombreClub;
-    modalAfiliacion.show();
-}
-
-function enviarSolicitudAfiliacion() {
-    modalAfiliacion.hide();
-    Swal.fire({
-        title: '¡Solicitud Enviada!',
-        text: 'El presidente del club revisará tus documentos.',
-        icon: 'success',
-        confirmButtonColor: '#81b64c',
-        background: '#262421',
-        color: '#fff'
-    });
-}
-
-function abrirModalRegistroClub() {
-    document.getElementById('formRegistroClub').reset();
-    modalRegistroClub.show();
-}
-
-function enviarRegistroClub() {
-    modalRegistroClub.hide();
-    Swal.fire({
-        title: '¡Registro en Proceso!',
-        text: 'La Liga validará el club.',
-        icon: 'info',
-        confirmButtonColor: '#3498db',
-        background: '#262421',
-        color: '#fff'
-    });
-}
 
 function cargarClubes() {
     $.ajax({

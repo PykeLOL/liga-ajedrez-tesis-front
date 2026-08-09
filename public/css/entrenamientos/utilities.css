@@ -1,0 +1,10 @@
+.training-detail::-webkit-scrollbar,
+.detail-body::-webkit-scrollbar{
+    width:8px;
+}
+
+.training-detail::-webkit-scrollbar-thumb,
+.detail-body::-webkit-scrollbar-thumb{
+    background:#4b4742;
+    border-radius:20px;
+}

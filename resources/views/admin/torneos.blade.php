@@ -294,6 +294,146 @@
     </div>
 </div>
 
+<div class="modal fade" id="modalInscripciones" tabindex="-1">
+    <div class="modal-dialog modal-fullscreen-xl-down modal-xl modal-dialog-scrollable">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">
+                    Gestión de inscripciones
+                </h5>
+                <button class="btn-close"
+                        data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <ul class="nav nav-tabs mb-3">
+                    <li class="nav-item">
+                        <button
+                            id="tabActivasBtn"
+                            class="nav-link active"
+                            data-bs-toggle="tab"
+                            data-bs-target="#tabActivas">
+                            Activas (0)
+                        </button>
+                    </li>
+                    <li class="nav-item">
+                        <button
+                            id="tabCanceladasBtn"
+                            class="nav-link"
+                            data-bs-toggle="tab"
+                            data-bs-target="#tabCanceladas">
+                            Canceladas (0)
+                        </button>
+                    </li>
+                </ul>
+                <div class="tab-content">
+                    <div class="tab-pane fade show active"
+                         id="tabActivas">
+                        <table id="tablaInscripcionesActivas"
+                               class="table table-striped table-hover align-middle w-100">
+                            <thead>
+                            <tr>
+                                <th>Deportista</th>
+                                <th>Categoría</th>
+                                <th>Fecha</th>
+                                <th>Estado</th>
+                                <th>Pago</th>
+                                <th>Valor</th>
+                                <th>Comprobante</th>
+                                <th width="60"></th>
+                            </tr>
+                            </thead>
+                        </table>
+                    </div>
+                    <div class="tab-pane fade"
+                         id="tabCanceladas">
+                        <table id="tablaInscripcionesCanceladas"
+                               class="table table-striped table-hover align-middle w-100">
+                            <thead>
+                            <tr>
+                                <th>Deportista</th>
+                                <th>Categoría</th>
+                                <th>Fecha</th>
+                                <th>Observación</th>
+                                <th>Comprobante</th>
+                            </tr>
+                            </thead>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary"
+                        data-bs-dismiss="modal">
+                    Cerrar
+                </button>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="modalEditarInscripcion" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <h5 class="modal-title">Editar inscripción</h5>
+                <button class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+
+            <div class="modal-body">
+                <input type="hidden" id="inscripcionId">
+
+                <div class="card border bg-light mb-3">
+                    <div class="card-body py-2">
+                        <div id="infoDeportista" class="fw-semibold"></div>
+                        <small id="infoCategoria" class="text-muted d-block"></small>
+                        <small>Valor categoría:
+                            <span id="infoValorCategoria" class="fw-bold text-success"></span>
+                        </small>
+                    </div>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label">Estado</label>
+                    <select id="estadoInscripcion" class="form-select"></select>
+                </div>
+
+                <div class="form-check form-switch mb-2">
+                    <input class="form-check-input" type="checkbox" id="pagoInscripcion">
+                    <label class="form-check-label" for="pagoInscripcion">Pago recibido</label>
+                </div>
+
+                <div class="form-check mb-3">
+                    <input class="form-check-input" type="checkbox" id="pagoCompleto">
+                    <label class="form-check-label" for="pagoCompleto">Pago completo</label>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label">Valor pagado</label>
+                    <input id="valorPagado" type="number" class="form-control">
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label">Referencia</label>
+                    <input id="referenciaPago" class="form-control">
+                </div>
+
+                <div>
+                    <label class="form-label">Observación</label>
+                    <textarea id="observacionInscripcion" rows="3" class="form-control"></textarea>
+                </div>
+            </div>
+
+            <div class="modal-footer">
+                <button class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                <button class="btn btn-success" id="btnGuardarInscripcion">Guardar</button>
+            </div>
+
+        </div>
+    </div>
+</div>
+
 @endsection
 
 @push('scripts')
@@ -303,4 +443,5 @@
 <script src="{{ asset('js/admin/torneos/organizadores.js') }}"></script>
 <script src="{{ asset('js/admin/torneos/redesSociales.js') }}"></script>
 <script src="{{ asset('js/admin/torneos/categorias.js') }}"></script>
+<script src="{{ asset('js/admin/torneos/inscripciones.js') }}"></script>
 @endpush

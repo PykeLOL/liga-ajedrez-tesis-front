@@ -3,13 +3,14 @@
 use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\ForoController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\AdminController;
-use App\Http\Controllers\EventosController;
-use App\Http\Controllers\EntrenamientoController;
-use App\Http\Controllers\DeportistasController;
 use App\Http\Controllers\ClubesController;
+use App\Http\Controllers\EventosController;
 use App\Http\Controllers\NoticiasController;
+use App\Http\Controllers\DeportistasController;
+use App\Http\Controllers\EntrenamientoController;
 
 Route::get('/login', [LoginController::class, 'index'])->name('login');
 Route::get('/registrarse', [LoginController::class, 'registarse'])->name('registrarse');
@@ -28,7 +29,7 @@ Route::prefix('eventos')->name('eventos.')->group(function () {
 
 Route::prefix('entrenamientos')->name('entrenamientos.')->group(function () {
     Route::get('/', [EntrenamientoController::class, 'index'])->name('index');
-    Route::get('/foro', [EntrenamientoController::class, 'foro'])->name('foro');
+    Route::get('/clubes', [EntrenamientoController::class, 'clubes'])->name('clubes');
 });
 
 Route::prefix('deportistas')->name('deportistas.')->group(function () {
@@ -40,6 +41,11 @@ Route::prefix('deportistas')->name('deportistas.')->group(function () {
 Route::prefix('clubes')->name('clubes.')->group(function () {
     Route::get('/', [ClubesController::class, 'index'])->name('index');
     Route::get('/{id}', [ClubesController::class, 'show'])->name('show');
+});
+
+Route::prefix('foro')->name('foro.')->group(function () {
+    Route::get('/', [ForoController::class, 'index'])->name('index');
+    Route::get('/{id}', [ForoController::class, 'show'])->name('show');
 });
 
 Route::get('/noticias', [NoticiasController::class, 'index'])->name('noticias.index');
@@ -55,6 +61,8 @@ Route::prefix('admin')->name('admin.')->group(function () {
     Route::get('/usuarios', [AdminController::class, 'getUsuarios'])->name('usuarios');
     Route::get('/permisos', [AdminController::class, 'getPermisos'])->name('permisos');
     Route::get('/deportistas', [AdminController::class, 'getDeportistas'])->name('deportistas');
+    Route::get('/solicitudes', [AdminController::class, 'getSolicitudes'])->name('solicitudes');
     Route::get('/entrenamientos', [AdminController::class, 'getEntrenamientos'])->name('entrenamientos');
+    Route::get('/entrenadores', [AdminController::class, 'getEntrenadores'])->name('entrenadores');
     Route::get('/planes-entrenamiento', [AdminController::class, 'getPlanesEntrenamiento'])->name('planes-entrenamiento');
 });

@@ -11,7 +11,7 @@ class ClubesController extends Controller
         return view('clubes.index');
     }
 
-    public function show($id)
+    public function show(int $id)
     {
         return view('clubes.show', ['id' => $id]);
     }

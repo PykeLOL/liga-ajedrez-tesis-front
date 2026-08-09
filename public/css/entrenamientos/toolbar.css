@@ -1,0 +1,46 @@
+.calendar-toolbar{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:1rem;
+    margin-bottom:.6rem;
+}
+
+.calendar-nav{
+    display:flex;
+    gap:.6rem;
+}
+
+.calendar-btn{
+    height:36px;
+    min-width:42px;
+    border:none;
+    border-radius:12px;
+    padding:0 1rem;
+    background:#34312d;
+    color:#fff;
+    font-weight:600;
+    transition:.2s;
+}
+
+.calendar-btn:hover{
+    background:var(--chess-green);
+    transform:translateY(-2px);
+}
+
+.calendar-btn:active{
+    transform:scale(.96);
+}
+
+.calendar-title{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    min-height:36px;
+    font-size:1.1rem;
+    padding:0 1rem;
+    border-radius:12px;
+    background:#34312d;
+    color:#fff;
+    font-weight:700;
+}

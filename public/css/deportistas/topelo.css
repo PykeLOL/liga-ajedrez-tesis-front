@@ -139,3 +139,16 @@
     color: white;
     outline: none;
 }
+
+.ranking-footer{
+    background:#262421;
+}
+
+.ranking-footer #cantidadJugadores{
+    color:#d5d5d5 !important;
+    font-weight:500;
+}
+
+.ranking-footer .pagination{
+    margin-bottom:0;
+}
