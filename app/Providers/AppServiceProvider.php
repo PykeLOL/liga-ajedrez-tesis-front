@@ -27,7 +27,7 @@ class AppServiceProvider extends ServiceProvider
     {
         View::composer('*', function ($view) {
             try {
-                $res = Http::get(env('API_URL') . '/select/tipos-evento');
+                $res = Http::get(env('API_URL_DOCKER') . '/select/tipos-evento');
                 if ($res->successful()) {
                     $view->with('tiposEventosSidebar', collect($res->json()));
                 } else {

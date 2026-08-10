@@ -24,7 +24,7 @@ class EventosController extends Controller
 
     public function index($slug)
     {
-        $tipoResponse = Http::get(env('API_URL') . '/select/tipos-evento');
+        $tipoResponse = Http::get(env('API_URL_DOCKER') . '/select/tipos-evento');
 
         if (!$tipoResponse->successful()) return redirect()->route('home');
 
@@ -50,7 +50,7 @@ class EventosController extends Controller
 
     public function show($slug, $id)
     {
-        $tipoResponse = Http::get(env('API_URL') . '/select/tipos-evento');
+        $tipoResponse = Http::get(env('API_URL_DOCKER') . '/select/tipos-evento');
 
         if (!$tipoResponse->successful()) return redirect()->route('home');
 
